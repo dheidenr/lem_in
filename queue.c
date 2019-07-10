@@ -24,6 +24,7 @@ void	enqueue(t_queue **q, int start)
 	if (!*q)
 		return ;
 	exdlist =  exdlstnew((void *)st, sizeof(int));
+	free(st);
 	if ((*q)->exdlist)
 	{
 		tmp = (*q)->exdlist;
@@ -67,6 +68,7 @@ int		dequeue(t_queue **q)
 	}
 	if (exdlist)
 		exdlist->prev = NULL;
+	tmp->start = exdlist;
 	(*q)->exdlist = exdlist;
 	(*q)->length--;
 	return (result);

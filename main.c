@@ -9,57 +9,20 @@ int main()
 	int 	i;
 	t_queue	*q;
 
+	initialize_graph(&g, 0);
+
+	read_graph(&g, 0);
+//	random_graph(&g, 0, 15, 16, 27);
+	initialize_search(&g);
+	print_graph(&g);
+	bfs(&g, 1);
 	i = 0;
-	q = NULL;
-//	initialize_graph(&g, 0);
-//	read_graph(&g, 0);
-//	random_graph(&g, 0);
-//	print_graph(&g);
-//	init_queue(&q);
-//	while (i <= 10)
-//	{
-//		enqueue(&q, i);
-//		i++;
-//	}
-//	print_queue(q);
-//
-//	while (i >= 0)
-//	{
-//		ft_putstr("dequeue: ");
-//		ft_putnbr(dequeue(&q));
-//		ft_putstr("\n");
-//		print_queue(q);
-//		i--;
-//	}
-
-//	tests of queues
-//	print_queue(q, 0);
-//	enqueue(&q, 7);
-//	print_queue(q, 0);
-//	enqueue(&q, 9);
-//	print_queue(q, 0);
-//	ft_putstr("dequeue: ");
-//	ft_putnbr(dequeue(&q));
-//	ft_putstr("\n");
-//	print_queue(q, 0);
-//	enqueue(&q, 3);
-//	print_queue(q, 0);
-//	enqueue(&q, 5);
-//	print_queue(q, 0);
-//	ft_putstr("dequeue: ");
-//	ft_putnbr(dequeue(&q));
-//	ft_putstr("\n");
-//	print_queue(q, 0);
-//	ft_putstr("dequeue: ");
-//	ft_putnbr(dequeue(&q));
-//	ft_putstr("\n");
-//	print_queue(q, 0);
-//	ft_putstr("dequeue: ");
-//	ft_putnbr(dequeue(&q));
-//	ft_putstr("\n");
-//	print_queue(q, 0);
-
-
+	ft_putstr("\n");
+	while(++i <= MAXV)
+	{
+		ft_putstr(" ");
+		ft_putnbr(g.parent[i]);
+	}
 
 	return (0);
 }

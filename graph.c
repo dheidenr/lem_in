@@ -17,10 +17,29 @@ void	initialize_graph(graph *g, int directed)
 	}
 }
 
+int 	is_in_edges(edgenode *p, int y)
+{
+	edgenode *temp;
+
+	temp = p;
+	while(temp)
+	{
+		if  (temp->y == y)
+			return (1);
+		temp = temp->next;
+	}
+	return (0);
+}
+
 void	insert_edge(graph *g, int x, int y, int directed)
 {
 	edgenode *p;
 
+	if (x == y)
+		return ;
+	if (g->edges[x])
+		if (is_in_edges(g->edges[x], y))
+			return ;
 	p = malloc(sizeof(edgenode));
 	p->weight = NULL;
 	p->y = y;
@@ -60,7 +79,7 @@ void	read_graph(graph *g, int directed)
 	int 	x, y;
 
 	initialize_graph(g, directed);
-	printf("input please d and d for nvertices");
+	printf("input please nvertices and edges");
 	scanf("%d %d", &(g->nvertices), &m);
 	i = 1;
 	while(i <= m)
@@ -72,20 +91,20 @@ void	read_graph(graph *g, int directed)
 	}
 }
 
-void	random_graph(graph *g, int directed)
+void	random_graph(graph *g, int directed, int nvertices, unsigned char r, int edges)
 {
 	int 	i;
 	int 	m;
 	int 	x, y;
 
 	initialize_graph(g, directed);
-	g->nvertices = 255;
-	m = 255;
+	g->nvertices = nvertices;
+	m = edges;
 	i = 1;
 	while(i <= m)
 	{
-		x = (unsigned char)random();
-		y = (unsigned char)random();
+		x = (unsigned char)random() % r;
+		y = (unsigned char)random()  % r;
 		insert_edge(g, x, y, directed);
 		i++;
 	}
