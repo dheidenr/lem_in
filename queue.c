@@ -4,52 +4,62 @@
 #include "lem_in.h"
 #include "exdlst.h"
 
-void	init_queue(t_queue *q)
+void	init_queue(t_queue **q)
 {
-	q = ft_memalloc(sizeof(t_queue));
-	q->exdlist = NULL;
-	q->length = 0;
+	(*q) = ft_memalloc(sizeof(t_queue));
+	(*q)->exdlist = NULL;
+	(*q)->length = 0;
 }
 
-void	enqueue(t_queue *q, int start)
+void	enqueue(t_queue **q, int start)
 {
 	t_exdlist *exdlist;
 	t_exdlist	*tmp;
+	int 				*st;
 
-	if (!q)
+	st = ft_memalloc(sizeof(int *));
+	*st = start;
+	if (!*q)
 		init_queue(q);
-	if (!q)
+	if (!*q)
 		return ;
-	exdlist =  exdlstnew((void *)start, sizeof(int));
-	tmp = q->exdlist;
-	while (tmp->next)
+	exdlist =  exdlstnew((void *)st, sizeof(int));
+	if ((*q)->exdlist)
 	{
+		tmp = (*q)->exdlist;
+		while (tmp->next)
+		{
+			tmp->end = exdlist;
+			tmp = tmp->next;
+		}
+		exdlist->prev = tmp;
+		exdlist->end = exdlist;
+		exdlist->next = NULL;
+		exdlist->start = tmp->start;
+		tmp->next = exdlist;
 		tmp->end = exdlist;
-		tmp = tmp->next;
 	}
-	exdlist->prev = tmp;
-	exdlist->end = exdlist;
-	exdlist->next = NULL;
-	exdlist->start = tmp->start;
-	tmp->next = exdlist;
-	tmp->end = exdlist;
-	q->length++;
+	else
+	{
+		(*q)->exdlist = exdlist;
+	}
+	(*q)->length++;
 }
 
-int		dequeue(t_queue *q)
+int		dequeue(t_queue **q)
 {
 	t_exdlist *exdlist;
 	t_exdlist	*tmp;
 	int 				result;
 
-	if (!q || !q->length)
+	if (!(*q) || !(*q)->length)
 		return (-1) ;
 	exdlist = NULL;
-	if (q->exdlist)
-		if (q->exdlist->next)
-			exdlist = q->exdlist->next;
-	tmp = q->exdlist;
-	result = (int)tmp->content
+	if ((*q)->exdlist)
+		if ((*q)->exdlist->next)
+			exdlist = (*q)->exdlist->next;
+	tmp = (*q)->exdlist;
+	result = *(int *)(tmp->content);
 	while (tmp->next)
 	{
 		tmp->start = exdlist;
@@ -57,7 +67,8 @@ int		dequeue(t_queue *q)
 	}
 	if (exdlist)
 		exdlist->prev = NULL;
-	q->length--;
+	(*q)->exdlist = exdlist;
+	(*q)->length--;
 	return (result);
 }
 
@@ -66,7 +77,7 @@ int 		empty_queue(t_queue *q)
 	return (q && q->exdlist &&q->length ? 0 : 1);
 }
 
-void	print_queue(t_queue *q)
+void	print_queue(t_queue *q, int	debug)
 {
 	t_exdlist	*exdlist;
 
@@ -74,10 +85,15 @@ void	print_queue(t_queue *q)
 		exdlist = q->exdlist;
 	else
 		exdlist = NULL;
-	while (exdlist)
-	{
+
+	if  (!debug)
+		while (exdlist)
+		{
+			ft_putnbr(*(int *)exdlist->content);
+			exdlist = exdlist->next;
+			ft_putstr(" ");
+		}
+	else
 		exdlist_int_put(exdlist);
-		exdlist = exdlist->next;
-		ft_putstr("\n");
-	}
+	ft_putstr("\n");
 }
