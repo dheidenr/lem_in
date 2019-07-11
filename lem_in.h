@@ -7,6 +7,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include "libft.h"
+#include "queue.h"
 
 #define MAXV 1000
 #define FALSE 0
@@ -31,11 +32,14 @@ typedef	struct {
 	int 		parent[MAXV + 1];
 }				graph;
 
-void	initialize_graph(graph *g, int directed);
-void	insert_edge(graph *g, int x, int y, int directed);
-void	print_graph(graph *g);
-void	read_graph(graph *g, int directed);
-void	random_graph(graph *g, int directed, int nvertices, unsigned char r, int edges);
-void	initialize_search(graph *g);
-void	bfs(graph *g, int start);
+void			initialize_graph(graph *g, int directed);
+void			insert_edge(graph *g, int x, int y, int directed);
+void			print_graph(graph *g);
+void			read_graph(graph *g, int directed);
+void			random_graph(graph *g, int directed, int nvertices, unsigned char r,
+																																						int edges);
+void			initialize_search(graph *g);
+void			bfs(graph *g, int start);
+t_queue	*shortest_path_search(graph *g, int	start, int end);
+
 #endif

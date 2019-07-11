@@ -11,11 +11,11 @@ int main()
 
 	initialize_graph(&g, 0);
 
-	read_graph(&g, 0);
-//	random_graph(&g, 0, 15, 16, 27);
+//	read_graph(&g, 0);
+	random_graph(&g, 0, 13, 14, 7);
 	initialize_search(&g);
 	print_graph(&g);
-	bfs(&g, 1);
+	bfs(&g, 3);
 	i = 0;
 	ft_putstr("\n");
 	while(++i <= MAXV)
@@ -23,6 +23,7 @@ int main()
 		ft_putstr(" ");
 		ft_putnbr(g.parent[i]);
 	}
-
+	ft_putstr("\n");
+	print_queue(shortest_path_search(&g, 3, 12), 0);
 	return (0);
 }
