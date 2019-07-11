@@ -91,7 +91,7 @@ void	read_graph(graph *g, int directed)
 	}
 }
 
-void	random_graph(graph *g, int directed, int nvertices, unsigned char r, int edges)
+void	random_graph(graph *g, int directed, int nvertices, unsigned int r, int edges)
 {
 	int 	i;
 	int 	m;
@@ -103,8 +103,8 @@ void	random_graph(graph *g, int directed, int nvertices, unsigned char r, int ed
 	i = 1;
 	while(i <= m)
 	{
-		x = (unsigned char)random() % r;
-		y = (unsigned char)random()  % r;
+		x = (unsigned int)random() % r;
+		y = (unsigned int)random()  % r;
 		insert_edge(g, x, y, directed);
 		i++;
 	}

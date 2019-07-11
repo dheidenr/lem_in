@@ -12,10 +12,10 @@ int main()
 	initialize_graph(&g, 0);
 
 //	read_graph(&g, 0);
-	random_graph(&g, 0, 13, 14, 7);
+	random_graph(&g, 0, 3998, 3999, 4000);
 	initialize_search(&g);
 	print_graph(&g);
-	bfs(&g, 3);
+	bfs(&g, 2);
 	i = 0;
 	ft_putstr("\n");
 	while(++i <= MAXV)
@@ -24,6 +24,7 @@ int main()
 		ft_putnbr(g.parent[i]);
 	}
 	ft_putstr("\n");
-	print_queue(shortest_path_search(&g, 3, 12), 0);
+	ft_putstr("\n");
+	print_queue(shortest_path_search(&g, 2, 1818), 0);
 	return (0);
 }
