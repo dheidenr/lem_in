@@ -3,7 +3,8 @@
 #include "exdlst.h"
 #include "lem_in.h"
 
-void	initialize_search(graph *g)
+
+void	initialize_bfs_search(graph *g)
 {
 	int 	i;
 
@@ -37,7 +38,7 @@ void	bfs(graph *g, int start)
 	t_queue *q;
 	int		v;
 	int 		y;
-	edgenode *p;
+	t_edgenode *p;
 
 	init_queue(&q);
 	enqueue(&q, start);

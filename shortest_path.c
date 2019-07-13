@@ -4,13 +4,41 @@
 #include "lem_in.h"
 #include "exdlst.h"
 
-t_queue *shortest_path_search(graph *g, int	start, int end)
+t_queue *get_left_index_shortest_path(int end, int left_index, t_queue **q, graph *g)
+{
+	int i;
+
+		i = left_index;
+		init_queue(q);
+		while (i <= end)
+		{
+			enqueue(q, g->parent[i]);
+			i++;
+		}
+		enqueue(q, end);
+		return (*q);
+}
+
+t_queue *get_right_index_shortest_path(int end, int right_index, t_queue **q, graph *g)
+{
+	int i;
+
+	i = right_index;
+	init_queue(q);
+	while (i >= end)
+	{
+		enqueue(q, g->parent[i]);
+		i--;
+	}
+	enqueue(q, end);
+	return (*q);
+}
+
+t_queue *shortest_bfs_path_search(graph *g, int start, int end)
 {
 	int	left_index;
 	int 	right_index;
 	t_queue	*q;
-	int 	true_index;
-	int 	v;
 	int 	i;
 
 	i = 1;
@@ -23,6 +51,7 @@ t_queue *shortest_path_search(graph *g, int	start, int end)
 			left_index = i;
 		i++;
 	}
+	i--;
 	while (i <= g->nvertices)
 	{
 		if (g->parent[i] == -1)
@@ -34,31 +63,40 @@ t_queue *shortest_path_search(graph *g, int	start, int end)
 		}
 		i++;
 	}
-	if (end - left_index < g->nvertices - end + right_index)
-	{
-		//		true_index = left_index;
-		i = left_index;
-		init_queue(&q);
 
-		while (i <= end)
-		{
-			enqueue(&q, g->parent[i]);
-			i++;
-		}
-		enqueue(&q, end);
-		return (q);
-	}
+
+	if (right_index == MAXV && left_index != MAXV)
+		return (get_left_index_shortest_path(end, left_index, &q, g));
+	else if (right_index != MAXV && left_index == MAXV)
+		return (get_right_index_shortest_path(end, right_index, &q, g));
+	else if (end - left_index < right_index - end)
+		return (get_left_index_shortest_path(end, left_index, &q, g));
 	else
-	{
-		//		true_index = right_index;
-		i = right_index;
-		init_queue(&q);
-		while (i >= end)
-		{
-			enqueue(&q, g->parent[i]);
-			i--;
-		}
-		enqueue(&q, end);
-		return (q);
-	}
+		return (get_right_index_shortest_path(end, right_index, &q, g));
+//	{
+//		//		true_index = left_index;
+//		i = left_index;
+//		init_queue(&q);
+//
+//		while (i <= end)
+//		{
+//			enqueue(&q, g->parent[i]);
+//			i++;
+//		}
+//		enqueue(&q, end);
+//		return (q);
+//	}
+//	else
+//	{
+//		//		true_index = right_index;
+//		i = right_index;
+//		init_queue(&q);
+//		while (i >= end)
+//		{
+//			enqueue(&q, g->parent[i]);
+//			i--;
+//		}
+//		enqueue(&q, end);
+//		return (q);
+//	}
 }

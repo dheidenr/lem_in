@@ -17,9 +17,9 @@ void	initialize_graph(graph *g, int directed)
 	}
 }
 
-int 	is_in_edges(edgenode *p, int y)
+int 	is_in_edges(t_edgenode *p, int y)
 {
-	edgenode *temp;
+	t_edgenode *temp;
 
 	temp = p;
 	while(temp)
@@ -33,15 +33,15 @@ int 	is_in_edges(edgenode *p, int y)
 
 void	insert_edge(graph *g, int x, int y, int directed)
 {
-	edgenode *p;
+	t_edgenode *p;
 
 	if (x == y)
 		return ;
 	if (g->edges[x])
 		if (is_in_edges(g->edges[x], y))
 			return ;
-	p = malloc(sizeof(edgenode));
-	p->weight = NULL;
+	p = malloc(sizeof(t_edgenode));
+	p->weight = 0;
 	p->y = y;
 	p->next = g->edges[x];
 	g->edges[x] = p;
@@ -55,7 +55,7 @@ void	insert_edge(graph *g, int x, int y, int directed)
 void	print_graph(graph *g)
 {
 	int 	i;
-	edgenode *p;
+	t_edgenode *p;
 
 	i = 1;
 	while(i <= g->nvertices)

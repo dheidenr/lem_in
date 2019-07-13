@@ -77,7 +77,7 @@ add_executable(lem_in main.c lem_in.h graph.c
         libft/future_libft.c
         libft/future_libft_addon_one.c
         libft/future_libft_addone_two.c
-        libft/future_libft_addon_three.c exdlstnew.c exdlstdel.c exdlstadd.c exdlst.h exdlstlen.c exdlstdub.c exdlst.c queue.c queue.h trash.c bfs.c shortest_path.c)
+        libft/future_libft_addon_three.c exdlstnew.c exdlstdel.c exdlstadd.c exdlst.h exdlstlen.c exdlstdub.c exdlst.c queue.c queue.h trash.c bfs.c shortest_path.c dfs.c graph_tests.c)
 
 
 include_directories("${PROJECT_SOURCE_DIR}/include" "${PROJECT_SOURCE_DIR}/libft")
