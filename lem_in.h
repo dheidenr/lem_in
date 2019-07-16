@@ -6,8 +6,10 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <time.h>
+#include <limits.h>
 #include "libft.h"
 #include "queue.h"
+
 
 #define MAXV 4000
 #define FALSE 0
