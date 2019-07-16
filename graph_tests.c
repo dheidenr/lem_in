@@ -11,6 +11,7 @@ void	test_1_graph(graph *g, int directed)
 	insert_edge(g, 3, 4, directed);
 	insert_edge(g, 4, 5, directed);
 	insert_edge(g, 5, 1, directed);
+
 }
 
 void	test_too_path_graph(graph *g, int directed)

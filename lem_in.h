@@ -44,13 +44,14 @@ void			read_graph(graph *g, int directed);
 void			random_graph(graph *g, int directed, int nvertices, unsigned int r, int edges);
 void			initialize_bfs_search(graph *g);
 void			initialize_dfs_search(graph *g);
+void			initialize_dijkstra_search(graph *g);
 void			bfs(graph *g, int start);
 void			dfs(graph *g, int v);
 void			dfs2(graph *g, int v);
-
-t_queue	*shortest_bfs_path_search(graph *g, int start, int end);
-
-
+void			dijkstra(graph *g, int start);
+t_queue			*shortest_bfs_path_search(graph *g, int start, int end);
+void			find_path(int start, int end, int *parents);
+t_queue	*qfind_path(int start, int end, int parents[], t_queue **q);
 
 
 void			test_1_graph(graph *g, int directed);

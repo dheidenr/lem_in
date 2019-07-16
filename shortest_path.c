@@ -64,7 +64,6 @@ t_queue *shortest_bfs_path_search(graph *g, int start, int end)
 		i++;
 	}
 
-
 	if (right_index == MAXV && left_index != MAXV)
 		return (get_left_index_shortest_path(end, left_index, &q, g));
 	else if (right_index != MAXV && left_index == MAXV)
@@ -99,4 +98,32 @@ t_queue *shortest_bfs_path_search(graph *g, int start, int end)
 //		enqueue(&q, end);
 //		return (q);
 //	}
+}
+
+void	find_path(int start, int end, int *parents)
+{
+	if (start == end || end == -1)
+		printf("\n%d", start);
+	else
+	{
+		find_path(start, parents[end], parents);
+		printf(" %d", end);
+	}
+}
+
+t_queue	*qfind_path(int start, int end, int parents[], t_queue **q)
+{
+
+	if (start == end || end == -1)
+	{
+//		printf("\n%d", start);
+		enqueue(q, start);
+	}
+	else
+	{
+		qfind_path(start, parents[end], parents, q);
+		enqueue(q, end);
+//		printf(" %d", end);
+	}
+	return (*q);
 }

@@ -41,7 +41,7 @@ void	insert_edge(graph *g, int x, int y, int directed)
 		if (is_in_edges(g->edges[x], y))
 			return ;
 	p = malloc(sizeof(t_edgenode));
-	p->weight = 0;
+	p->weight = 1;
 	p->y = y;
 	p->next = g->edges[x];
 	g->edges[x] = p;

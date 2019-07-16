@@ -19,9 +19,11 @@ int main()
 	test_too_path_graph(&g, 0);
 	initialize_bfs_search(&g);
 	initialize_dfs_search(&g);
+	initialize_dijkstra_search(&g);
 	print_graph(&g);
-//	bfs(&g, 1);
-	dfs2(&g, 1);
+	bfs(&g, 1);
+//	dfs2(&g, 1);
+//	dijkstra(&g, 1);
 	i = 0;
 	ft_putstr("\nparent\n");
 	while(++i <= MAXV)
@@ -52,7 +54,9 @@ int main()
 	}
 	ft_putstr("\n");
 
-	print_queue(shortest_bfs_path_search(&g, 1, 5), 0);
+//	print_queue(shortest_bfs_path_search(&g, 1, 5), 0);
 
+	init_queue(&q);
+	print_queue(qfind_path(1, 5, g.parent, &q), 0);
 	return (0);
 }
