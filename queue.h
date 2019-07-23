@@ -13,7 +13,7 @@ typedef 	struct	s_queue
 void	init_queue(t_queue **q);
 void	enqueue(t_queue **q, int start);
 int		dequeue(t_queue **q);
-int 		empty_queue(t_queue *q);
+int 		is_empty_queue(t_queue *q);
 void	print_queue(t_queue *q, int	debug);
 
 #endif

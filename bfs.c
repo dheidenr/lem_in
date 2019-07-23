@@ -43,7 +43,7 @@ void	bfs(graph *g, int start)
 	init_queue(&q);
 	enqueue(&q, start);
 	g->color[start] = WHITE;
-	while (empty_queue(q) == FALSE)
+	while (is_empty_queue(q) == FALSE)
 	{
 		v = dequeue(&q);
 		process_vertex_early(v);

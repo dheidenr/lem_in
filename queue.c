@@ -74,7 +74,7 @@ int		dequeue(t_queue **q)
 	return (result);
 }
 
-int 		empty_queue(t_queue *q)
+int 		is_empty_queue(t_queue *q)
 {
 	return (q && q->exdlist &&q->length ? 0 : 1);
 }
