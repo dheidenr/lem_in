@@ -16,14 +16,17 @@ int main()
 //	read_graph(&g, 0);
 //	random_graph(&g, 0, 3998, 3999, 400000);
 //	test_1_graph(&g, 0);
-	test_too_path_graph(&g, 0);
+//	test_too_path_graph(&g, 0);
+	test_24_4_graph_bellman_ford(&g, 1);
 	initialize_bfs_search(&g);
 	initialize_dfs_search(&g);
 	initialize_dijkstra_search(&g);
 	print_graph(&g);
-	bfs(&g, 1);
+//	bfs(&g, 1);
 //	dfs2(&g, 1);
 //	dijkstra(&g, 1);
+//	if (!bellman_ford(&g, 1))
+//		ft_putstr("\nERROR_CYRCLE_NEGATIVE\n");
 	i = 0;
 	ft_putstr("\nparent\n");
 	while(++i <= MAXV)
@@ -53,7 +56,14 @@ int main()
 		ft_putnbr(g.exit_time[i]);
 	}
 	ft_putstr("\n");
-
+	ft_putstr("\nshort_paths\n");
+	i = 0;
+	while(++i <= MAXV)
+	{
+		ft_putstr(" ");
+		ft_putnbr(g.short_paths[i]);
+	}
+	ft_putstr("\n");
 //	print_queue(shortest_bfs_path_search(&g, 1, 5), 0);
 
 	init_queue(&q);
