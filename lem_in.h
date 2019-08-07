@@ -18,19 +18,21 @@
 #define GRAY 1
 #define BLACK 2
 
-typedef struct s_edgenode{
+typedef struct s_edgenode
+{
 	int		y;
 	int 		weight;
 	struct s_edgenode *next;
 }				t_edgenode;
 
-typedef	struct {
+typedef	struct
+{
 	t_edgenode		*edges[MAXV + 1];
-	int 		degree[MAXV + 1]; //Степень
-	int 		nvertices;
-	int 		nedges;
-	int		directed; //Направленный?
-	unsigned char color[MAXV + 1];
+	int				degree[MAXV + 1]; //Степень
+	int				nvertices;
+	int				nedges;
+	int				directed; //Направленный?
+	unsigned char	color[MAXV + 1];
 	int 		parent[MAXV + 1];
 	int 		entry_time[MAXV + 1];
 	int 		exit_time[MAXV + 1];

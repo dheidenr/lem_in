@@ -65,7 +65,6 @@ int main()
 	}
 	ft_putstr("\n");
 //	print_queue(shortest_bfs_path_search(&g, 1, 5), 0);
-
 	init_queue(&q);
 	print_queue(qfind_path(1, 5, g.parent, &q), 0);
 	return (0);
