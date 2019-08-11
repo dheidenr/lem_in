@@ -8,6 +8,7 @@
 int main()
 {
 	graph g;
+	graph *dubg;
 	int 	i;
 	t_queue	*q;
 
@@ -17,14 +18,17 @@ int main()
 //	random_graph(&g, 0, 3998, 3999, 400000);
 //	test_1_graph(&g, 0);
 //	test_too_path_graph(&g, 0);
-	test_24_4_graph_bellman_ford(&g, 1);
+//	test_24_4_graph_bellman_ford(&g, 1);
+	test_too_path_graph_suurballe(&g, 1);
 	initialize_bfs_search(&g);
 	initialize_dfs_search(&g);
 	initialize_dijkstra_search(&g);
 	print_graph(&g);
+//	suurballe(&g, 1, 6);
+
 //	bfs(&g, 1);
 //	dfs2(&g, 1);
-//	dijkstra(&g, 1);
+	dijkstra(&g, 1);
 //	if (!bellman_ford(&g, 1))
 //		ft_putstr("\nERROR_CYRCLE_NEGATIVE\n");
 	i = 0;
@@ -66,6 +70,15 @@ int main()
 	ft_putstr("\n");
 //	print_queue(shortest_bfs_path_search(&g, 1, 5), 0);
 	init_queue(&q);
-	print_queue(qfind_path(1, 5, g.parent, &q), 0);
+	print_queue(qfind_path(1, 6, g.parent, &q), 0);
+
+	//test funcion of suurballe
+	dubg = graphdub(&g);
+
+	initialize_dijkstra_search(dubg);
+	dijkstra(dubg, 1);
+	print_graph(dubg);
+	init_queue(&q);
+	print_queue(qfind_path(1, 6, g.parent, &q), 0);
 	return (0);
 }

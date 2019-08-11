@@ -52,23 +52,23 @@ void	insert_edge(graph *g, int x, int y, int directed)
 		g->nedges++;
 }
 
-void	insert_edge_weight(graph *g, int x, int y, int directed, int weight)
+void	insert_edge_weight(graph *g, t_edgepoint *edgepoint, int directed, int weight)
 {
 	t_edgenode *p;
 
-	if (x == y)
+	if (edgepoint->x == edgepoint->y)
 		return ;
-	if (g->edges[x])
-		if (is_in_edges(g->edges[x], y))
+	if (g->edges[edgepoint->x])
+		if (is_in_edges(g->edges[edgepoint->x], edgepoint->y))
 			return ;
 	p = malloc(sizeof(t_edgenode));
 	p->weight = weight;
-	p->y = y;
-	p->next = g->edges[x];
-	g->edges[x] = p;
-	g->degree[x]++;
+	p->y = edgepoint->y;
+	p->next = g->edges[edgepoint->x];
+	g->edges[edgepoint->x] = p;
+	g->degree[edgepoint->x]++;
 	if (directed == FALSE)
-		insert_edge_weight(g, y, x, TRUE, weight);
+		insert_edge_weight(g, edgepoint, TRUE, weight);
 	else
 		g->nedges++;
 }
