@@ -80,7 +80,13 @@ int main()
 	edp.y = 6;
 	remove_edge(dubg, edp, TRUE);
 
-	void			reverse_edge_and_weight(graph *g, t_edgepoint edp);
+	edp.x = 6;
+	edp.y = 4;
+	reverse_edge_and_weight(dubg, edp);
+
+	edp.x = 4;
+	edp.y = 6;
+	printf("get_weight_reverse:%d|\n", get_weight_edge(dubg, &edp));
 //	edp.x = 5;
 //	edp.y = 6;
 //

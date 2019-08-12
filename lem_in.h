@@ -80,5 +80,6 @@ void			suurballe(graph *g, int start, int end);
 graph*			graphdub(graph* g);
 void			remove_edge(graph *g, t_edgepoint edgepoint, int directed);
 void			reverse_edge_and_weight(graph *g, t_edgepoint edp);
+int			 	get_weight_edge(graph *g, t_edgepoint *edp);
 
 #endif

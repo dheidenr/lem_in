@@ -62,6 +62,6 @@ void	reverse_edge_and_weight(graph *g, t_edgepoint edp)
 	reversive_edge.x = edp.y;
 	reversive_edge.y = edp.x;
 
-	insert_edge_weight(g, &reversive_edge, TRUE, -get_weight_edge(g, &reversive_edge));
+	insert_edge_weight(g, &reversive_edge, TRUE, -get_weight_edge(g, &edp));
 	remove_edge(g, edp, TRUE);
 }
