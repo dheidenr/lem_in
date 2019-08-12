@@ -6,7 +6,7 @@
 
 t_queue *get_left_index_shortest_path(int end, int left_index, t_queue **q, graph *g)
 {
-	int i;
+		int i;
 
 		i = left_index;
 		init_queue(q);
@@ -121,6 +121,8 @@ t_queue	*qfind_path(int start, int end, int parents[], t_queue **q)
 	}
 	else
 	{
+		if (parents[end] == -1)
+			return (NULL);
 		qfind_path(start, parents[end], parents, q);
 		enqueue(q, end);
 //		printf(" %d", end);

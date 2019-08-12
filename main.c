@@ -11,6 +11,7 @@ int main()
 	graph *dubg;
 	int 	i;
 	t_queue	*q;
+	t_edgepoint edp;
 
 	initialize_graph(&g, 0);
 
@@ -19,7 +20,7 @@ int main()
 //	test_1_graph(&g, 0);
 //	test_too_path_graph(&g, 0);
 //	test_24_4_graph_bellman_ford(&g, 1);
-	test_too_path_graph_suurballe(&g, 1);
+	test_too_path_graph_suurballe(&g, 0);
 	initialize_bfs_search(&g);
 	initialize_dfs_search(&g);
 	initialize_dijkstra_search(&g);
@@ -74,11 +75,19 @@ int main()
 
 	//test funcion of suurballe
 	dubg = graphdub(&g);
+	edp.x = 4;
+	edp.y = 6;
+
+	remove_edge(dubg, edp, FALSE);
+//	edp.x = 5;
+//	edp.y = 6;
+//
+//	remove_edge(dubg, edp, FALSE);
 
 	initialize_dijkstra_search(dubg);
 	dijkstra(dubg, 1);
 	print_graph(dubg);
 	init_queue(&q);
-	print_queue(qfind_path(1, 6, g.parent, &q), 0);
+	print_queue(qfind_path(1, 6, dubg->parent, &q), 0);
 	return (0);
 }
