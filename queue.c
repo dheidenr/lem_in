@@ -83,6 +83,8 @@ void	print_queue(t_queue *q, int	debug)
 {
 	t_exdlist	*exdlist;
 
+	if (!q)
+		ft_putstr("Null\n");
 	if (q && q->exdlist)
 		exdlist = q->exdlist;
 	else

@@ -5,7 +5,7 @@
 #include "exdlst.h"
 
 
-void	initialize_dijkstra_search(graph *g)
+void	initialize_dijkstra_search(graph *g, t_context* context)
 {
 	int 	i;
 
@@ -14,8 +14,8 @@ void	initialize_dijkstra_search(graph *g)
 	{
 		g->color[i] = WHITE;
 		g->parent[i] = -1;
-		g->entry_time[i] = -1; //Можно будет убрать из структуры в функцию
-		g->exit_time[i] = -1; //Можно будет убрать из структуры в функцию
+		context->entry_time[i] = -1; //Можно будет убрать из структуры в функцию
+		context->exit_time[i] = -1; //Можно будет убрать из структуры в функцию
 		i++;
 	}
 	g->finished = FALSE;

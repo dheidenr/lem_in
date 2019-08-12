@@ -7,7 +7,7 @@
 #include "exdlst.h"
 
 
-void	initialize_suurballe_search(graph *g)
+void	initialize_suurballe_search(graph *g, t_context* context)
 {
 	int 	i;
 
@@ -16,8 +16,8 @@ void	initialize_suurballe_search(graph *g)
 	{
 		g->color[i] = WHITE;
 		g->parent[i] = -1;
-		g->entry_time[i] = -1; //Можно будет убрать из структуры в функцию
-		g->exit_time[i] = -1; //Можно будет убрать из структуры в функцию
+		context->entry_time[i] = -1; //Можно будет убрать из структуры в функцию
+		context->exit_time[i] = -1; //Можно будет убрать из структуры в функцию
 		i++;
 	}
 	g->finished = FALSE;
@@ -32,7 +32,7 @@ graph*	graphdub(graph* g)
 
 	graph_result =  (graph *)malloc(sizeof(*g));
 	i = 0;
-	while(i < g->nvertices)
+	while(i <= g->nvertices)
 	{
 		edgenode = g->edges[i];
 		ed.x = i;
@@ -48,7 +48,7 @@ graph*	graphdub(graph* g)
 	graph_result->nvertices = g->nvertices;
 	graph_result->nedges = g->nedges;
 	i = 0;
-	while (i < MAXV)
+	while (i <= MAXV)
 	{
 		graph_result->degree[i] = g->degree[i];
 		i++;

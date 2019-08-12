@@ -5,7 +5,7 @@
 
 int 	time_count;
 
-void	initialize_dfs_search(graph *g)
+void	initialize_dfs_search(graph *g, t_context *context)
 {
 	int 	i;
 
@@ -16,8 +16,8 @@ void	initialize_dfs_search(graph *g)
 	{
 		g->color[i] = WHITE;
 		g->parent[i] = -1;
-		g->entry_time[i] = -1;
-		g->exit_time[i] = -1;
+		context->entry_time[i] = -1;
+		context->exit_time[i] = -1;
 		i++;
 	}
 	g->finished = FALSE;
@@ -44,7 +44,7 @@ void process_dfs_edge(int x, int y, graph *g)
 //		g->finished = TRUE;
 //	}
 }
-void	dfs(graph *g, int v)
+void	dfs(graph *g, t_context *context, int v)
 {
 	t_edgenode		*p;
 	int 						y;
@@ -53,7 +53,7 @@ void	dfs(graph *g, int v)
 		return ;
 	g->color[v] = GRAY;
 	time_count++;
-	g->entry_time[v] = time_count;
+	context->entry_time[v] = time_count;
 	process_dfs_vertex_early(v);
 	p = g->edges[v];
 	while (p != NULL)
@@ -63,7 +63,7 @@ void	dfs(graph *g, int v)
 		{
 			g->parent[y] = v;
 			process_dfs_edge(v, y, g);
-			dfs(g, y);
+			dfs(g, context, y);
 		}
 		else if ((g->color[y] != BLACK) || (g->directed))
 			process_dfs_edge(v, y, g);
@@ -73,18 +73,18 @@ void	dfs(graph *g, int v)
 	}
 	process_dfs_vertex_late(v);
 	time_count++;
-	g->exit_time[v] = time_count;
+	context->exit_time[v] = time_count;
 	g->color[v] = BLACK;
 }
 
-void	dfs_visit(graph *g, int v)
+void	dfs_visit(graph *g, t_context *context, int v)
 {
 	t_edgenode *p;
 	int y;
 //	if (g->finished == TRUE)
 //		return ;
 	time_count++;
-	g->entry_time[v] = time_count;
+	context->entry_time[v] = time_count;
 	g->color[v] = GRAY;
 //	process_dfs_vertex_early(v);
 	p = g->edges[v];
@@ -95,7 +95,7 @@ void	dfs_visit(graph *g, int v)
 		{
 			g->parent[y] = v;
 //			process_dfs_edge(v, y, g);
-			dfs_visit(g, y);
+			dfs_visit(g, context, y);
 		}
 		else if ((g->color[y] != BLACK) || (g->directed))
 			process_dfs_edge(v, y, g);
@@ -106,10 +106,10 @@ void	dfs_visit(graph *g, int v)
 	process_dfs_vertex_late(v);
 	g->color[v] = BLACK;
 	time_count++;
-	g->exit_time[v] = time_count;
+	context->exit_time[v] = time_count;
 }
 
-void	dfs2(graph *g, int v)
+void	dfs2(graph *g, t_context *context, int v)
 {
 	int i;
 
@@ -117,7 +117,7 @@ void	dfs2(graph *g, int v)
 	while (i <= g->nvertices)
 	{
 		if (g->color[i] == WHITE)
-			dfs_visit(g, v);
+			dfs_visit(g,context,  v);
 		i++;
 	}
 }

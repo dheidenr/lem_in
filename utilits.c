@@ -41,3 +41,27 @@ void	remove_edge(graph *g, t_edgepoint edgepoint, int directed)
 		remove_edge_directed(g, edgepoint.y, edgepoint.x);
 }
 
+int 	get_weight_edge(graph *g, t_edgepoint *edp)
+{
+	t_edgenode *edgenode;
+
+	edgenode = g->edges[edp->x];
+	while(edgenode)
+	{
+		if (edgenode->y == edp->y)
+			return (edgenode->weight);
+		edgenode = edgenode->next;
+	}
+	return (0);
+}
+
+void	reverse_edge_and_weight(graph *g, t_edgepoint edp)
+{
+	t_edgepoint reversive_edge;
+
+	reversive_edge.x = edp.y;
+	reversive_edge.y = edp.x;
+
+	insert_edge_weight(g, &reversive_edge, TRUE, -get_weight_edge(g, &reversive_edge));
+	remove_edge(g, edp, TRUE);
+}
