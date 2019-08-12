@@ -13,7 +13,7 @@ void	initialize_bfs_search(graph *g)
 	while(i <= MAXV)
 	{
 		g->color[i] = WHITE;
-		g->parent[i] = -1;
+		g->parents[i] = -1;
 		i++;
 	}
 }
@@ -58,7 +58,7 @@ void	bfs(graph *g, int start)
 			{
 				enqueue(&q, y);
 				g->color[y] = GRAY;
-				g->parent[y] = v;
+				g->parents[y] = v;
 			}
 			p = p->next;
 		}

@@ -15,7 +15,7 @@ void	initialize_dfs_search(graph *g, t_context *context)
 	while(i <= MAXV)
 	{
 		g->color[i] = WHITE;
-		g->parent[i] = -1;
+		g->parents[i] = -1;
 		context->entry_time[i] = -1;
 		context->exit_time[i] = -1;
 		i++;
@@ -37,7 +37,7 @@ void process_dfs_edge(int x, int y, graph *g)
 {
 	printf("processed edge (%d, %d)\n", x, y);
 	g->nedges++;
-//	if (g->parent[x] != y)
+//	if (g->parents[x] != y)
 //	{
 //		printf("cycle from %d to %d:", y, x);
 //		printf("\n\n");
@@ -61,7 +61,7 @@ void	dfs(graph *g, t_context *context, int v)
 		y = p->y;
 		if (g->color[y] == WHITE)
 		{
-			g->parent[y] = v;
+			g->parents[y] = v;
 			process_dfs_edge(v, y, g);
 			dfs(g, context, y);
 		}
@@ -93,7 +93,7 @@ void	dfs_visit(graph *g, t_context *context, int v)
 		y = p->y;
 		if (g->color[y] == WHITE)
 		{
-			g->parent[y] = v;
+			g->parents[y] = v;
 //			process_dfs_edge(v, y, g);
 			dfs_visit(g, context, y);
 		}

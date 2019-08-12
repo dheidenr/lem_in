@@ -61,7 +61,91 @@ void	reverse_edge_and_weight(graph *g, t_edgepoint edp)
 
 	reversive_edge.x = edp.y;
 	reversive_edge.y = edp.x;
-
 	insert_edge_weight(g, &reversive_edge, TRUE, -get_weight_edge(g, &edp));
 	remove_edge(g, edp, TRUE);
+}
+
+void	add_path_to_beam(t_beam **beam, t_path **path)
+{
+	t_beam		*beamtemp;
+
+	if (!*beam)
+	{
+		*beam = (t_beam *) malloc(sizeof(t_beam));
+		(*beam)->next = NULL;
+		(*beam)->path = *path;
+	} else
+	{
+		while ((*beam)->next)
+			*beam = (*beam)->next;
+		beamtemp = (t_beam *) malloc(sizeof(t_beam));
+		beamtemp->path = *path;
+		(*beam)->next = beamtemp;
+	}
+}
+
+void	add_vertex_to_path(t_path **path, int vertex)
+{
+	t_path *temppath;
+	static	t_path *start;
+
+	if (!*path)
+	{
+		*path = malloc(sizeof(t_path));
+		(*path)->vertex = vertex;
+		start = *path;
+	} else
+	{
+		while((*path)->next)
+			(*path) = (*path)->next;
+		temppath = malloc(sizeof(t_path));
+		temppath->vertex = vertex;
+		temppath->next = NULL;
+		(*path)->next = temppath;
+	}
+	*path = start;
+}
+
+t_path	*find_path(int start, int end, int parents[], t_path **path)
+{
+	if (start == end || end == -1)
+		add_vertex_to_path(path, start);
+	else
+	{
+		if (parents[end] == -1)
+			return (NULL);
+		find_path(start, parents[end], parents, path);
+		add_vertex_to_path(path, end);
+	}
+	return (*path);
+}
+
+void	print_path(t_path *path)
+{
+	while(path)
+	{
+		ft_putstr(" ");
+		ft_putnbr(path->vertex);
+		path = path->next;
+	}
+	ft_putstr("\n");
+}
+
+void	print_beam(t_beam *beam)
+{
+	int 	count;
+
+	ft_putstr(__FUNCTION__);
+	ft_putstr("\n");
+	count = 1;
+	while(beam)
+	{
+		ft_putstr(ft_itoa(count));
+		ft_putstr(":");
+		if (beam->path)
+			print_path(beam->path);
+		beam = beam->next;
+		++count;
+	}
+	ft_putstr("\n");
 }

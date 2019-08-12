@@ -13,7 +13,7 @@ void	initialize_bellman_ford_search(graph *g, t_context* context, int start)
 	while(i <= MAXV)
 	{
 		g->color[i] = WHITE;
-		g->parent[i] = -1;
+		g->parents[i] = -1;
 		context->entry_time[i] = -1;
 		context->exit_time[i] = -1;
 		context->exit_time[i] = -1;
@@ -32,7 +32,7 @@ void	relax(graph *g, t_context *context, int current_vertex, int prev_vertex)
 	{
 		context->short_paths[current_vertex] = context->short_paths[prev_vertex]
 				+ context->edgenode->weight;
-		g->parent[current_vertex] = prev_vertex;
+		g->parents[current_vertex] = prev_vertex;
 	}
 }
 

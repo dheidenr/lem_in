@@ -13,7 +13,7 @@ void	initialize_dijkstra_search(graph *g, t_context* context)
 	while(i <= MAXV)
 	{
 		g->color[i] = WHITE;
-		g->parent[i] = -1;
+		g->parents[i] = -1;
 		context->entry_time[i] = -1; //Можно будет убрать из структуры в функцию
 		context->exit_time[i] = -1; //Можно будет убрать из структуры в функцию
 		i++;
@@ -37,7 +37,7 @@ void	dijkstra(graph *g, int start)
 	{
 		intree[i] = FALSE;
 		distance[i] = INT_MAX;
-		g->parent[i] = -1;
+		g->parents[i] = -1;
 		i++;
 	}
 	distance[start] = 0;
@@ -53,7 +53,7 @@ void	dijkstra(graph *g, int start)
 			if (distance[w] > (distance[w] + weight))
 			{
 				distance[w] = distance[w] + weight;
-				g->parent[w] = v;
+				g->parents[w] = v;
 			}
 			p = p->next;
 		}

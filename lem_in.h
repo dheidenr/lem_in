@@ -33,7 +33,7 @@ typedef	struct
 	int				nedges;
 	int				directed; //Направленный?
 	unsigned char	color[MAXV + 1];
-	int 			parent[MAXV + 1];
+	int 			parents[MAXV + 1];
 	unsigned char	finished;
 }				graph;
 
@@ -50,6 +50,18 @@ typedef  struct	s_edgepoint
 	int x;
 	int y;
 }				t_edgepoint;
+
+typedef struct s_path
+{
+	int			vertex;
+	struct s_path *next;
+}				t_path;
+
+typedef	struct		s_beam
+{
+	t_path			*path;
+	struct s_beam	*next;
+}					t_beam;
 
 void			initialize_graph(graph *g, int directed);
 void			insert_edge(graph *g, int x, int y, int directed);
@@ -68,8 +80,9 @@ void			dfs2(graph *g, t_context *context, int v);
 void			dijkstra(graph *g, int start);
 int				bellman_ford(graph *g, t_context *context, int start);
 t_queue			*shortest_bfs_path_search(graph *g, int start, int end);
-void			find_path(int start, int end, int *parents);
+void			print_path_start_end(int start, int end, int *parents);
 t_queue			*qfind_path(int start, int end, int parents[], t_queue **q);
+t_path			*find_path(int start, int end, int parents[], t_path **path);
 
 void			test_1_graph(graph *g, int directed);
 void			test_too_path_graph(graph *g, int directed);
@@ -81,5 +94,9 @@ graph*			graphdub(graph* g);
 void			remove_edge(graph *g, t_edgepoint edgepoint, int directed);
 void			reverse_edge_and_weight(graph *g, t_edgepoint edp);
 int			 	get_weight_edge(graph *g, t_edgepoint *edp);
+void			print_beam(t_beam *beam);
+void			print_path(t_path *path);
 
+void	add_path_to_beam(t_beam **beam, t_path **path);
+void	add_vertex_to_path(t_path **path, int vertex);
 #endif

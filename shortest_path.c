@@ -12,7 +12,7 @@ t_queue *get_left_index_shortest_path(int end, int left_index, t_queue **q, grap
 		init_queue(q);
 		while (i <= end)
 		{
-			enqueue(q, g->parent[i]);
+			enqueue(q, g->parents[i]);
 			i++;
 		}
 		enqueue(q, end);
@@ -27,7 +27,7 @@ t_queue *get_right_index_shortest_path(int end, int right_index, t_queue **q, gr
 	init_queue(q);
 	while (i >= end)
 	{
-		enqueue(q, g->parent[i]);
+		enqueue(q, g->parents[i]);
 		i--;
 	}
 	enqueue(q, end);
@@ -47,16 +47,16 @@ t_queue *shortest_bfs_path_search(graph *g, int start, int end)
 
 	while (i <= end)
 	{
-		if (g->parent[i] == start)
+		if (g->parents[i] == start)
 			left_index = i;
 		i++;
 	}
 	i--;
 	while (i <= g->nvertices)
 	{
-		if (g->parent[i] == -1)
+		if (g->parents[i] == -1)
 			right_index = MAXV;
-		if (g->parent[i] == start)
+		if (g->parents[i] == start)
 		{
 			right_index = i;
 			break;
@@ -79,7 +79,7 @@ t_queue *shortest_bfs_path_search(graph *g, int start, int end)
 //
 //		while (i <= end)
 //		{
-//			enqueue(&q, g->parent[i]);
+//			enqueue(&q, g->parents[i]);
 //			i++;
 //		}
 //		enqueue(&q, end);
@@ -92,7 +92,7 @@ t_queue *shortest_bfs_path_search(graph *g, int start, int end)
 //		init_queue(&q);
 //		while (i >= end)
 //		{
-//			enqueue(&q, g->parent[i]);
+//			enqueue(&q, g->parents[i]);
 //			i--;
 //		}
 //		enqueue(&q, end);
@@ -100,13 +100,13 @@ t_queue *shortest_bfs_path_search(graph *g, int start, int end)
 //	}
 }
 
-void	find_path(int start, int end, int *parents)
+void	print_path_start_end(int start, int end, int *parents)
 {
 	if (start == end || end == -1)
 		printf("\n%d", start);
 	else
 	{
-		find_path(start, parents[end], parents);
+		print_path_start_end(start, parents[end], parents);
 		printf(" %d", end);
 	}
 }
