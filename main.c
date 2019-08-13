@@ -101,7 +101,6 @@ int main()
 
 	initialize_dijkstra_search(dubg, &context);
 	dijkstra(dubg, 1);
-
 	path = NULL;
 	find_path(1, 6, dubg->parents, &path);
 
