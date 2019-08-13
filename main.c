@@ -109,6 +109,7 @@ int main()
 	print_beam(beam);
 	print_graph(dubg);
 
+
 //	init_queue(&q);
 //	print_queue(qfind_path(1, 6, dubg->parents, &q), 0);
 	return (0);
