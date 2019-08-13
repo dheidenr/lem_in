@@ -26,6 +26,7 @@ void	remove_edge_directed(graph *g, int x, int y)
 				free(edge);
 				edge = NULL;
 			}
+			--g->nedges;
 			break;
 		}
 		prevedge = edge;
@@ -87,13 +88,14 @@ void	add_path_to_beam(t_beam **beam, t_path **path)
 void	add_vertex_to_path(t_path **path, int vertex)
 {
 	t_path *temppath;
-	static	t_path *start;
+	static	t_path *temp;
 
 	if (!*path)
 	{
 		*path = malloc(sizeof(t_path));
+		(*path)->next = NULL;
 		(*path)->vertex = vertex;
-		start = *path;
+		temp = *path;
 	} else
 	{
 		while((*path)->next)
@@ -103,7 +105,7 @@ void	add_vertex_to_path(t_path **path, int vertex)
 		temppath->next = NULL;
 		(*path)->next = temppath;
 	}
-	*path = start;
+	*path = temp;
 }
 
 t_path	*find_path(int start, int end, int parents[], t_path **path)

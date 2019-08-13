@@ -82,7 +82,16 @@ int main()
 	find_path(1, 6, g.parents, &path);
 	add_path_to_beam(&beam, &path);
 
+	i = 0;
+	ft_putstr("\nparent g\n");
+	while(++i <= MAXV)
+	{
+		ft_putstr(" ");
+		ft_putnbr(g.parents[i]);
+	}
+
 	dubg = graphdub(&g);
+
 	edp.x = 4;
 	edp.y = 6;
 	remove_edge(dubg, edp, FALSE);
@@ -101,6 +110,15 @@ int main()
 
 	initialize_dijkstra_search(dubg, &context);
 	dijkstra(dubg, 1);
+
+	i = 0;
+	ft_putstr("\nparent dubg\n");
+	while(++i <= MAXV)
+	{
+		ft_putstr(" ");
+		ft_putnbr(dubg->parents[i]);
+	}
+
 	path = NULL;
 	find_path(1, 6, dubg->parents, &path);
 
@@ -108,7 +126,7 @@ int main()
 	print_beam(beam);
 	print_graph(dubg);
 
-
+//hack array (int[128])*(char*)parents
 //	init_queue(&q);
 //	print_queue(qfind_path(1, 6, dubg->parents, &q), 0);
 	return (0);
