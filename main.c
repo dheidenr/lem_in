@@ -76,7 +76,7 @@ int main()
 	init_queue(&q);
 	print_queue(qfind_path(1, 6, g.parents, &q), 0);
 
-	//test funcion of suurballe
+	//test function of suurballe
 	path = NULL;
 	beam = NULL;
 	find_path(1, 6, g.parents, &path);
