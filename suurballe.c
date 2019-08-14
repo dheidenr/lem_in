@@ -81,13 +81,13 @@ void	reverse_path(graph *g, t_context *context,  t_path *path)
 	}
 }
 
-void	suurballe(graph *g, t_context *context, int start, int end)
+t_beam	*suurballe(graph *g, t_context *context, int start, int end)
 {
 	t_edgenode		*edgenode;
 	t_path 			*path;
 	t_beam			*beam;
 
-	beam = (t_beam *)ft_memalloc(sizeof(t_beam));
+//	beam = (t_beam *)ft_memalloc(sizeof(t_beam));
 //	path = (t_path *)ft_memalloc(sizeof(t_path));
 	graph	*gdub;
 	//Zero step Suurballe
@@ -95,20 +95,38 @@ void	suurballe(graph *g, t_context *context, int start, int end)
 	//One step of algorithm Suurballe
 	dijkstra(gdub, start);
 	//Two step reverse shortest path
+	path = NULL;
+	beam = NULL;
 	path = find_path(start, end, gdub->parents, &path);
 	add_path_to_beam(&beam, &path);
-	reverse_path(g, context, path);
-	duplicate_vertexes(g, context, path);
+	reverse_path(gdub, context, path);
+//	duplicate_vertexes(g, context, path);
 
-	edgenode = g->edges[start];
+	edgenode = g->edges[start]->next;
 	while (edgenode)
 	{
-		bfs(g, start);
+		initialize_bfs_search(gdub);
+		bfs(gdub, start);
+		path = NULL;
+
+		int i;
+		i = 0;
+		ft_putstr("\nparent surb dubg\n");
+		while(++i <= MAXV)
+		{
+			ft_putstr(" ");
+			ft_putnbr(gdub->parents[i]);
+		}
+		ft_putstr("\n");
+		print_graph(gdub);
 		path = find_path(start, end, gdub->parents, &path);
 		add_path_to_beam(&beam, &path);
-		reverse_path(g, context, path);
-		duplicate_vertexes(g, context, path);
+		reverse_path(gdub, context, path);
+		ft_putstr("\n");
+		print_graph(gdub);
+//		duplicate_vertexes(g, context, path);
 		edgenode = edgenode->next;
 	}
 
+	return (beam);
 }

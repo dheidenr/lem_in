@@ -92,7 +92,7 @@ void			test_too_path_graph(graph *g, int directed);
 void			test_24_4_graph_bellman_ford(graph *g, int directed);
 void			test_too_path_graph_suurballe(graph *g, int directed);
 
-void			suurballe(graph *g, t_context *context, int start, int end);
+t_beam			*suurballe(graph *g, t_context *context, int start, int end);
 graph*			graphdub(graph* g);
 void			remove_edge(graph *g, t_edgepoint edgepoint, int directed);
 void			reverse_edge_and_weight(graph *g, t_edgepoint edp);

@@ -115,7 +115,7 @@ void	reverse_edge_and_weight(graph *g, t_edgepoint edp)
 	else
 	{
 		edgenode = get_edgenode(g, &reversive_edge);
-		edgenode->turn++;
+//		edgenode->turn++;
 		edgenode->weight *= -1;
 	}
 	remove_edge(g, edp, TRUE);

@@ -79,8 +79,8 @@ int main()
 	//test function of suurballe
 	path = NULL;
 	beam = NULL;
-	find_path(1, 6, g.parents, &path);
-	add_path_to_beam(&beam, &path);
+//	find_path(1, 6, g.parents, &path);
+//	add_path_to_beam(&beam, &path);
 
 	i = 0;
 	ft_putstr("\nparent g\n");
@@ -92,16 +92,19 @@ int main()
 
 	dubg = graphdub(&g);
 
-	edp.x = 4;
-	edp.y = 6;
+//	edp.x = 4;
+//	edp.y = 6;
+////	reverse_edge_and_weight(&g, edp);
+//	edp.x = 6;
+//	edp.y = 4;
+//	remove_edge(dubg, edp, TRUE);
 //	reverse_edge_and_weight(&g, edp);
-	edp.x = 6;
-	edp.y = 4;
-	remove_edge(dubg, edp, TRUE);
-	reverse_edge_and_weight(&g, edp);
-	edp.x = 4;
-	edp.y = 6;
-	printf("\n%d:weight\n", get_weight_edge(&g, &edp));
+//	edp.x = 4;
+//	edp.y = 6;
+//	printf("\n%d:weight\n", get_weight_edge(&g, &edp));
+
+
+
 //	edp.x = 6;
 //	edp.y = 4;
 //	reverse_edge_and_weight(dubg, edp);
@@ -114,21 +117,31 @@ int main()
 //
 //	remove_edge(dubg, edp, FALSE);
 
-	initialize_dijkstra_search(dubg, &context);
-	dijkstra(dubg, 1);
+//	initialize_dijkstra_search(dubg, &context);
+//	dijkstra(dubg, 1);
 
-	i = 0;
-	ft_putstr("\nparent dubg\n");
-	while(++i <= MAXV)
-	{
-		ft_putstr(" ");
-		ft_putnbr(dubg->parents[i]);
-	}
+//	i = 0;
+//	ft_putstr("\nparent dubg\n");
+//	while(++i <= MAXV)
+//	{
+//		ft_putstr(" ");
+//		ft_putnbr(dubg->parents[i]);
+//	}
 
-	path = NULL;
-	path = find_path(1, 6, dubg->parents, &path);
+//	path = NULL;
+//	path = find_path(1, 6, dubg->parents, &path);
 
-	add_path_to_beam(&beam, &path);
+//	add_path_to_beam(&beam, &path);
+
+	beam = suurballe(dubg, &context, 1, 6);
+//	i = 0;
+//	ft_putstr("\nparent main dubg\n");
+//	while(++i <= MAXV)
+//	{
+//		ft_putstr(" ");
+//		ft_putnbr(dubg->parents[i]);
+//	}
+
 	print_beam(beam);
 	print_graph(dubg);
 
