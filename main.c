@@ -94,8 +94,14 @@ int main()
 
 	edp.x = 4;
 	edp.y = 6;
-	remove_edge(dubg, edp, FALSE);
-
+//	reverse_edge_and_weight(&g, edp);
+	edp.x = 6;
+	edp.y = 4;
+	remove_edge(dubg, edp, TRUE);
+	reverse_edge_and_weight(&g, edp);
+	edp.x = 4;
+	edp.y = 6;
+	printf("\n%d:weight\n", get_weight_edge(&g, &edp));
 //	edp.x = 6;
 //	edp.y = 4;
 //	reverse_edge_and_weight(dubg, edp);
@@ -120,7 +126,7 @@ int main()
 	}
 
 	path = NULL;
-	find_path(1, 6, dubg->parents, &path);
+	path = find_path(1, 6, dubg->parents, &path);
 
 	add_path_to_beam(&beam, &path);
 	print_beam(beam);

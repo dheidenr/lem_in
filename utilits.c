@@ -56,13 +56,68 @@ int 	get_weight_edge(graph *g, t_edgepoint *edp)
 	return (0);
 }
 
+int 	get_turn_edge(graph *g, t_edgepoint *edp)
+{
+	t_edgenode *edgenode;
+
+	edgenode = g->edges[edp->x];
+	while(edgenode)
+	{
+		if (edgenode->y == edp->y)
+			return (edgenode->turn);
+		edgenode = edgenode->next;
+	}
+	return (0);
+}
+
+char 	is_exist_edge(graph *g, t_edgepoint *edp)
+{
+	t_edgenode *edgenode;
+
+	edgenode = g->edges[edp->x];
+	while(edgenode)
+	{
+		if (edgenode->y == edp->y)
+			return (1);
+		edgenode = edgenode->next;
+	}
+	return (0);
+}
+
+
+t_edgenode* 	get_edgenode(graph *g, t_edgepoint *edp)
+{
+	t_edgenode *edgenode;
+
+	edgenode = g->edges[edp->x];
+	while(edgenode)
+	{
+		if (edgenode->y == edp->y)
+			return (edgenode);
+		edgenode = edgenode->next;
+	}
+	return (NULL);
+}
+
 void	reverse_edge_and_weight(graph *g, t_edgepoint edp)
 {
 	t_edgepoint reversive_edge;
+	t_edgenode	*edgenode;
 
 	reversive_edge.x = edp.y;
 	reversive_edge.y = edp.x;
-	insert_edge_weight(g, &reversive_edge, TRUE, -get_weight_edge(g, &edp));
+	if (!is_exist_edge(g, &reversive_edge))
+	{
+		insert_edge_weight(g, &reversive_edge, TRUE, -get_weight_edge(g, &edp));
+		edgenode = get_edgenode(g, &reversive_edge);
+		edgenode->turn++;
+	}
+	else
+	{
+		edgenode = get_edgenode(g, &reversive_edge);
+		edgenode->turn++;
+		edgenode->weight *= -1;
+	}
 	remove_edge(g, edp, TRUE);
 }
 
@@ -150,4 +205,37 @@ void	print_beam(t_beam *beam)
 		++count;
 	}
 	ft_putstr("\n");
+}
+
+graph*	graphdub(graph* g)
+{
+	graph 			*graph_result;
+	t_edgepoint ed;
+	t_edgenode *edgenode;
+	size_t				i;
+
+	graph_result =  (graph *)malloc(sizeof(*g));
+	i = 0;
+	while(i <= g->nvertices)
+	{
+		edgenode = g->edges[i];
+		ed.x = i;
+		while(edgenode)
+		{
+			ed.y = edgenode->y;
+			insert_edge_weight(graph_result, &ed, g->directed, edgenode->weight);
+			edgenode = edgenode->next;
+		}
+		i++;
+	}
+	graph_result->directed = g->directed;
+	graph_result->nvertices = g->nvertices;
+	graph_result->nedges = g->nedges;
+	i = 0;
+	while (i <= MAXV)
+	{
+		graph_result->degree[i] = g->degree[i];
+		i++;
+	}
+	return (graph_result);
 }
