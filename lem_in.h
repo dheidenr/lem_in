@@ -71,6 +71,7 @@ void			insert_edge(graph *g, int x, int y, int directed);
 void			insert_edge_weight(graph *g, t_edgepoint *edgepoint, int directed,
 																	int weight);
 void			print_graph(graph *g);
+void			print_array_graph(int array[], char *str);
 void			read_graph(graph *g, int directed);
 void			random_graph(graph *g, int directed, int nvertices, unsigned int r, int edges);
 void			initialize_bfs_search(graph *g);

@@ -109,16 +109,9 @@ t_beam	*suurballe(graph *g, t_context *context, int start, int end)
 		bfs(gdub, start);
 		path = NULL;
 
-		int i;
-		i = 0;
-		ft_putstr("\nparent surb dubg\n");
-		while(++i <= MAXV)
-		{
-			ft_putstr(" ");
-			ft_putnbr(gdub->parents[i]);
-		}
-		ft_putstr("\n");
+		print_array_graph(gdub->parents, "\nparent surballe dubg\n");
 		print_graph(gdub);
+
 		path = find_path(start, end, gdub->parents, &path);
 		add_path_to_beam(&beam, &path);
 		reverse_path(gdub, context, path);

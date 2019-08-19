@@ -177,36 +177,6 @@ t_path	*find_path(int start, int end, int parents[], t_path **path)
 	return (*path);
 }
 
-void	print_path(t_path *path)
-{
-	while(path)
-	{
-		ft_putstr(" ");
-		ft_putnbr(path->vertex);
-		path = path->next;
-	}
-	ft_putstr("\n");
-}
-
-void	print_beam(t_beam *beam)
-{
-	int 	count;
-
-	ft_putstr(__FUNCTION__);
-	ft_putstr("\n");
-	count = 1;
-	while(beam)
-	{
-		ft_putstr(ft_itoa(count));
-		ft_putstr(":");
-		if (beam->path)
-			print_path(beam->path);
-		beam = beam->next;
-		++count;
-	}
-	ft_putstr("\n");
-}
-
 graph*	graphdub(graph* g)
 {
 	graph 			*graph_result;
