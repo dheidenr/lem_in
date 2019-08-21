@@ -31,7 +31,7 @@ void	print_beam(t_beam *beam)
 	ft_putstr("\n");
 }
 
-void	print_array_graph(int *array, char *str)
+void	print_array_graph(int *array, graph *g, char *str)
 {
 	int i;
 
@@ -41,7 +41,7 @@ void	print_array_graph(int *array, char *str)
 	{
 		ft_putstr(" ");
 		ft_putnbr(array[i]);
-		if (array[i] == -1 && i != 1)
+		if (array[i] == -1 && i > g->nvertices)
 			break ;
 	}
 	ft_putstr("\n");

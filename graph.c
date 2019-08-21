@@ -1,7 +1,7 @@
 
 #include "lem_in.h"
 
-void	initialize_graph(graph *g, int directed)
+void	initialize_graph(graph *g, t_context *context, int directed)
 {
 	int 	i;
 
@@ -15,6 +15,7 @@ void	initialize_graph(graph *g, int directed)
 		g->edges[i] = NULL;
 		i++;
 	}
+	context->in_out_vertices = 0;
 }
 
 int 	is_in_edges(t_edgenode *p, int y)
@@ -95,13 +96,13 @@ void	print_graph(graph *g)
 	}
 }
 
-void	read_graph(graph *g, int directed)
+void	read_graph(graph *g, t_context *context, int directed)
 {
 	int 	i;
 	int 	m;
 	int 	x, y;
 
-	initialize_graph(g, directed);
+	initialize_graph(g, context, directed);
 	printf("input please nvertices and edges");
 	scanf("%d %d", &(g->nvertices), &m);
 	i = 1;
@@ -114,13 +115,13 @@ void	read_graph(graph *g, int directed)
 	}
 }
 
-void	random_graph(graph *g, int directed, int nvertices, unsigned int r, int edges)
+void	random_graph(graph *g, t_context *context, int directed, int nvertices, unsigned int r, int edges)
 {
 	int 	i;
 	int 	m;
 	int 	x, y;
 
-	initialize_graph(g, directed);
+	initialize_graph(g, context, directed);
 	g->nvertices = nvertices;
 	m = edges;
 	i = 1;

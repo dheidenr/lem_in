@@ -1,6 +1,4 @@
 
-
-
 #include "lem_in.h"
 #include "libft.h"
 #include "queue.h"
@@ -36,14 +34,20 @@ void	duplicate_vertex(graph *g, t_context *context, int vertex)
 
 	//create two vertex
 	g->nvertices++;
-	context->v_out[g->nvertices] = TRUE;
+	context->in_out_vertices++;
+	context->v_out[context->in_out_vertices] = TRUE;
 	//changes edges of vertexes
-	edgepoint.x = g->nvertices;
-	edgepoint.y = vertex;
+	edgepoint.x = vertex;
+	edgepoint.y = g->nvertices;
+
 	insert_edge_weight(g, &edgepoint, TRUE, 0);
-	edgenode = g->edges[vertex];
+
+	edgenode = g->edges[vertex]->next;
+
+
 	while (edgenode)
 	{
+		edgepoint.x = g->nvertices;
 		//Вставка нового ребра
 		edgepoint.y = edgenode->y;
 		insert_edge_weight(g, &edgepoint, TRUE, edgenode->weight);
@@ -51,6 +55,7 @@ void	duplicate_vertex(graph *g, t_context *context, int vertex)
 		edtemp = get_edgenode(g, &edgepoint);
 		edtemp->turn = edgenode->turn;
 		//Удавление старого ребра
+		edgepoint.x = vertex;
 		remove_edge(g, edgepoint, TRUE);
 		edgenode = edgenode->next;
 	}
@@ -67,6 +72,22 @@ void	duplicate_vertexes(graph *g, t_context *context,  t_path *path)
 		path = path->next;
 	}
 }
+
+void	duplicate_all_vertexes_graph(graph *g, t_context *context, int start, int end)
+{
+	size_t	vertex;
+	t_edgenode *edgenode;
+
+	//Пропускаем старт
+	vertex = 1;
+	while(vertex < g->nvertices - context->in_out_vertices)
+	{
+		if (vertex != start && vertex != end && !context->v_in[vertex])
+			duplicate_vertex(g, context, vertex);
+		vertex++;
+	}
+}
+
 
 void	reverse_path(graph *g, t_context *context,  t_path *path)
 {
@@ -86,40 +107,54 @@ t_beam	*suurballe(graph *g, t_context *context, int start, int end)
 	t_edgenode		*edgenode;
 	t_path 			*path;
 	t_beam			*beam;
+	size_t			i;
 
+	i = 1;
 //	beam = (t_beam *)ft_memalloc(sizeof(t_beam));
 //	path = (t_path *)ft_memalloc(sizeof(t_path));
 	graph	*gdub;
 	//Zero step Suurballe
 	gdub = graphdub(g);
+	duplicate_all_vertexes_graph(gdub, context, start, end);
 	//One step of algorithm Suurballe
 	dijkstra(gdub, start);
 	//Two step reverse shortest path
 	path = NULL;
 	beam = NULL;
 	path = find_path(start, end, gdub->parents, &path);
+	ft_putstr("before add path null duplicate vertexes\n");
+	print_graph(gdub);
+	print_array_graph(gdub->parents, gdub, "\nparent surballe dubg\n");
+
 	add_path_to_beam(&beam, &path);
 	reverse_path(gdub, context, path);
 //	duplicate_vertexes(g, context, path);
 
 	edgenode = g->edges[start]->next;
-	while (edgenode)
+	while (i <= 2)
 	{
 		initialize_bfs_search(gdub);
 		bfs(gdub, start);
 		path = NULL;
 
-		print_array_graph(gdub->parents, "\nparent surballe dubg\n");
+		print_array_graph(gdub->parents, gdub,  "\nparent surballe dubg\n");
 		print_graph(gdub);
 
 		path = find_path(start, end, gdub->parents, &path);
+		if (!path)
+			break;
 		add_path_to_beam(&beam, &path);
 		reverse_path(gdub, context, path);
 		ft_putstr("\n");
 		print_graph(gdub);
 //		duplicate_vertexes(g, context, path);
-		edgenode = edgenode->next;
+
+		i++;
+//		edgenode = edgenode->next;
 	}
 
+//	duplicate_vertex(gdub, context, 3);
+//	ft_putstr("\nafter duplicate vertex\n");
+//	print_graph(gdub);
 	return (beam);
 }

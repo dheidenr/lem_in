@@ -50,9 +50,9 @@ void	dijkstra(graph *g, int start)
 		{
 			w = p->y;
 			weight = p->weight;
-			if (distance[w] > (distance[w] + weight))
+			if (distance[w] > (distance[v] + weight))
 			{
-				distance[w] = distance[w] + weight;
+				distance[w] = distance[v] + weight;
 				g->parents[w] = v;
 			}
 			p = p->next;

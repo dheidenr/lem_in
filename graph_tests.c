@@ -1,8 +1,8 @@
 #include "lem_in.h"
 
-void	test_1_graph(graph *g, int directed)
+void	test_1_graph(graph *g, t_context *context, int directed)
 {
-	initialize_graph(g, directed);
+	initialize_graph(g, context, directed);
 	g->nvertices = 6;
 	insert_edge(g, 1, 6, directed);
 	insert_edge(g, 1, 2, directed);
@@ -14,9 +14,9 @@ void	test_1_graph(graph *g, int directed)
 
 }
 
-void	test_too_path_graph(graph *g, int directed)
+void	test_too_path_graph(graph *g, t_context *context, int directed)
 {
-	initialize_graph(g, directed);
+	initialize_graph(g, context, directed);
 	g->nvertices = 6;
 	insert_edge(g, 1, 2, directed);
 	insert_edge(g, 1, 3, directed);
@@ -30,10 +30,10 @@ void	test_too_path_graph(graph *g, int directed)
 	insert_edge(g, 5, 6, directed);
 }
 
-void	test_24_4_graph_bellman_ford(graph *g, int directed)
+void	test_24_4_graph_bellman_ford(graph *g, t_context *context, int directed)
 {
 	t_edgepoint ed;
-	initialize_graph(g, directed);
+	initialize_graph(g, context, directed);
 	g->nvertices = 5;
 	ed.x = 1;
 	ed.y = 2;
@@ -67,9 +67,9 @@ void	test_24_4_graph_bellman_ford(graph *g, int directed)
 	insert_edge_weight(g, &ed, directed, 7);
 }
 
-void	test_too_path_graph_suurballe(graph *g, int directed)
+void	test_too_path_graph_suurballe(graph *g, t_context *context, int directed)
 {
-	initialize_graph(g, directed);
+	initialize_graph(g, context, directed);
 	g->nvertices = 6;
 	insert_edge(g, 1, 2, directed);
 	insert_edge(g, 1, 3, directed);

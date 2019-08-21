@@ -16,14 +16,14 @@ int main()
 	t_path	*path;
 	t_beam	*beam;
 
-	initialize_graph(&g, 0);
+	initialize_graph(&g, &context, 0);
 
 //	read_graph(&g, 0);
 //	random_graph(&g, 0, 3998, 3999, 400000);
 //	test_1_graph(&g, 0);
 //	test_too_path_graph(&g, 0);
 //	test_24_4_graph_bellman_ford(&g, 1);
-	test_too_path_graph_suurballe(&g, 0);
+	test_too_path_graph_suurballe(&g, &context, 0);
 	initialize_bfs_search(&g);
 	initialize_dfs_search(&g, &context);
 	initialize_dijkstra_search(&g, &context);
@@ -145,6 +145,27 @@ int main()
 	print_beam(beam);
 	print_graph(dubg);
 
+	ft_putstr("\nbefore duplicate vertex\n");
+	print_graph(dubg);
+
+//	duplicate_vertex(dubg, &context, 2);
+//	ft_putstr("\n---------2-------------\n");
+//	print_graph(dubg);
+//	duplicate_vertex(dubg, &context, 3);
+//	ft_putstr("\n---------3-------------\n");
+//	print_graph(dubg);
+//	duplicate_vertex(dubg, &context, 4);
+//	ft_putstr("\n---------4-------------\n");
+//	print_graph(dubg);
+//	duplicate_vertex(dubg, &context, 5);
+//	ft_putstr("\n---------5-------------\n");
+//	print_graph(dubg);
+
+	duplicate_all_vertexes_graph(dubg, &context, 1, 6);
+
+
+	ft_putstr("after duplicate vertexes\n");
+	print_graph(dubg);
 //hack array (int[128])*(char*)parents
 //	init_queue(&q);
 //	print_queue(qfind_path(1, 6, dubg->parents, &q), 0);

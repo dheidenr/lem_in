@@ -45,6 +45,7 @@ typedef struct	s_context
 	int long 		short_paths[MAXV + 1];
 	unsigned char	v_in[MAXV + 1];
 	unsigned char	v_out[MAXV + 1];
+	int				in_out_vertices;
 	t_edgenode		*edgenode;
 }				t_context;
 
@@ -66,14 +67,14 @@ typedef	struct		s_beam
 	struct s_beam	*next;
 }					t_beam;
 
-void			initialize_graph(graph *g, int directed);
+void			initialize_graph(graph *g, t_context *context, int directed);
 void			insert_edge(graph *g, int x, int y, int directed);
 void			insert_edge_weight(graph *g, t_edgepoint *edgepoint, int directed,
 																	int weight);
 void			print_graph(graph *g);
-void			print_array_graph(int array[], char *str);
-void			read_graph(graph *g, int directed);
-void			random_graph(graph *g, int directed, int nvertices, unsigned int r, int edges);
+void			print_array_graph(int array[], graph *g, char *str);
+void			read_graph(graph *g, t_context *context, int directed);
+void			random_graph(graph *g, t_context *context, int directed, int nvertices, unsigned int r, int edges);
 void			initialize_bfs_search(graph *g);
 void			initialize_dfs_search(graph *g, t_context *context);
 void			initialize_dijkstra_search(graph *g, t_context* context);
@@ -88,10 +89,10 @@ void			print_path_start_end(int start, int end, int *parents);
 t_queue			*qfind_path(int start, int end, int parents[], t_queue **q);
 t_path			*find_path(int start, int end, int parents[], t_path **path);
 
-void			test_1_graph(graph *g, int directed);
-void			test_too_path_graph(graph *g, int directed);
-void			test_24_4_graph_bellman_ford(graph *g, int directed);
-void			test_too_path_graph_suurballe(graph *g, int directed);
+void			test_1_graph(graph *g, t_context *context, int directed);
+void			test_too_path_graph(graph *g, t_context *context, int directed);
+void			test_24_4_graph_bellman_ford(graph *g, t_context *context, int directed);
+void			test_too_path_graph_suurballe(graph *g, t_context *context, int directed);
 
 t_beam			*suurballe(graph *g, t_context *context, int start, int end);
 graph*			graphdub(graph* g);
@@ -101,7 +102,10 @@ int			 	get_weight_edge(graph *g, t_edgepoint *edp);
 void			print_beam(t_beam *beam);
 void			print_path(t_path *path);
 
+
+void			duplicate_all_vertexes_graph(graph *g, t_context *context, int start, int end);
+void			duplicate_vertex(graph *g, t_context *context, int vertex);
 t_edgenode* 	get_edgenode(graph *g, t_edgepoint *edp);
-void	add_path_to_beam(t_beam **beam, t_path **path);
-void	add_vertex_to_path(t_path **path, int vertex);
+void			add_path_to_beam(t_beam **beam, t_path **path);
+void			add_vertex_to_path(t_path **path, int vertex);
 #endif
