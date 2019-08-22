@@ -142,6 +142,7 @@ int main()
 //		ft_putnbr(dubg->parents[i]);
 //	}
 
+
 	print_beam(beam);
 	print_graph(dubg);
 
