@@ -163,10 +163,9 @@ int main()
 
 	duplicate_all_vertexes_graph(dubg, &context, 1, 6);
 
-
 	ft_putstr("after duplicate vertexes\n");
 	print_graph(dubg);
-//hack array (int[128])*(char*)parents
+//	hack array (int[128])*(char*)parents
 //	init_queue(&q);
 //	print_queue(qfind_path(1, 6, dubg->parents, &q), 0);
 	return (0);

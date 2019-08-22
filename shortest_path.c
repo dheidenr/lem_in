@@ -113,7 +113,6 @@ void	print_path_start_end(int start, int end, int *parents)
 
 t_queue	*qfind_path(int start, int end, int parents[], t_queue **q)
 {
-
 	if (start == end || end == -1)
 	{
 //		printf("\n%d", start);
