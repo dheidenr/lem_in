@@ -180,7 +180,7 @@ t_beam	*suurballe(graph *g, t_context *context, int start, int end)
 	print_graph(gdub);
 	print_array_graph(gdub->parents, gdub, "\nparent surrballe dubg\n");
 
-	remove_fake_vertexes(gdub, context, &path);
+//	remove_fake_vertexes(gdub, context, &path);
 	add_path_to_beam(&beam, &path);
 	reverse_path(gdub, context, path);
 
@@ -199,7 +199,7 @@ t_beam	*suurballe(graph *g, t_context *context, int start, int end)
 		if (!path)
 			break ;
 
-		remove_fake_vertexes(gdub, context, &path);
+//		remove_fake_vertexes(gdub, context, &path);
 
 
 		add_path_to_beam(&beam, &path);
