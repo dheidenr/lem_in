@@ -166,6 +166,7 @@ void	remove_fake_vertexes(graph *g, t_context *context, t_path **path)
 		tmp = tmp->next;
 	}
 }
+
 t_beam	*suurballe(graph *g, t_context *context, int start, int end)
 {
 	t_edgenode		*edgenode;
@@ -203,7 +204,7 @@ t_beam	*suurballe(graph *g, t_context *context, int start, int end)
 //	duplicate_vertexes(g, context, path);
 
 	edgenode = g->edges[start]->next;
-	while (i <= 2)
+	while (i <= g->degree[1])
 	{
 		initialize_bfs_search(gdub);
 		bfs(gdub, start);

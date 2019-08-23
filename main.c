@@ -24,7 +24,9 @@ int main()
 //	test_too_path_graph(&g, 0);
 //	test_24_4_graph_bellman_ford(&g, 1);
 //	test_too_path_graph_suurballe(&g, &context, 0);
-	test_too_path_graph_suurballe_extreme(&g, &context, 0);
+//	test_too_path_graph_suurballe_extreme(&g, &context, 0);
+//	test_too_path_graph_suurballe_wiki(&g, &context, 0);
+	test_three_path_graph_suurballe_little(&g, &context, 0);
 	initialize_bfs_search(&g);
 	initialize_dfs_search(&g, &context);
 	initialize_dijkstra_search(&g, &context);
