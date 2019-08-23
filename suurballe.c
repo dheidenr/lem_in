@@ -102,7 +102,7 @@ void	reverse_path(graph *g, t_context *context,  t_path *path)
 	}
 }
 
-void 	remove_vertex(int	vertex, t_path **path)
+void 	remove_vertex(graph *g, t_context *context, int	vertex, t_path **path)
 {
 	t_path	*prev;
 	t_path	*tmp;
@@ -114,7 +114,7 @@ void 	remove_vertex(int	vertex, t_path **path)
 	{
 		if (vertex == (*path)->vertex)
 		{
-			if (prev == (*path))
+			if (prev && prev == (*path))
 			{
 				*path = (*path)->next;
 				free((prev));
@@ -123,19 +123,35 @@ void 	remove_vertex(int	vertex, t_path **path)
 			else if (prev && *path)
 			{
 				tmp = *path;
+				if (prev->vertex != (*path)->vertex - (g->nvertices - context->in_out_vertices) + 1
+					&& (*path)->next->vertex != (*path)->vertex - (g->nvertices - context->in_out_vertices) + 1
+					&& (*path)->vertex > g->nvertices - context->in_out_vertices
+					&& prev != *path)
+				{
+					(*path)->vertex = (*path)->vertex - (g->nvertices - context->in_out_vertices) + 1;
+					*path = start;
+					return ;
+				}
+
 				prev->next = (*path)->next;
-				*path = (*path)->next;
+//				*path = (*path)->next;
+				*path = start;
 				free((tmp));
 				tmp = NULL;
+				return ;
 			} else
 			{
 				*path = NULL;
 			}
+		} else
+		{
+			prev = *path;
+			(*path) = (*path)->next;
 		}
-		prev = *path;
-		(*path) = (*path)->next;
+
+
 	}
-	*path = start;
+
 }
 
 void	remove_fake_vertexes(graph *g, t_context *context, t_path **path)
@@ -146,7 +162,7 @@ void	remove_fake_vertexes(graph *g, t_context *context, t_path **path)
 	while(tmp)
 	{
 		if (tmp->vertex > g->nvertices - context->in_out_vertices)
-			remove_vertex(tmp->vertex, path);
+			remove_vertex(g, context, tmp->vertex, path);
 		tmp = tmp->next;
 	}
 }
@@ -180,9 +196,9 @@ t_beam	*suurballe(graph *g, t_context *context, int start, int end)
 	print_graph(gdub);
 	print_array_graph(gdub->parents, gdub, "\nparent surrballe dubg\n");
 
-//	remove_fake_vertexes(gdub, context, &path);
-	add_path_to_beam(&beam, &path);
 	reverse_path(gdub, context, path);
+	remove_fake_vertexes(gdub, context, &path);
+	add_path_to_beam(&beam, &path);
 
 //	duplicate_vertexes(g, context, path);
 
@@ -199,11 +215,10 @@ t_beam	*suurballe(graph *g, t_context *context, int start, int end)
 		if (!path)
 			break ;
 
-//		remove_fake_vertexes(gdub, context, &path);
-
-
-		add_path_to_beam(&beam, &path);
 		reverse_path(gdub, context, path);
+		remove_fake_vertexes(gdub, context, &path);
+		add_path_to_beam(&beam, &path);
+
 		ft_putstr("\n");
 		print_graph(gdub);
 //		duplicate_vertexes(g, context, path);

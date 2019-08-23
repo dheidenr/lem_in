@@ -103,13 +103,20 @@ void	reverse_edge_and_weight(graph *g, t_edgepoint edp)
 {
 	t_edgepoint reversive_edge;
 	t_edgenode	*edgenode;
+	int 		turn_plus;
 
+	turn_plus = 0;
 	reversive_edge.x = edp.y;
 	reversive_edge.y = edp.x;
 	if (!is_exist_edge(g, &reversive_edge))
 	{
+		edgenode = get_edgenode(g, &edp);
+		if (edgenode)
+			turn_plus = edgenode->turn;
+
 		insert_edge_weight(g, &reversive_edge, TRUE, -get_weight_edge(g, &edp));
 		edgenode = get_edgenode(g, &reversive_edge);
+		edgenode->turn += turn_plus;
 		edgenode->turn++;
 	}
 	else
@@ -135,6 +142,7 @@ void	add_path_to_beam(t_beam **beam, t_path **path)
 		while ((*beam)->next)
 			*beam = (*beam)->next;
 		beamtemp = (t_beam *) malloc(sizeof(t_beam));
+		beamtemp->next = NULL;
 		beamtemp->path = *path;
 		(*beam)->next = beamtemp;
 	}

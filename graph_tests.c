@@ -80,3 +80,20 @@ void	test_too_path_graph_suurballe(graph *g, t_context *context, int directed)
 	insert_edge(g, 4, 6, directed);
 	insert_edge(g, 5, 6, directed);
 }
+
+void	test_too_path_graph_suurballe_extreme(graph *g, t_context *context, int directed)
+{
+	initialize_graph(g, context, directed);
+	g->nvertices = 8;
+	insert_edge(g, 1, 2, directed);
+	insert_edge(g, 1, 3, directed);
+	insert_edge(g, 2, 3, directed);
+	insert_edge(g, 2, 4, directed);
+	insert_edge(g, 3, 5, directed);
+	insert_edge(g, 3, 6, directed);
+	insert_edge(g, 4, 5, directed);
+	insert_edge(g, 5, 8, directed);
+	insert_edge(g, 6, 7, directed);
+	insert_edge(g, 7, 8, directed);
+
+}

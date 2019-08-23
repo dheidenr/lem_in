@@ -23,7 +23,8 @@ int main()
 //	test_1_graph(&g, 0);
 //	test_too_path_graph(&g, 0);
 //	test_24_4_graph_bellman_ford(&g, 1);
-	test_too_path_graph_suurballe(&g, &context, 0);
+//	test_too_path_graph_suurballe(&g, &context, 0);
+	test_too_path_graph_suurballe_extreme(&g, &context, 0);
 	initialize_bfs_search(&g);
 	initialize_dfs_search(&g, &context);
 	initialize_dijkstra_search(&g, &context);
@@ -74,7 +75,7 @@ int main()
 	ft_putstr("\n");
 //	print_queue(shortest_bfs_path_search(&g, 1, 5), 0);
 	init_queue(&q);
-	print_queue(qfind_path(1, 6, g.parents, &q), 0);
+	print_queue(qfind_path(START, END, g.parents, &q), 0);
 
 	//test function of suurballe
 	path = NULL;
@@ -133,7 +134,7 @@ int main()
 
 //	add_path_to_beam(&beam, &path);
 
-	beam = suurballe(dubg, &context, 1, 6);
+	beam = suurballe(dubg, &context, START, END);
 //	i = 0;
 //	ft_putstr("\nparent main dubg\n");
 //	while(++i <= MAXV)

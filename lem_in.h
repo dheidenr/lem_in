@@ -17,7 +17,8 @@
 #define WHITE 0
 #define GRAY 1
 #define BLACK 2
-
+#define	START 1
+#define END 8
 typedef struct s_edgenode
 {
 	int			y;
@@ -93,6 +94,7 @@ void			test_1_graph(graph *g, t_context *context, int directed);
 void			test_too_path_graph(graph *g, t_context *context, int directed);
 void			test_24_4_graph_bellman_ford(graph *g, t_context *context, int directed);
 void			test_too_path_graph_suurballe(graph *g, t_context *context, int directed);
+void			test_too_path_graph_suurballe_extreme(graph *g, t_context *context, int directed);
 
 t_beam			*suurballe(graph *g, t_context *context, int start, int end);
 graph*			graphdub(graph* g);
