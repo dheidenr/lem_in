@@ -215,17 +215,19 @@ t_beam	*suurballe(graph *g, t_context *context, int start, int end)
 
 		if (!path)
 			break ;
-
 		reverse_path(gdub, context, path);
 		remove_fake_vertexes(gdub, context, &path);
 		add_path_to_beam(&beam, &path);
-
 		ft_putstr("\n");
 		print_graph(gdub);
 //		duplicate_vertexes(g, context, path);
 		i++;
 //		edgenode = edgenode->next;
 	}
+
+//	path = find_true_path(g, path);
+
+
 //	duplicate_vertex(gdub, context, 3);
 //	ft_putstr("\nafter duplicate vertex\n");
 //	print_graph(gdub);
