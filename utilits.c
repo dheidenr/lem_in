@@ -180,7 +180,7 @@ t_path	*find_path(int start, int end, int parents[], t_path **path)
 		add_vertex_to_path(path, start);
 	else
 	{
-		if (parents[end] == -1)
+		if (parents[end] == -1)// || parents[start] == -1)
 			return (NULL);
 		find_path(start, parents[end], parents, path);
 		add_vertex_to_path(path, end);
@@ -193,7 +193,9 @@ graph*	graphdub(graph* g)
 	graph 			*graph_result;
 	t_edgepoint ed;
 	t_edgenode *edgenode;
+	t_edgenode *tmp_edge;
 	size_t				i;
+
 
 	graph_result =  (graph *)malloc(sizeof(*g));
 	i = 0;
@@ -205,6 +207,8 @@ graph*	graphdub(graph* g)
 		{
 			ed.y = edgenode->y;
 			insert_edge_weight(graph_result, &ed, g->directed, edgenode->weight);
+			tmp_edge = get_edgenode(graph_result, &ed);
+			tmp_edge->isolate = edgenode->isolate;
 			edgenode = edgenode->next;
 		}
 		i++;

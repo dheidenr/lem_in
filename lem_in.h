@@ -19,11 +19,13 @@
 #define BLACK 2
 #define	START 1
 #define END 5
+
 typedef struct s_edgenode
 {
 	int			y;
 	int 		weight;
 	int 		turn;
+	char 		isolate;
 	struct s_edgenode *next;
 }				t_edgenode;
 

@@ -115,6 +115,9 @@ void	test_too_path_graph_suurballe_wiki(graph *g, t_context *context, int direct
 
 void	test_three_path_graph_suurballe_little(graph *g, t_context *context, int directed)
 {
+	t_edgepoint edgepoint;
+	t_edgenode	*edgenode;
+
 	initialize_graph(g, context, directed);
 	g->nvertices = 5;
 	insert_edge(g, 1, 2, directed);
@@ -125,6 +128,20 @@ void	test_three_path_graph_suurballe_little(graph *g, t_context *context, int di
 	insert_edge(g, 4, 5, directed);
 
 	//update graph
-	insert_edge(g, 2, 3, directed);
-	insert_edge(g, 3, 4, directed);
+//	insert_edge(g, 2, 3, directed);
+//	insert_edge(g, 3, 4, directed);
+
+
+	edgepoint.x = 1;
+	edgepoint.y = 2;
+	edgenode = get_edgenode(g, &edgepoint);
+	edgenode->isolate = TRUE;
+	edgepoint.x = 1;
+	edgepoint.y = 3;
+	edgenode = get_edgenode(g, &edgepoint);
+	edgenode->isolate = TRUE;
+//	edgepoint.x = 1;
+//	edgepoint.y = 4;
+//	edgenode = get_edgenode(g, &edgepoint);
+//	edgenode->isolate = TRUE;
 }

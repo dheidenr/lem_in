@@ -25,12 +25,12 @@ void	process_vertex_late(int v)
 
 void process_vertex_early(int v)
 {
-	printf("processed vertex %d\n", v);
+//	printf("processed vertex %d\n", v);
 }
 
 void process_edge(int x, int y, graph *g)
 {
-	printf("processed edge (%d, %d)\n", x, y);
+//	printf("processed edge (%d, %d)\n", x, y);
 	g->nedges++;
 }
 void	bfs(graph *g, int start)
@@ -49,12 +49,19 @@ void	bfs(graph *g, int start)
 		process_vertex_early(v);
 		g->color[v] = BLACK;
 		p = g->edges[v];
+
+//		while (p && p->isolate)
+//			p = p->next;
+
 		while (p != NULL)
 		{
+
+//			if (!p)
+//				break ;
 			y = p->y;
 			if ((g->color[y] != BLACK) || (g->directed))
 				process_edge(v, y, g);
-			if (g->color[y] == WHITE)
+			if (g->color[y] == WHITE && !p->isolate)
 			{
 				enqueue(&q, y);
 				g->color[y] = GRAY;

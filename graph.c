@@ -44,6 +44,7 @@ void	insert_edge(graph *g, int x, int y, int directed)
 	p = malloc(sizeof(t_edgenode));
 	p->weight = 1;
 	p->turn = 0;
+	p->isolate = FALSE;
 	p->y = y;
 	p->next = g->edges[x];
 	g->edges[x] = p;
@@ -66,6 +67,7 @@ void	insert_edge_weight(graph *g, t_edgepoint *edgepoint, int directed, int weig
 	p = malloc(sizeof(t_edgenode));
 	p->weight = weight;
 	p->turn = 0;
+	p->isolate = FALSE;
 	p->y = edgepoint->y;
 	p->next = g->edges[edgepoint->x];
 	g->edges[edgepoint->x] = p;
@@ -88,7 +90,7 @@ void	print_graph(graph *g)
 		p = g->edges[i];
 		while (p != NULL)
 		{
-			printf(" %d(w:%d,t:%d)", p->y, p->weight, p->turn);
+			printf(" %d(w:%d,t:%d,i:%d)", p->y, p->weight, p->turn, p->isolate);
 			p = p->next;
 		}
 		printf("\n");

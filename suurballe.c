@@ -93,6 +93,8 @@ void	reverse_path(graph *g, t_context *context,  t_path *path)
 {
 	t_edgepoint edgepoint;
 
+	if (!path)
+		return ;
 	while(path->next)
 	{
 		edgepoint.x = path->vertex;
@@ -148,8 +150,6 @@ void 	remove_vertex(graph *g, t_context *context, int	vertex, t_path **path)
 			prev = *path;
 			(*path) = (*path)->next;
 		}
-
-
 	}
 
 }
@@ -167,9 +167,56 @@ void	remove_fake_vertexes(graph *g, t_context *context, t_path **path)
 	}
 }
 
+void	isolate_edgenode(t_edgenode *edgenode, char isolate)
+{
+	while (edgenode)
+	{
+		edgenode->isolate = isolate;
+		edgenode = edgenode->next;
+	}
+}
+
+t_beam *find_true_beam(graph *g, t_context *context, t_beam *fake_beam, t_edgepoint start_end)
+{
+	t_beam *true_beam;
+	t_beam *start_beam;
+	t_path	*path;
+	t_edgenode *edgenode;
+	t_edgenode *tmp_edge;
+	t_edgepoint tmp_point;
+
+	path = NULL;
+	start_beam = fake_beam;
+	true_beam = (t_beam *)malloc(sizeof(t_beam));
+	if (!true_beam)
+		return (NULL);
+	edgenode = g->edges[start_end.x];
+	isolate_edgenode(edgenode, TRUE);
+
+	tmp_point.x = start_end.x;
+	while(fake_beam)
+	{
+		//Получаем номер следующей вершины после старта в текущем пути
+		tmp_point.y = fake_beam->path->next->vertex;
+		tmp_edge = get_edgenode(g, &tmp_point);
+		tmp_edge->isolate = FALSE;
+
+		initialize_bfs_search(g);
+		bfs(g, start_end.x);//Popravit' bfs dlya isolate
+
+		path = find_path(start_end.x, start_end.y, g->parents, &path);
+		add_path_to_beam(&true_beam, &path);
+
+		tmp_edge->isolate = TRUE;
+		fake_beam = fake_beam->next;
+	}
+	isolate_edgenode(edgenode, FALSE);
+	return (true_beam);
+}
 t_beam	*suurballe(graph *g, t_context *context, int start, int end)
 {
 	t_edgenode		*edgenode;
+	t_edgepoint		start_end;
 	t_path 			*path;
 	t_beam			*beam;
 	size_t			i;
@@ -186,9 +233,10 @@ t_beam	*suurballe(graph *g, t_context *context, int start, int end)
 	//after duplicate
 	//1: 1 2 7 4 9 6
 	//2: 1 3 8 4 7 5 10 6
-	duplicate_all_vertexes_graph(gdub, context, start, end);
+//	duplicate_all_vertexes_graph(gdub, context, start, end);
 	//One step of algorithm Suurballe
-	dijkstra(gdub, start);
+	initialize_bfs_search(gdub);
+	bfs(gdub, start);
 	//Two step reverse shortest path
 	path = NULL;
 	beam = NULL;
@@ -225,7 +273,7 @@ t_beam	*suurballe(graph *g, t_context *context, int start, int end)
 //		edgenode = edgenode->next;
 	}
 
-//	path = find_true_path(g, path);
+//	path = find_true_path(g, context, path);
 
 
 //	duplicate_vertex(gdub, context, 3);
