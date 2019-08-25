@@ -104,7 +104,7 @@ void	reverse_path(graph *g, t_context *context,  t_path *path)
 	}
 }
 
-void 	remove_vertex(graph *g, t_context *context, int	vertex, t_path **path)
+void 	remove_fake_vertex(graph *g, t_context *context, int	vertex, t_path **path)
 {
 	t_path	*prev;
 	t_path	*tmp;
@@ -134,7 +134,6 @@ void 	remove_vertex(graph *g, t_context *context, int	vertex, t_path **path)
 					*path = start;
 					return ;
 				}
-
 				prev->next = (*path)->next;
 //				*path = (*path)->next;
 				*path = start;
@@ -151,7 +150,6 @@ void 	remove_vertex(graph *g, t_context *context, int	vertex, t_path **path)
 			(*path) = (*path)->next;
 		}
 	}
-
 }
 
 void	remove_fake_vertexes(graph *g, t_context *context, t_path **path)
@@ -162,7 +160,7 @@ void	remove_fake_vertexes(graph *g, t_context *context, t_path **path)
 	while(tmp)
 	{
 		if (tmp->vertex > g->nvertices - context->in_out_vertices)
-			remove_vertex(g, context, tmp->vertex, path);
+			remove_fake_vertex(g, context, tmp->vertex, path);
 		tmp = tmp->next;
 	}
 }
@@ -179,17 +177,20 @@ void	isolate_edgenode(t_edgenode *edgenode, char isolate)
 t_beam *find_true_beam(graph *g, t_context *context, t_beam *fake_beam, t_edgepoint start_end)
 {
 	t_beam *true_beam;
-	t_beam *start_beam;
+//	t_beam *start_beam;
 	t_path	*path;
 	t_edgenode *edgenode;
 	t_edgenode *tmp_edge;
 	t_edgepoint tmp_point;
 
+	//Добавить функцию удаления ребра перевернутого(пометить изаллированным)
+	//Добавить функцию помечающую ребра которые входят в пути как не изаллированные
+	//
 	path = NULL;
-	start_beam = fake_beam;
-	true_beam = (t_beam *)malloc(sizeof(t_beam));
-	if (!true_beam)
-		return (NULL);
+//	start_beam = fake_beam;
+	true_beam = NULL;//(t_beam *)malloc(sizeof(t_beam));
+//	if (!true_beam)
+//		return (NULL);
 	edgenode = g->edges[start_end.x];
 	isolate_edgenode(edgenode, TRUE);
 
@@ -203,7 +204,7 @@ t_beam *find_true_beam(graph *g, t_context *context, t_beam *fake_beam, t_edgepo
 
 		initialize_bfs_search(g);
 		bfs(g, start_end.x);//Popravit' bfs dlya isolate
-
+		path = NULL;
 		path = find_path(start_end.x, start_end.y, g->parents, &path);
 		add_path_to_beam(&true_beam, &path);
 
@@ -222,6 +223,8 @@ t_beam	*suurballe(graph *g, t_context *context, int start, int end)
 	size_t			i;
 
 	i = 1;
+	start_end.x = start;
+	start_end.y = end;
 //	beam = (t_beam *)ft_memalloc(sizeof(t_beam));
 //	path = (t_path *)ft_memalloc(sizeof(t_path));
 	graph	*gdub;
@@ -233,7 +236,7 @@ t_beam	*suurballe(graph *g, t_context *context, int start, int end)
 	//after duplicate
 	//1: 1 2 7 4 9 6
 	//2: 1 3 8 4 7 5 10 6
-//	duplicate_all_vertexes_graph(gdub, context, start, end);
+	duplicate_all_vertexes_graph(gdub, context, start, end);
 	//One step of algorithm Suurballe
 	initialize_bfs_search(gdub);
 	bfs(gdub, start);
@@ -275,6 +278,7 @@ t_beam	*suurballe(graph *g, t_context *context, int start, int end)
 
 //	path = find_true_path(g, context, path);
 
+//	beam = find_true_beam(g, context, beam, start_end);
 
 //	duplicate_vertex(gdub, context, 3);
 //	ft_putstr("\nafter duplicate vertex\n");

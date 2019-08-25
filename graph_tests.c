@@ -132,14 +132,14 @@ void	test_three_path_graph_suurballe_little(graph *g, t_context *context, int di
 //	insert_edge(g, 3, 4, directed);
 
 
-	edgepoint.x = 1;
-	edgepoint.y = 2;
-	edgenode = get_edgenode(g, &edgepoint);
-	edgenode->isolate = TRUE;
-	edgepoint.x = 1;
-	edgepoint.y = 3;
-	edgenode = get_edgenode(g, &edgepoint);
-	edgenode->isolate = TRUE;
+//	edgepoint.x = 1;
+//	edgepoint.y = 2;
+//	edgenode = get_edgenode(g, &edgepoint);
+//	edgenode->isolate = TRUE;
+//	edgepoint.x = 1;
+//	edgepoint.y = 3;
+//	edgenode = get_edgenode(g, &edgepoint);
+//	edgenode->isolate = TRUE;
 //	edgepoint.x = 1;
 //	edgepoint.y = 4;
 //	edgenode = get_edgenode(g, &edgepoint);

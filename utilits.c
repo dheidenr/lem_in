@@ -180,7 +180,7 @@ t_path	*find_path(int start, int end, int parents[], t_path **path)
 		add_vertex_to_path(path, start);
 	else
 	{
-		if (parents[end] == -1)// || parents[start] == -1)
+		if (parents[end] == -1)
 			return (NULL);
 		find_path(start, parents[end], parents, path);
 		add_vertex_to_path(path, end);
