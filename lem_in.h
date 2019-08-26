@@ -18,7 +18,7 @@
 #define GRAY 1
 #define BLACK 2
 #define	START 1
-#define END 8
+#define END 5
 
 typedef struct s_edgenode
 {

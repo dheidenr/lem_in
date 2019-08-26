@@ -277,7 +277,6 @@ t_beam *find_true_beam(graph *g, t_context *context, t_beam *fake_beam, t_edgepo
 		path = NULL;
 		path = find_path(start_end.x, start_end.y, g->parents, &path);
 		add_path_to_beam(&true_beam, &path);
-
 		tmp_edge->isolate = TRUE;
 		fake_beam = fake_beam->next;
 	}
