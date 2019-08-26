@@ -174,6 +174,72 @@ void	isolate_edgenode(t_edgenode *edgenode, char isolate)
 	}
 }
 
+void 	isolate_all_edges(graph *g)
+{
+	size_t 	count;
+	t_edgenode	*edgenode;
+
+	count = 1;
+	while (count <= g->nvertices)
+	{
+		edgenode = g->edges[count];
+		while (edgenode)
+		{
+			edgenode->isolate = TRUE;
+			edgenode = edgenode->next;
+		}
+		count++;
+	}
+}
+
+t_edgepoint	*reverse_edgepoint(t_edgepoint *edgepoint, t_edgepoint *reverse_edge)
+{
+	reverse_edge->x = edgepoint->y;
+	reverse_edge->y = edgepoint->x;
+	return (reverse_edge);
+}
+
+void 	no_isolate_all_edges_of_beam(graph *g, t_beam *beam)
+{
+	t_path		*path;
+	t_edgenode	*edgenode;
+	t_edgepoint edp;
+	t_edgenode *reverse_edge;
+	t_edgepoint *rev_edp;
+
+	rev_edp = (t_edgepoint *)ft_memalloc(sizeof(t_edgepoint));
+	while (beam)
+	{
+		path = beam->path;
+		edp.x = path->vertex;
+		path = path->next;
+		while (path)
+		{
+			edp.y = path->vertex;
+			edgenode = get_edgenode(g, &edp);
+			if (edgenode)
+			{
+				reverse_edge = get_edgenode(g, reverse_edgepoint(&edp, rev_edp));
+				edgenode->turn++;
+				if (edgenode->turn > 0 && reverse_edge->turn > 0)
+				{
+					edgenode->isolate = TRUE;
+					reverse_edge->isolate = TRUE;
+				}
+				if (edgenode->turn + reverse_edge->turn < 2)
+					edgenode->isolate = FALSE;
+				else
+					edgenode->isolate = TRUE;
+			}
+			path = path->next;
+			edp.x = edp.y;
+		}
+		beam = beam->next;
+	}
+}
+
+
+
 t_beam *find_true_beam(graph *g, t_context *context, t_beam *fake_beam, t_edgepoint start_end)
 {
 	t_beam *true_beam;
@@ -183,9 +249,13 @@ t_beam *find_true_beam(graph *g, t_context *context, t_beam *fake_beam, t_edgepo
 	t_edgenode *tmp_edge;
 	t_edgepoint tmp_point;
 
-	//Добавить функцию удаления ребра перевернутого(пометить изаллированным)
-	//Добавить функцию помечающую ребра которые входят в пути как не изаллированные
-	//
+	//Добавить функцию которая изаллирует все ребра.
+	isolate_all_edges(g);
+	//Добавить функцию помечающую ребра которые входят в пути как не изаллированные и удаляет ребра перевернутого(пометить изаллированным)
+	no_isolate_all_edges_of_beam(g, fake_beam);
+
+	ft_putstr("\nafter isolate_all_edges and no_isolate_all_edges_of_beam \n");
+	print_graph(g);
 	path = NULL;
 //	start_beam = fake_beam;
 	true_beam = NULL;//(t_beam *)malloc(sizeof(t_beam));
@@ -276,9 +346,7 @@ t_beam	*suurballe(graph *g, t_context *context, int start, int end)
 //		edgenode = edgenode->next;
 	}
 
-//	path = find_true_path(g, context, path);
-
-//	beam = find_true_beam(g, context, beam, start_end);
+	beam = find_true_beam(g, context, beam, start_end);
 
 //	duplicate_vertex(gdub, context, 3);
 //	ft_putstr("\nafter duplicate vertex\n");
