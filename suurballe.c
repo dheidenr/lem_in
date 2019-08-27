@@ -1,7 +1,6 @@
 
 #include "lem_in.h"
 #include "libft.h"
-#include "queue.h"
 #include "exdlst.h"
 
 
@@ -238,12 +237,9 @@ void 	no_isolate_all_edges_of_beam(graph *g, t_beam *beam)
 	}
 }
 
-
-
 t_beam *find_true_beam(graph *g, t_context *context, t_beam *fake_beam, t_edgepoint start_end)
 {
 	t_beam *true_beam;
-//	t_beam *start_beam;
 	t_path	*path;
 	t_edgenode *edgenode;
 	t_edgenode *tmp_edge;
@@ -257,10 +253,7 @@ t_beam *find_true_beam(graph *g, t_context *context, t_beam *fake_beam, t_edgepo
 	ft_putstr("\nafter isolate_all_edges and no_isolate_all_edges_of_beam \n");
 	print_graph(g);
 	path = NULL;
-//	start_beam = fake_beam;
 	true_beam = NULL;//(t_beam *)malloc(sizeof(t_beam));
-//	if (!true_beam)
-//		return (NULL);
 	edgenode = g->edges[start_end.x];
 	isolate_edgenode(edgenode, TRUE);
 
@@ -283,6 +276,7 @@ t_beam *find_true_beam(graph *g, t_context *context, t_beam *fake_beam, t_edgepo
 	isolate_edgenode(edgenode, FALSE);
 	return (true_beam);
 }
+
 t_beam	*suurballe(graph *g, t_context *context, int start, int end)
 {
 	t_edgenode		*edgenode;

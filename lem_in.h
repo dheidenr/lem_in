@@ -49,6 +49,10 @@ typedef struct	s_context
 	unsigned char	v_in[MAXV + 1];
 	unsigned char	v_out[MAXV + 1];
 	int				in_out_vertices;
+	char			**names;
+	int 			start;
+	int 			end;
+	int 			ants;
 	t_edgenode		*edgenode;
 }				t_context;
 
@@ -115,4 +119,13 @@ void			duplicate_vertex(graph *g, t_context *context, int vertex);
 t_edgenode* 	get_edgenode(graph *g, t_edgepoint *edp);
 void			add_path_to_beam(t_beam **beam, t_path **path);
 void			add_vertex_to_path(t_path **path, int vertex);
+
+
+//utilits
+size_t	ft_charcount(char const *s, char c);
+void	error();
+
+//Trash
+void	test();
+
 #endif

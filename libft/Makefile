@@ -55,6 +55,7 @@ SRC =	ft_putchar_fd.c \
 		ft_putstr_fd.c \
 		ft_strmap.c   \
 		ft_isalpha.c   \
+		ft_isspace.c   \
 		ft_memcmp.c    \
 		ft_strdup.c   \
 		ft_toupper.c\

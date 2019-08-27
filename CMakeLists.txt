@@ -72,12 +72,14 @@ add_executable(lem_in main.c lem_in.h graph.c
         libft/ft_strtrim.c
         libft/ft_tolower.c
         libft/ft_toupper.c
-        libft/get_next_line.c
-        libft/get_next_line.h
+        get_next_line.c
+        get_next_line.h
+        ft_charcount.c
+        libft/ft_isspace.c
         libft/future_libft.c
         libft/future_libft_addon_one.c
         libft/future_libft_addone_two.c
-        libft/future_libft_addon_three.c exdlstnew.c exdlstdel.c exdlstadd.c exdlst.h exdlstlen.c exdlstdub.c exdlst.c queue.c queue.h trash.c bfs.c shortest_path.c dfs.c graph_tests.c dijkstra.c bellman_ford.c suurballe.c utilits.c print.c)
+        libft/future_libft_addon_three.c exdlstnew.c exdlstdel.c exdlstadd.c exdlst.h exdlstlen.c exdlstdub.c exdlst.c queue.c queue.h trash.c bfs.c shortest_path.c dfs.c graph_tests.c dijkstra.c bellman_ford.c suurballe.c utilits.c print.c test.c get_next_line.c ft_charcount.c input.c helpfulness.c libft/ft_isspace.c)
 
 
 include_directories("${PROJECT_SOURCE_DIR}/include" "${PROJECT_SOURCE_DIR}/libft")
