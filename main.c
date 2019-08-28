@@ -11,10 +11,16 @@ int main()
 	t_context context;
 	char **vertex;
 
-//	vertex = input(&fingl_g);
+
 //	final_beam = suurballe();
 //	output_ants(&g, final_beam);
 
-	test();
+	ft_putstr("before input\n");
+	print_graph(&g);
+	input(&g, &context);
+	ft_putstr("after input\n");
+	print_graph(&g);
+
+//	test();
 	return (0);
 }

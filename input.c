@@ -16,14 +16,14 @@ void	pulling_ants(int fd, t_context *context, char *line)
 {
 	if (get_next_line(fd, &line))
 	{
-		if (ft_str_is_numeric(line))
+		if (line && ft_str_is_numeric(line))
 			context->ants = ft_atoi(line);
 		else
 			error();
 	}
 }
 
-size_t	pulling_room(int fd, char **line, t_context *context)
+size_t	pulling_room(graph *g, t_context *context, int fd, char **line)
 {
 	const char	*str;
 	size_t		len;
@@ -38,13 +38,13 @@ size_t	pulling_room(int fd, char **line, t_context *context)
 	if (ft_strcmp("##start", *line) == 0)
 	{
 		get_next_line(fd, line);
-		context->start = pulling_room(fd, line, context);
+		context->start = pulling_room(g, context, fd, line);
 		return (context->start);
 	}
 	if (ft_strcmp("##end", *line) == 0)
 	{
 		get_next_line(fd, line);
-		context->end = pulling_room(fd, line, context);
+		context->end = pulling_room(g, context,fd, line);
 		return (context->end);
 	}
 
@@ -63,6 +63,7 @@ size_t	pulling_room(int fd, char **line, t_context *context)
 		index++;
 	context->names[index] = name;
 	//get x and y?
+	g->nvertices = index;
 	return (index);
 }
 
@@ -98,23 +99,26 @@ char 	pulling_link(graph *g, t_context *context, const char *line)
 	while (str[len] != '-' && str[len] != '\0')
 		len++;
 	link_one = ft_strsub(str, 0, len);
-	while (str[len] != '-' && str[len] != '\0')
+	while (*str != '-' && *str != '\0')
 		str++;
+	str++;
+	len = 0;
 	//get name link2
 	while (str[len] != '-' && str[len] != '\0')
 		len++;
 	link_two = ft_strsub(str, 0, len);
-	while (str[len] != '-' && str[len] != '\0')
+	while (*str != '-' && *str != '\0')
 		str++;
 	insert_edge(g, get_index_of_link(link_one, context), get_index_of_link(link_two, context), 0);
-	return (0);
+	return (1);
 }
-char 	**input(graph *g, t_context *context)
+void	input(graph *g, t_context *context)
 {
 	char	**names;
 	char 	*line;
 	int 	fd;
 
+	initialize_graph(g, context, 0);
 	names = (char **)ft_memalloc(sizeof(char *) * MAXV);
 	context->names = names;
 	line = NULL;
@@ -132,9 +136,8 @@ char 	**input(graph *g, t_context *context)
 	{
 		if (is_comment(line))
 			continue ;
-		if (!pulling_room(fd, &line, context))
+		if (!pulling_room(g, context,fd, &line))
 			if (!pulling_link(g, context, line))
 				error();
 	}
-	return (names);
 }

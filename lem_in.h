@@ -120,6 +120,7 @@ t_edgenode* 	get_edgenode(graph *g, t_edgepoint *edp);
 void			add_path_to_beam(t_beam **beam, t_path **path);
 void			add_vertex_to_path(t_path **path, int vertex);
 
+void			input(graph *g, t_context *context);
 
 //utilits
 size_t	ft_charcount(char const *s, char c);
