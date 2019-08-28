@@ -65,12 +65,16 @@ typedef  struct	s_edgepoint
 typedef struct s_path
 {
 	int			vertex;
+	int 		full;
+	char 		isolate;
 	struct s_path *next;
 }				t_path;
 
 typedef	struct		s_beam
 {
 	t_path			*path;
+	size_t			length;
+	size_t			ants;
 	struct s_beam	*next;
 }					t_beam;
 
@@ -116,8 +120,9 @@ void			print_path(t_path *path);
 
 void			duplicate_all_vertexes_graph(graph *g, t_context *context, int start, int end);
 void			duplicate_vertex(graph *g, t_context *context, int vertex);
+size_t			get_length_path(t_path *path);
 t_edgenode* 	get_edgenode(graph *g, t_edgepoint *edp);
-void			add_path_to_beam(t_beam **beam, t_path **path);
+void			add_path_to_beam(t_beam **beam, t_path **path, size_t len);
 void			add_vertex_to_path(t_path **path, int vertex);
 
 void			input(graph *g, t_context *context);

@@ -269,7 +269,7 @@ t_beam *find_true_beam(graph *g, t_context *context, t_beam *fake_beam, t_edgepo
 		bfs(g, start_end.x);//Popravit' bfs dlya isolate
 		path = NULL;
 		path = find_path(start_end.x, start_end.y, g->parents, &path);
-		add_path_to_beam(&true_beam, &path);
+		add_path_to_beam(&true_beam, &path, get_length_path(path));
 		tmp_edge->isolate = TRUE;
 		fake_beam = fake_beam->next;
 	}
@@ -313,7 +313,7 @@ t_beam	*suurballe(graph *g, t_context *context, int start, int end)
 
 	reverse_path(gdub, context, path);
 	remove_fake_vertexes(gdub, context, &path);
-	add_path_to_beam(&beam, &path);
+	add_path_to_beam(&beam, &path, get_length_path(path));
 
 //	duplicate_vertexes(g, context, path);
 
@@ -331,7 +331,7 @@ t_beam	*suurballe(graph *g, t_context *context, int start, int end)
 			break ;
 		reverse_path(gdub, context, path);
 		remove_fake_vertexes(gdub, context, &path);
-		add_path_to_beam(&beam, &path);
+		add_path_to_beam(&beam, &path, get_length_path(path));
 		ft_putstr("\n");
 		print_graph(gdub);
 //		duplicate_vertexes(g, context, path);

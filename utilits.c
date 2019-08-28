@@ -128,7 +128,7 @@ void	reverse_edge_and_weight(graph *g, t_edgepoint edp)
 	remove_edge(g, edp, TRUE);
 }
 
-void	add_path_to_beam(t_beam **beam, t_path **path)
+void	add_path_to_beam(t_beam **beam, t_path **path, size_t len)
 {
 	t_beam		*beamtemp;
 	t_beam		*start_beam;
@@ -138,6 +138,7 @@ void	add_path_to_beam(t_beam **beam, t_path **path)
 		*beam = (t_beam *) malloc(sizeof(t_beam));
 		(*beam)->next = NULL;
 		(*beam)->path = *path;
+		(*beam)->length = len;
 	} else
 	{
 		start_beam = *beam;
@@ -146,6 +147,7 @@ void	add_path_to_beam(t_beam **beam, t_path **path)
 		beamtemp = (t_beam *) malloc(sizeof(t_beam));
 		beamtemp->next = NULL;
 		beamtemp->path = *path;
+		beamtemp->length = len;
 		(*beam)->next = beamtemp;
 		*beam = start_beam;
 	}
