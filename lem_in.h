@@ -65,7 +65,7 @@ typedef  struct	s_edgepoint
 typedef struct s_path
 {
 	int			vertex;
-	int 		full;
+	int 		ant;
 	struct s_path *next;
 }				t_path;
 
@@ -126,6 +126,7 @@ void			add_path_to_beam(t_beam **beam, t_path **path, size_t len);
 size_t			get_length_paths(t_beam *beam);
 size_t			get_length_beam(t_beam *beam);
 void			prepare_beam_ants(size_t global_ants, t_beam *beam);
+void			ants_go_the_paths(t_beam *beam);
 void			add_vertex_to_path(t_path **path, int vertex);
 
 void			input(graph *g, t_context *context);

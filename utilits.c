@@ -163,6 +163,7 @@ void	add_vertex_to_path(t_path **path, int vertex)
 		*path = malloc(sizeof(t_path));
 		(*path)->next = NULL;
 		(*path)->vertex = vertex;
+		(*path)->ant = 0;
 		temp = *path;
 	} else
 	{
@@ -170,6 +171,7 @@ void	add_vertex_to_path(t_path **path, int vertex)
 			(*path) = (*path)->next;
 		temppath = malloc(sizeof(t_path));
 		temppath->vertex = vertex;
+		temppath->ant = 0;
 		temppath->next = NULL;
 		(*path)->next = temppath;
 	}

@@ -39,7 +39,6 @@ void	prepare_beam_ants(size_t global_ants, t_beam *beam)
 	size_t	global_length;
 	size_t	number_paths;
 	float	cast;
-
 	t_beam	*tmp;
 
 	lost_ants = global_ants;
@@ -63,16 +62,84 @@ void	prepare_beam_ants(size_t global_ants, t_beam *beam)
 			tmp->ants = 0;
 		tmp = get_next_min_length_beam_and_isolate(tmp);
 	}
+}
+
+void	step_on_the_path(t_beam *beam, size_t ant)
+{
+	t_path	*tmp;
+	t_path	*prev;
+	size_t	len;
+
+	len = 1;
+		if (beam->ants > 0)
+		{
+			tmp = beam->path;
+			if (tmp->ant != 0)
+				while (len > 0)
+				{
+					len = 0;
+					tmp = beam->path;
+					prev = NULL;
+					while (tmp->ant > 0)
+					{
+						prev = tmp;
+						tmp = tmp->next;
+						len++;
+					}
+					if (tmp->next)
+					{
+						if (prev)
+							tmp->ant = prev->ant;
+						if (prev)
+							prev->ant = 0;
+						ft_putstr(ft_strjoin(" L", ft_itoa((int) ant)));
+						ft_putstr(ft_strjoin("-",
+											 ft_itoa((int) tmp->next->vertex)));
+					} else
+					{
+						ft_putstr(ft_strjoin(" L", ft_itoa((int) ant)));
+						ft_putstr(ft_strjoin("-", ft_itoa((int) tmp->vertex)));
+					}
+
+				}
+			else
+				tmp->ant = ant;
+			ft_putchar('\n');
+			beam->ants--;
+		}
+//			if (tmp && tmp->next)
+//			{
+//				tmp->next->ant = ant;
+//				tmp->ant = 0;
+//				ft_putstr(ft_strjoin("L", ft_itoa((int)ant)));
+//				ft_putstr(ft_strjoin("-", ft_itoa((int)tmp->next->vertex)));
+//			}
 
 }
 
-void	step(t_beam *beam)
+void	ants_go_the_paths(t_beam *beam)
 {
-	t_path *path;
+	t_path	*path;
+	t_beam	*tmp_beam;
+	size_t	ant;
 
-	path = beam->path;
-	if (beam->ants > 0)
+	ant = 1;
+	tmp_beam = beam;
+	if (beam)
+		path = beam->path;
+	else
+		return ;
+	while (beam && beam->ants > 0)
 	{
-		while (path->)
+		if (path)
+			step_on_the_path(beam, ant++);
+		beam = beam->next;
+		if (beam)
+			path = beam->path;
+		else
+		{
+			beam = tmp_beam;
+			path = beam->path;
+		}
 	}
 }
