@@ -52,7 +52,7 @@ typedef struct	s_context
 	char			**names;
 	int 			start;
 	int 			end;
-	int 			ants;
+	int 			global_ants;
 	t_edgenode		*edgenode;
 }				t_context;
 
@@ -66,7 +66,6 @@ typedef struct s_path
 {
 	int			vertex;
 	int 		full;
-	char 		isolate;
 	struct s_path *next;
 }				t_path;
 
@@ -75,6 +74,7 @@ typedef	struct		s_beam
 	t_path			*path;
 	size_t			length;
 	size_t			ants;
+	char 			isolate;
 	struct s_beam	*next;
 }					t_beam;
 
@@ -123,6 +123,9 @@ void			duplicate_vertex(graph *g, t_context *context, int vertex);
 size_t			get_length_path(t_path *path);
 t_edgenode* 	get_edgenode(graph *g, t_edgepoint *edp);
 void			add_path_to_beam(t_beam **beam, t_path **path, size_t len);
+size_t			get_length_paths(t_beam *beam);
+size_t			get_length_beam(t_beam *beam);
+void			prepare_beam_ants(size_t global_ants, t_beam *beam);
 void			add_vertex_to_path(t_path **path, int vertex);
 
 void			input(graph *g, t_context *context);

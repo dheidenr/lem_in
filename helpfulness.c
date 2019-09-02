@@ -10,12 +10,46 @@ void	error()
 size_t	get_length_path(t_path *path)
 {
 	size_t	len;
+	t_path	*tmp;
 
 	len = 0;
-	while (path)
+	tmp = path;
+	if (!path)
+		return (0);
+	while(tmp)
 	{
 		len++;
-		path = path->next;
+		tmp = tmp->next;
+	}
+	return (len);
+}
+
+size_t	get_length_paths(t_beam *beam)
+{
+	size_t	len;
+	t_beam	*tmp;
+
+	len = 0;
+	tmp = beam;
+	while(tmp)
+	{
+		len += tmp->length;
+		tmp = tmp->next;
+	}
+	return (len);
+}
+
+size_t	get_length_beam(t_beam *beam)
+{
+	size_t	len;
+	t_beam	*tmp;
+
+	len = 0;
+	tmp = beam;
+	while(tmp)
+	{
+		len++;
+		tmp = tmp->next;
 	}
 	return (len);
 }

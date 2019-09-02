@@ -17,7 +17,7 @@ void	pulling_ants(int fd, t_context *context, char *line)
 	if (get_next_line(fd, &line))
 	{
 		if (line && ft_str_is_numeric(line))
-			context->ants = ft_atoi(line);
+			context->global_ants = ft_atoi(line);
 		else
 			error();
 	}
