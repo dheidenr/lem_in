@@ -71,8 +71,6 @@ void	step_on_the_path(t_beam *beam, size_t ant)
 	size_t	len;
 
 	len = 1;
-		if (beam->ants > 0)
-		{
 			tmp = beam->path;
 			if (tmp->ant != 0)
 				while (len > 0)
@@ -106,7 +104,6 @@ void	step_on_the_path(t_beam *beam, size_t ant)
 				tmp->ant = ant;
 			ft_putchar('\n');
 			beam->ants--;
-		}
 //			if (tmp && tmp->next)
 //			{
 //				tmp->next->ant = ant;
@@ -129,7 +126,7 @@ void	ants_go_the_paths(t_beam *beam)
 		path = beam->path;
 	else
 		return ;
-	while (beam && beam->ants > 0)
+	while (beam->ants > 0)
 	{
 		if (path)
 			step_on_the_path(beam, ant++);
