@@ -1,10 +1,20 @@
 3
 ##start
-0 1 0
+1 0 0
+2 0 0
+3 0 0
+4 0 0
 ##end
-1 5 0
-2 9 0
-3 13 0
-0-2
-2-3
-3-1
+5 0 0
+1-2
+1-3
+1-4
+2-5
+3-5
+4-5
+#	insert_edge(g, 1, 2, directed);
+#	insert_edge(g, 1, 3, directed);
+#	insert_edge(g, 1, 4, directed);
+#	insert_edge(g, 2, 5, directed);
+#	insert_edge(g, 3, 5, directed);
+#	insert_edge(g, 4, 5, directed);

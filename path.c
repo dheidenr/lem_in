@@ -13,8 +13,11 @@ t_beam	*get_next_min_length_beam_and_isolate(t_beam	*beam)
 	t_beam	*result;
 	size_t	min_len;
 
-	tmp = (beam->isolate) ? NULL : beam;
-	while(tmp && !tmp->isolate)
+//	tmp = (beam->isolate) ? NULL : beam;
+	tmp = beam;
+	if (!beam)
+		return (NULL);
+	while(tmp && tmp->isolate)
 		tmp = tmp->next;
 
 	min_len = (tmp) ? tmp->length : 0;
@@ -42,7 +45,7 @@ void	prepare_beam_ants(size_t global_ants, t_beam *beam)
 	t_beam	*tmp;
 
 	lost_ants = global_ants;
-	tmp = beam;
+	tmp = get_next_min_length_beam_and_isolate(beam);
 	global_length = get_length_paths(beam);
 	number_paths = get_length_beam(beam);
 	while(tmp)
@@ -60,83 +63,159 @@ void	prepare_beam_ants(size_t global_ants, t_beam *beam)
 		}
 		else
 			tmp->ants = 0;
-		tmp = get_next_min_length_beam_and_isolate(tmp);
+		tmp = get_next_min_length_beam_and_isolate(beam);
 	}
 }
 
-void	step_on_the_path(t_beam *beam, size_t ant)
+void	print_ant_to_vertex(int ant, int vertex, t_context *context)
 {
-	t_path	*tmp;
-	t_path	*prev;
-	size_t	len;
-
-	len = 1;
-			tmp = beam->path;
-			if (tmp->ant != 0)
-				while (len > 0)
-				{
-					len = 0;
-					tmp = beam->path;
-					prev = NULL;
-					while (tmp->ant > 0)
-					{
-						prev = tmp;
-						tmp = tmp->next;
-						len++;
-					}
-					if (tmp->next)
-					{
-						if (prev)
-							tmp->ant = prev->ant;
-						if (prev)
-							prev->ant = 0;
-						ft_putstr(ft_strjoin(" L", ft_itoa((int) ant)));
-						ft_putstr(ft_strjoin("-",
-											 ft_itoa((int) tmp->next->vertex)));
-					} else
-					{
-						ft_putstr(ft_strjoin(" L", ft_itoa((int) ant)));
-						ft_putstr(ft_strjoin("-", ft_itoa((int) tmp->vertex)));
-					}
-
-				}
-			else
-				tmp->ant = ant;
-			ft_putchar('\n');
-			beam->ants--;
-//			if (tmp && tmp->next)
-//			{
-//				tmp->next->ant = ant;
-//				tmp->ant = 0;
-//				ft_putstr(ft_strjoin("L", ft_itoa((int)ant)));
-//				ft_putstr(ft_strjoin("-", ft_itoa((int)tmp->next->vertex)));
-//			}
-
+	ft_putstr(ft_strjoin("L", ft_itoa(ant)));
+	ft_putstr(ft_strjoin("-", context->names[(size_t)vertex]));
+//	ft_putchar(' ');
 }
 
-void	ants_go_the_paths(t_beam *beam)
+void	swap_two_ants_paths(t_path *p1, t_path *p2, t_context *context)
+{
+	int 	v;
+
+	v = p1->ant;
+	p1->ant = p2->ant;
+	p2->ant = v;
+	if (p1->ant != 0)
+		print_ant_to_vertex(p1->ant, p2->vertex, context);
+}
+
+t_path	*get_path(t_path *path, size_t step)
+{
+	t_path	*p;
+
+	if (step == 0)
+		return (path);
+	p = path;
+	step--;
+	while(step > 0)
+	{
+		step--;
+		p = p->next;
+	}
+	return (p);
+}
+
+void	offset_path(t_beam *beam, t_context *context)
+{
+	t_path	*p1;
+	t_path	*p2;
+	size_t	count;
+
+	count = 1;
+	if (get_path(beam->path, beam->length)->ant > 0)
+		context->finish_ants++;
+	while(count < beam->length)
+	{
+		p1 = get_path(beam->path, count);
+		p2 = get_path(beam->path, count + 1);
+		if (!p2)
+			break ;
+		swap_two_ants_paths(p1, p2, context);
+		count++;
+	}
+	beam->path->next->ant = 0;
+}
+
+void	add_ant_one_path(t_beam *beam, int ant, t_context *context)
+{
+
+	beam->path->ant = ant;
+	print_ant_to_vertex(ant, beam->path->next->vertex, context);
+	beam->ants--;
+}
+void	step_on_the_path(t_beam *beam, int ant, t_context *context)
+{
+//	t_path	*tmp;
+//	t_path	*prev;
+//	size_t	len;
+//
+	if (beam->ants > 0)
+		add_ant_one_path(beam, ant, context);
+	offset_path(beam, context);
+
+//	len = 1;
+//			tmp = beam->path;
+//			if (tmp->ant != 0)
+//				while (len > 0)
+//				{
+//					len = 0;
+//					tmp = beam->path;
+//					prev = NULL;
+//					while (tmp->ant > 0)
+//					{
+//						prev = tmp;
+//						tmp = tmp->next;
+//						len++;
+//					}
+//					if (tmp->next)
+//					{
+//						if (prev)
+//							tmp->ant = prev->ant;
+//						if (prev)
+//							prev->ant = 0;
+//						ft_putstr(ft_strjoin("L", ft_itoa((int) ant)));
+//						ft_putstr(ft_strjoin("-",
+//						context->names[(size_t)(int)tmp->next->vertex]));
+//					} else
+//					{
+//						ft_putstr(ft_strjoin("L", ft_itoa((int) ant)));
+//						ft_putstr(ft_strjoin("-",
+//						context->names[(size_t)(int)tmp->vertex]));
+//						context->finish_ants += 1;
+//					}
+//
+//				}
+//			else
+//			{
+//				tmp->ant = ant;
+//				ft_putstr(ft_strjoin("L", ft_itoa((int) ant)));
+//				ft_putstr(ft_strjoin("-",
+//				context->names[(size_t)(int) tmp->next->vertex]));
+//			}
+//			ft_putchar(' ');
+//			beam->ants--;
+}
+
+void	ants_go_the_paths(t_beam *beam, t_context *context)
 {
 	t_path	*path;
 	t_beam	*tmp_beam;
 	size_t	ant;
+	size_t	stop;
 
-	ant = 1;
+	ant = 0;
+	stop = 0;
+	context->finish_ants = 0;
 	tmp_beam = beam;
 	if (beam)
 		path = beam->path;
 	else
 		return ;
-	while (beam->ants > 0)
+	while (context->finish_ants < context->global_ants)
 	{
 		if (path)
-			step_on_the_path(beam, ant++);
+			step_on_the_path(beam,ant = (beam->ants > 0 ) ? ant + 1 : ant, context);
 		beam = beam->next;
 		if (beam)
+		{
 			path = beam->path;
+			ft_putchar(' ');
+		}
 		else
 		{
 			beam = tmp_beam;
 			path = beam->path;
+			ft_putchar('\n');
 		}
+
+		stop++;
+//		if (stop == 9)
+//			exit(0);
 	}
 }

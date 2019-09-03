@@ -53,6 +53,7 @@ typedef struct	s_context
 	int 			start;
 	int 			end;
 	int 			global_ants;
+	int 			finish_ants;
 	t_edgenode		*edgenode;
 }				t_context;
 
@@ -126,11 +127,10 @@ void			add_path_to_beam(t_beam **beam, t_path **path, size_t len);
 size_t			get_length_paths(t_beam *beam);
 size_t			get_length_beam(t_beam *beam);
 void			prepare_beam_ants(size_t global_ants, t_beam *beam);
-void			ants_go_the_paths(t_beam *beam);
+void			ants_go_the_paths(t_beam *beam, t_context *context);
 void			add_vertex_to_path(t_path **path, int vertex);
-
 void			input(graph *g, t_context *context);
-
+void			output(t_beam *beam, t_context *context);
 //utilits
 size_t	ft_charcount(char const *s, char c);
 void	error();
