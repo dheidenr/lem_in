@@ -16,11 +16,13 @@ size_t	get_length_path(t_path *path)
 	tmp = path;
 	if (!path)
 		return (0);
-	while(tmp)
+	while(tmp->next)
 	{
 		len++;
 		tmp = tmp->next;
 	}
+//	if (len == 2)
+//		len--; // кастыль?
 	return (len);
 }
 

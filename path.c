@@ -45,9 +45,20 @@ void	prepare_beam_ants(size_t global_ants, t_beam *beam)
 	t_beam	*tmp;
 
 	lost_ants = global_ants;
+	//kostyl niz
+	global_length = get_length_paths(beam);
+	if (global_length == 1)
+	{
+		beam->ants = 1;
+		if (beam->next)
+			beam->next->ants = 0;
+		return ;
+	}
+	//kostyl verh
 	tmp = get_next_min_length_beam_and_isolate(beam);
 	global_length = get_length_paths(beam);
 	number_paths = get_length_beam(beam);
+
 	while(tmp)
 	{
 		if (lost_ants > 0)
@@ -89,10 +100,12 @@ t_path	*get_path(t_path *path, size_t step)
 {
 	t_path	*p;
 
-	if (step == 0)
+	if (step == 0 || (path && path->next && !path->next->next))
 		return (path);
+	if (!path)
+		return (NULL);
 	p = path;
-	step--;
+//	step--;
 	while(step > 0)
 	{
 		step--;
@@ -107,7 +120,7 @@ void	offset_path(t_beam *beam, t_context *context)
 	t_path	*p2;
 	size_t	count;
 
-	count = 1;
+	count = 0;
 	if (get_path(beam->path, beam->length)->ant > 0)
 		context->finish_ants++;
 	while(count < beam->length)
@@ -199,7 +212,7 @@ void	ants_go_the_paths(t_beam *beam, t_context *context)
 		return ;
 	while (context->finish_ants < context->global_ants)
 	{
-		if (path)
+		if (path && beam->ants)
 			step_on_the_path(beam,ant = (beam->ants > 0 ) ? ant + 1 : ant, context);
 		beam = beam->next;
 		if (beam)

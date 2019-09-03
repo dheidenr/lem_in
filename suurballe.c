@@ -127,7 +127,8 @@ void 	remove_fake_vertex(graph *g, t_context *context, int	vertex, t_path **path
 				if (prev->vertex != (*path)->vertex - (g->nvertices - context->in_out_vertices) + 1
 					&& (*path)->next->vertex != (*path)->vertex - (g->nvertices - context->in_out_vertices) + 1
 					&& (*path)->vertex > g->nvertices - context->in_out_vertices
-					&& prev != *path)
+					&& prev != *path
+					&& prev->vertex != 1) // кастыль?
 				{
 					(*path)->vertex = (*path)->vertex - (g->nvertices - context->in_out_vertices) + 1;
 					*path = start;
@@ -318,7 +319,7 @@ t_beam	*suurballe(graph *g, t_context *context, int start, int end)
 //	duplicate_vertexes(g, context, path);
 
 	edgenode = g->edges[start]->next;
-	while (i <= g->degree[1])
+	while (i <= g->degree[start])
 	{
 		initialize_bfs_search(gdub);
 		bfs(gdub, start);
