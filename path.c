@@ -49,7 +49,7 @@ void	prepare_beam_ants(size_t global_ants, t_beam *beam)
 	global_length = get_length_paths(beam);
 	if (global_length == 1)
 	{
-		beam->ants = 1;
+		beam->ants = global_ants;
 		if (beam->next)
 			beam->next->ants = 0;
 		return ;
@@ -85,22 +85,23 @@ void	print_ant_to_vertex(int ant, int vertex, t_context *context)
 //	ft_putchar(' ');
 }
 
-void	swap_two_ants_paths(t_path *p1, t_path *p2, t_context *context)
+void	move_ant(t_path *src, t_path *dst, t_context *context)
 {
-	int 	v;
-
-	v = p1->ant;
-	p1->ant = p2->ant;
-	p2->ant = v;
-	if (p1->ant != 0)
-		print_ant_to_vertex(p1->ant, p2->vertex, context);
+//	int 	ant;
+//
+//	ant = src->ant;
+//	src->ant = dst->ant;
+//	dst->ant = ant;
+	dst->ant = src->ant;
+	if (src->ant != 0)
+		print_ant_to_vertex(src->ant, dst->vertex, context);
 }
 
 t_path	*get_path(t_path *path, size_t step)
 {
 	t_path	*p;
 
-	if (step == 0 || (path && path->next && !path->next->next))
+	if (step == 0)// || (path && path->next && !path->next->next))
 		return (path);
 	if (!path)
 		return (NULL);
@@ -125,21 +126,21 @@ void	offset_path(t_beam *beam, t_context *context)
 		context->finish_ants++;
 	while(count < beam->length)
 	{
-		p1 = get_path(beam->path, count);
-		p2 = get_path(beam->path, count + 1);
+		p1 = get_path(beam->path, /*(beam->length == 1) ? 2 :*/ beam->length - count - 1);
+		p2 = get_path(beam->path, /*(beam->length == 1) ? 2 :*/ beam->length - count);
 		if (!p2)
 			break ;
-		swap_two_ants_paths(p1, p2, context);
+		move_ant(p1, p2, context);
 		count++;
 	}
-	beam->path->next->ant = 0;
+	beam->path->ant = 0;
 }
 
 void	add_ant_one_path(t_beam *beam, int ant, t_context *context)
 {
 
 	beam->path->ant = ant;
-	print_ant_to_vertex(ant, beam->path->next->vertex, context);
+//	print_ant_to_vertex(ant, beam->path->next->vertex, context);
 	beam->ants--;
 }
 void	step_on_the_path(t_beam *beam, int ant, t_context *context)
@@ -212,8 +213,9 @@ void	ants_go_the_paths(t_beam *beam, t_context *context)
 		return ;
 	while (context->finish_ants < context->global_ants)
 	{
-		if (path && beam->ants)
-			step_on_the_path(beam,ant = (beam->ants > 0 ) ? ant + 1 : ant, context);
+		if (path)
+			step_on_the_path(beam,ant = (beam->ants > 0 )  ? ant + 1 : ant,
+																	context);
 		beam = beam->next;
 		if (beam)
 		{
