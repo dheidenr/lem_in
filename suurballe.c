@@ -124,16 +124,16 @@ void 	remove_fake_vertex(graph *g, t_context *context, int	vertex, t_path **path
 			else if (prev && *path)
 			{
 				tmp = *path;
-//				if (prev->vertex != (*path)->vertex - (g->nvertices - context->in_out_vertices) + 1
-//					&& (*path)->next->vertex != (*path)->vertex - (g->nvertices - context->in_out_vertices) + 1
+				if (prev->vertex != (*path)->vertex - (g->nvertices - context->in_out_vertices) + 1
+					&& (*path)->next->vertex != (*path)->vertex - (g->nvertices - context->in_out_vertices) + 1)
 //					&& (*path)->vertex > g->nvertices - context->in_out_vertices
 //					&& prev != *path
 //					&& prev->vertex != 1) // кастыль?
-//				{
-//					(*path)->vertex = (*path)->vertex - (g->nvertices - context->in_out_vertices) + 1;
-//					*path = start;
-//					return ;
-//				}
+				{
+					(*path)->vertex = (*path)->vertex - (g->nvertices - context->in_out_vertices) + 1;
+					*path = start;
+					return ;
+				}
 				prev->next = (*path)->next;
 //				*path = (*path)->next;
 				*path = start;
@@ -339,8 +339,12 @@ t_beam	*suurballe(graph *g, t_context *context, int start, int end)
 		i++;
 //		edgenode = edgenode->next;
 	}
-
-	beam = find_true_beam(g, context, beam, start_end);
+	ft_putstr("\n before find suurballe beam:\n");
+	print_beam(beam);
+	if (get_length_beam(beam) > 1)
+		beam = find_true_beam(g, context, beam, start_end);
+	ft_putstr("\n after find suurballe beam:\n");
+	print_beam(beam);
 
 //	duplicate_vertex(gdub, context, 3);
 //	ft_putstr("\nafter duplicate vertex\n");

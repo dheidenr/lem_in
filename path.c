@@ -237,12 +237,7 @@ void	ants_go_the_paths(t_beam *beam, t_context *context)
 																	context);
 		beam = beam->next;
 		if (beam)
-		{
 			path = beam->path;
-//		if (context->finish_ants < context->global_ants)
-//				ft_putchar(' ');
-
-		}
 		else
 		{
 			beam = tmp_beam;
