@@ -19,6 +19,8 @@
 #define BLACK 2
 #define	START 1
 #define END 5
+#define END_SPACE 1
+#define NOT_END_SPACE 0
 
 typedef struct s_edgenode
 {
@@ -54,6 +56,7 @@ typedef struct	s_context
 	int 			end;
 	int 			global_ants;
 	int 			finish_ants;
+	int 			flag;
 	t_edgenode		*edgenode;
 }				t_context;
 

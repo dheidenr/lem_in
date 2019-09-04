@@ -70,7 +70,15 @@ void	prepare_beam_ants(size_t global_ants, t_beam *beam)
 						- tmp->length :
 						(global_ants + global_length) / number_paths
 						- tmp->length + 1;
-			lost_ants -= tmp->ants;
+			if (tmp->ants >= lost_ants)
+			{
+				tmp->ants = lost_ants;
+				lost_ants = 0;
+			}
+			else if (lost_ants)
+				lost_ants -= tmp->ants;
+			else
+				tmp->ants = 0;
 		}
 		else
 			tmp->ants = 0;
@@ -85,7 +93,7 @@ void	print_ant_to_vertex(int ant, int vertex, t_context *context)
 //	ft_putchar(' ');
 }
 
-void	move_ant(t_path *src, t_path *dst, t_context *context)
+void	move_ant(t_path *src, t_path *dst, t_context *context)//, char end_space)
 {
 //	int 	ant;
 //
@@ -95,6 +103,8 @@ void	move_ant(t_path *src, t_path *dst, t_context *context)
 	dst->ant = src->ant;
 	if (src->ant != 0)
 		print_ant_to_vertex(src->ant, dst->vertex, context);
+//	if (src->ant != 0 && dst->ant != 0 && end_space)
+//		ft_putchar(' ');
 }
 
 t_path	*get_path(t_path *path, size_t step)
@@ -120,6 +130,8 @@ void	offset_path(t_beam *beam, t_context *context)
 	t_path	*p1;
 	t_path	*p2;
 	size_t	count;
+//	char 	flag;
+
 
 	count = 0;
 	if (get_path(beam->path, beam->length)->ant > 0)
@@ -130,8 +142,14 @@ void	offset_path(t_beam *beam, t_context *context)
 		p2 = get_path(beam->path, /*(beam->length == 1) ? 2 :*/ beam->length - count);
 		if (!p2)
 			break ;
-		move_ant(p1, p2, context);
+//		if (p1->ant != 0)
+		if (context->flag && p1->ant != 0)
+			ft_putchar(' ');
+		if (p1->ant != 0)
+			context->flag = 1;
+		move_ant(p1, p2, context);//, (0) ?  END_SPACE : NOT_END_SPACE);
 		count++;
+
 	}
 	beam->path->ant = 0;
 }
@@ -143,6 +161,7 @@ void	add_ant_one_path(t_beam *beam, int ant, t_context *context)
 //	print_ant_to_vertex(ant, beam->path->next->vertex, context);
 	beam->ants--;
 }
+
 void	step_on_the_path(t_beam *beam, int ant, t_context *context)
 {
 //	t_path	*tmp;
@@ -220,12 +239,15 @@ void	ants_go_the_paths(t_beam *beam, t_context *context)
 		if (beam)
 		{
 			path = beam->path;
-			ft_putchar(' ');
+//		if (context->finish_ants < context->global_ants)
+//				ft_putchar(' ');
+
 		}
 		else
 		{
 			beam = tmp_beam;
 			path = beam->path;
+			context->flag = 0;
 			ft_putchar('\n');
 		}
 

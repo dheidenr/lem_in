@@ -280,7 +280,7 @@ t_beam *find_true_beam(graph *g, t_context *context, t_beam *fake_beam, t_edgepo
 
 t_beam	*suurballe(graph *g, t_context *context, int start, int end)
 {
-	t_edgenode		*edgenode;
+//	t_edgenode		*edgenode;
 	t_edgepoint		start_end;
 	t_path 			*path;
 	t_beam			*beam;
@@ -318,7 +318,7 @@ t_beam	*suurballe(graph *g, t_context *context, int start, int end)
 
 //	duplicate_vertexes(g, context, path);
 
-	edgenode = g->edges[start]->next;
+//	edgenode = g->edges[start]->next;
 	while (i <= g->degree[start])
 	{
 		initialize_bfs_search(gdub);
