@@ -220,15 +220,22 @@ void 	no_isolate_all_edges_of_beam(graph *g, t_beam *beam)
 			{
 				reverse_edge = get_edgenode(g, reverse_edgepoint(&edp, rev_edp));
 				edgenode->turn++;
-				if (edgenode->turn > 0 && reverse_edge->turn > 0)
-				{
-					edgenode->isolate = TRUE;
-					reverse_edge->isolate = TRUE;
-				}
-				if (edgenode->turn + reverse_edge->turn < 2)
-					edgenode->isolate = FALSE;
-				else
-					edgenode->isolate = TRUE;
+//				if (reverse_edge)
+//				{
+					if (edgenode->turn > 0 && reverse_edge->turn > 0)
+					{
+						edgenode->isolate = TRUE;
+						reverse_edge->isolate = TRUE;
+					}
+					if (edgenode->turn + reverse_edge->turn < 2)
+						edgenode->isolate = FALSE;
+					else
+						edgenode->isolate = TRUE;
+//				}
+//				else if (edgenode->turn < 2)
+//					edgenode->isolate = FALSE;
+//				else
+//					edgenode->isolate = TRUE;
 			}
 			path = path->next;
 			edp.x = edp.y;
@@ -252,8 +259,11 @@ t_beam *find_true_beam(graph *g, t_context *context, t_beam *fake_beam, t_edgepo
 	//Добавить функцию которая изаллирует все ребра.
 	isolate_all_edges(g);
 //	print_graph(g);
+//	print_beam(fake_beam);
+//	print_graph(g);
 	//Добавить функцию помечающую ребра которые входят в пути как не изаллированные и удаляет ребра перевернутого(пометить изаллированным)
 	no_isolate_all_edges_of_beam(g, fake_beam);
+
 //	print_graph(g);
 //	ft_putstr("\nafter isolate_all_edges and no_isolate_all_edges_of_beam \n");
 
@@ -285,6 +295,7 @@ t_beam *find_true_beam(graph *g, t_context *context, t_beam *fake_beam, t_edgepo
 	}
 	isolate_edgenode(edgenode, FALSE);
 
+	//kostyl!!!
 	if (!true_beam && beam)
 	{
 		path = get_next_min_length_beam_and_isolate(beam)->path;

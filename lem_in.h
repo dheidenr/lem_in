@@ -112,7 +112,6 @@ void			test_too_path_graph_suurballe_extreme(graph *g, t_context *context, int d
 void			test_too_path_graph_suurballe_wiki(graph *g, t_context *context, int directed);
 void			test_three_path_graph_suurballe_little(graph *g, t_context *context, int directed);
 
-
 t_beam			*suurballe(graph *g, t_context *context, int start, int end);
 graph*			graphdub(graph* g);
 void			remove_edge(graph *g, t_edgepoint edgepoint, int directed);
@@ -120,7 +119,6 @@ void			reverse_edge_and_weight(graph *g, t_edgepoint edp);
 int			 	get_weight_edge(graph *g, t_edgepoint *edp);
 void			print_beam(t_beam *beam);
 void			print_path(t_path *path);
-
 
 void			duplicate_all_vertexes_graph(graph *g, t_context *context, int start, int end);
 void			duplicate_vertex(graph *g, t_context *context, int vertex);
