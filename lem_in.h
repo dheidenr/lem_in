@@ -50,6 +50,7 @@ typedef struct	s_context
 	int long 		short_paths[MAXV + 1];
 	unsigned char	v_in[MAXV + 1];
 	unsigned char	v_out[MAXV + 1];
+	int 			clones[MAXV + 1];
 	int				in_out_vertices;
 	char			**names;
 	int 			start;

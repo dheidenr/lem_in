@@ -34,7 +34,8 @@ void	duplicate_vertex(graph *g, t_context *context, int vertex)
 	//create two vertex
 	g->nvertices++;
 	context->in_out_vertices++;
-	context->v_out[context->in_out_vertices] = TRUE;
+//	context->v_out[context->in_out_vertices] = TRUE;
+	context->v_out[context->in_out_vertices] = vertex;
 	//changes edges of vertexes
 	edgepoint.x = vertex;
 	edgepoint.y = g->nvertices;
@@ -75,7 +76,6 @@ void	duplicate_vertexes(graph *g, t_context *context,  t_path *path)
 void	duplicate_all_vertexes_graph(graph *g, t_context *context, int start, int end)
 {
 	size_t	vertex;
-	t_edgenode *edgenode;
 
 	//Пропускаем старт
 	vertex = 1;
@@ -124,13 +124,13 @@ void 	remove_fake_vertex(graph *g, t_context *context, int	vertex, t_path **path
 			else if (prev && *path)
 			{
 				tmp = *path;
-				if (prev->vertex != (*path)->vertex - (g->nvertices - context->in_out_vertices) + 1
-					&& (*path)->next->vertex != (*path)->vertex - (g->nvertices - context->in_out_vertices) + 1)
+				if (prev->vertex != context->v_out[(*path)->vertex - (g->nvertices - context->in_out_vertices)] // (*path)->vertex - (g->nvertices - context->in_out_vertices) + 1
+					&& (*path)->next->vertex != context->v_out[(*path)->vertex - (g->nvertices - context->in_out_vertices)]) // != (*path)->vertex - (g->nvertices - context->in_out_vertices) + 1)
 //					&& (*path)->vertex > g->nvertices - context->in_out_vertices
 //					&& prev != *path
 //					&& prev->vertex != 1) // кастыль?
 				{
-					(*path)->vertex = (*path)->vertex - (g->nvertices - context->in_out_vertices) + 1;
+					(*path)->vertex = context->v_out[(*path)->vertex - (g->nvertices - context->in_out_vertices)]; // (*path)->vertex - (g->nvertices - context->in_out_vertices) + 1;
 					*path = start;
 					return ;
 				}

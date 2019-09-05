@@ -29,8 +29,8 @@ int main()
 
 	initialize_bfs_search(&g);
 	initialize_dijkstra_search(&g, &context);
-	context.start = 2;
-	context.end = 3;
+//	context.start = 2;
+//	context.end = 3;
 //	context.global_ants = 3;
 	beam = suurballe(&g, &context, context.start, context.end);
 	print_beam(beam);
