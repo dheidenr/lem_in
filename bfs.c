@@ -62,8 +62,7 @@ void	bfs(graph *g, int start)
 			if ((g->color[y] != BLACK) || (g->directed))
 				process_edge(v, y, g);
 			if (g->color[y] == WHITE && !p->isolate)
-			{
-				enqueue(&q, y);
+			{				enqueue(&q, y);
 				g->color[y] = GRAY;
 				g->parents[y] = v;
 			}

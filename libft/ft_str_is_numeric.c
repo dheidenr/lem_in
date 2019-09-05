@@ -17,7 +17,7 @@ int		ft_str_is_numeric(char *s)
 	char *p;
 
 	p = s;
-	while ((size_t)(s - p - 1) != ft_strlen(s))
+	while (*s)
 		if (!ft_isdigit(*s++))
 			return (0);
 	return (1);

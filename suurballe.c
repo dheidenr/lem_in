@@ -87,7 +87,6 @@ void	duplicate_all_vertexes_graph(graph *g, t_context *context, int start, int e
 	}
 }
 
-
 void	reverse_path(graph *g, t_context *context,  t_path *path)
 {
 	t_edgepoint edgepoint;
@@ -245,20 +244,30 @@ t_beam *find_true_beam(graph *g, t_context *context, t_beam *fake_beam, t_edgepo
 	t_edgenode *edgenode;
 	t_edgenode *tmp_edge;
 	t_edgepoint tmp_point;
+	t_beam *beam;
 
+	beam = fake_beam;
+	print_graph(g);
+	print_beam(fake_beam);
 	//Добавить функцию которая изаллирует все ребра.
 	isolate_all_edges(g);
+	print_graph(g);
 	//Добавить функцию помечающую ребра которые входят в пути как не изаллированные и удаляет ребра перевернутого(пометить изаллированным)
 	no_isolate_all_edges_of_beam(g, fake_beam);
-
-	ft_putstr("\nafter isolate_all_edges and no_isolate_all_edges_of_beam \n");
 	print_graph(g);
+//	ft_putstr("\nafter isolate_all_edges and no_isolate_all_edges_of_beam \n");
+
 	path = NULL;
 	true_beam = NULL;//(t_beam *)malloc(sizeof(t_beam));
 	edgenode = g->edges[start_end.x];
 	isolate_edgenode(edgenode, TRUE);
 
 	tmp_point.x = start_end.x;
+
+
+	print_graph(g);
+	print_beam(fake_beam);
+
 	while(fake_beam)
 	{
 		//Получаем номер следующей вершины после старта в текущем пути
@@ -275,6 +284,12 @@ t_beam *find_true_beam(graph *g, t_context *context, t_beam *fake_beam, t_edgepo
 		fake_beam = fake_beam->next;
 	}
 	isolate_edgenode(edgenode, FALSE);
+
+	if (!true_beam && beam)
+	{
+		path = get_next_min_length_beam_and_isolate(beam)->path;
+		add_path_to_beam(&true_beam, &path, get_length_path(path));
+	}
 	return (true_beam);
 }
 
@@ -308,9 +323,9 @@ t_beam	*suurballe(graph *g, t_context *context, int start, int end)
 	path = NULL;
 	beam = NULL;
 	path = find_path(start, end, gdub->parents, &path);
-	ft_putstr("before add path null duplicate vertexes\n");
-	print_graph(gdub);
-	print_array_graph(gdub->parents, gdub, "\nparent surrballe dubg\n");
+//	ft_putstr("before add path null duplicate vertexes\n");
+//	print_graph(gdub);
+//	print_array_graph(gdub->parents, gdub, "\nparent surrballe dubg\n");
 
 	reverse_path(gdub, context, path);
 	remove_fake_vertexes(gdub, context, &path);
@@ -324,8 +339,8 @@ t_beam	*suurballe(graph *g, t_context *context, int start, int end)
 		initialize_bfs_search(gdub);
 		bfs(gdub, start);
 		path = NULL;
-		print_array_graph(gdub->parents, gdub,  "\nparent surrballe dubg\n");
-		print_graph(gdub);
+//		print_array_graph(gdub->parents, gdub,  "\nparent surrballe dubg\n");
+//		print_graph(gdub);
 		path = find_path(start, end, gdub->parents, &path);
 
 		if (!path)
@@ -333,18 +348,18 @@ t_beam	*suurballe(graph *g, t_context *context, int start, int end)
 		reverse_path(gdub, context, path);
 		remove_fake_vertexes(gdub, context, &path);
 		add_path_to_beam(&beam, &path, get_length_path(path));
-		ft_putstr("\n");
-		print_graph(gdub);
+//		ft_putstr("\n");
+//		print_graph(gdub);
 //		duplicate_vertexes(g, context, path);
 		i++;
 //		edgenode = edgenode->next;
 	}
-	ft_putstr("\n before find suurballe beam:\n");
-	print_beam(beam);
+//	ft_putstr("\n before find suurballe beam:\n");
+//	print_beam(beam);
 	if (get_length_beam(beam) > 1)
 		beam = find_true_beam(g, context, beam, start_end);
-	ft_putstr("\n after find suurballe beam:\n");
-	print_beam(beam);
+//	ft_putstr("\n after find suurballe beam:\n");
+//	print_beam(beam);
 
 //	duplicate_vertex(gdub, context, 3);
 //	ft_putstr("\nafter duplicate vertex\n");

@@ -133,6 +133,8 @@ void	add_path_to_beam(t_beam **beam, t_path **path, size_t len)
 	t_beam		*beamtemp;
 	t_beam		*start_beam;
 
+	if (!*path)
+		return ;
 	if (!*beam)
 	{
 		*beam = (t_beam *) malloc(sizeof(t_beam));

@@ -243,9 +243,9 @@ void	ants_go_the_paths(t_beam *beam, t_context *context)
 			beam = tmp_beam;
 			path = beam->path;
 			context->flag = 0;
-			ft_putchar('\n');
+			if (context->finish_ants < context->global_ants)
+				ft_putchar('\n');
 		}
-
 		stop++;
 //		if (stop == 9)
 //			exit(0);

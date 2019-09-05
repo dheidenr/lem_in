@@ -3,6 +3,16 @@
 #include "lem_in.h"
 #include "get_next_line.h"
 
+int 	print_gnl(const int fd, char **line)
+{
+	int		result;
+
+	result = get_next_line(fd, line);
+	ft_putstr(*line);
+	ft_putchar('\n');
+	return (result);
+}
+
 char 	is_comment(const char *line)
 {
 	if (!line)
@@ -12,12 +22,12 @@ char 	is_comment(const char *line)
 	return (0);
 }
 
-void	pulling_ants(int fd, t_context *context, char *line)
+void	pulling_ants(int fd, t_context *context, char **line)
 {
-	if (get_next_line(fd, &line))
+	if (print_gnl(fd, line))
 	{
-		if (line && ft_str_is_numeric(line))
-			context->global_ants = ft_atoi(line);
+		if (*line && ft_str_is_numeric(*line))
+			context->global_ants = ft_atoi(*line);
 		else
 			error();
 	}
@@ -37,13 +47,13 @@ size_t	pulling_room(graph *g, t_context *context, int fd, char **line)
 		return (0);
 	if (ft_strcmp("##start", *line) == 0)
 	{
-		get_next_line(fd, line);
+		print_gnl(fd, line);
 		context->start = pulling_room(g, context, fd, line);
 		return (context->start);
 	}
 	if (ft_strcmp("##end", *line) == 0)
 	{
-		get_next_line(fd, line);
+		print_gnl(fd, line);
 		context->end = pulling_room(g, context,fd, line);
 		return (context->end);
 	}
@@ -129,10 +139,12 @@ void	input(graph *g, t_context *context)
 	//если коментарий пропустить, если две решетки проверить на старт и следующий определить
 	//Если цифра и потом
 
-	fd = open("ant7.txt", O_RDONLY);
-	pulling_ants(fd, context, line);
+//	fd = open("ant9.txt", O_RDONLY);
 
-	while (get_next_line(fd, &line))
+	fd = 0;
+	pulling_ants(fd, context, &line);
+
+	while (print_gnl(fd, &line))
 	{
 		if (is_comment(line))
 			continue ;

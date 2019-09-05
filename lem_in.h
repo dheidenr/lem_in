@@ -50,7 +50,6 @@ typedef struct	s_context
 	int long 		short_paths[MAXV + 1];
 	unsigned char	v_in[MAXV + 1];
 	unsigned char	v_out[MAXV + 1];
-	int 			clones[MAXV + 1];
 	int				in_out_vertices;
 	char			**names;
 	int 			start;
@@ -133,6 +132,7 @@ size_t			get_length_beam(t_beam *beam);
 void			prepare_beam_ants(size_t global_ants, t_beam *beam);
 void			ants_go_the_paths(t_beam *beam, t_context *context);
 void			add_vertex_to_path(t_path **path, int vertex);
+t_beam			*get_next_min_length_beam_and_isolate(t_beam *beam);
 void			input(graph *g, t_context *context);
 void			output(t_beam *beam, t_context *context);
 //utilits
