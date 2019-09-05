@@ -247,14 +247,14 @@ t_beam *find_true_beam(graph *g, t_context *context, t_beam *fake_beam, t_edgepo
 	t_beam *beam;
 
 	beam = fake_beam;
-	print_graph(g);
-	print_beam(fake_beam);
+//	print_graph(g);
+//	print_beam(fake_beam);
 	//Добавить функцию которая изаллирует все ребра.
 	isolate_all_edges(g);
-	print_graph(g);
+//	print_graph(g);
 	//Добавить функцию помечающую ребра которые входят в пути как не изаллированные и удаляет ребра перевернутого(пометить изаллированным)
 	no_isolate_all_edges_of_beam(g, fake_beam);
-	print_graph(g);
+//	print_graph(g);
 //	ft_putstr("\nafter isolate_all_edges and no_isolate_all_edges_of_beam \n");
 
 	path = NULL;
@@ -265,8 +265,8 @@ t_beam *find_true_beam(graph *g, t_context *context, t_beam *fake_beam, t_edgepo
 	tmp_point.x = start_end.x;
 
 
-	print_graph(g);
-	print_beam(fake_beam);
+//	print_graph(g);
+//	print_beam(fake_beam);
 
 	while(fake_beam)
 	{
