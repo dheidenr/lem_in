@@ -82,6 +82,13 @@ typedef	struct		s_beam
 	struct s_beam	*next;
 }					t_beam;
 
+typedef	struct		s_beams
+{
+	t_beam			*beam;
+	size_t			number_steps;
+	struct s_beams	*next;
+}					t_beams;
+
 void			initialize_graph(graph *g, t_context *context, int directed);
 void			insert_edge(graph *g, int x, int y, int directed);
 void			insert_edge_weight(graph *g, t_edgepoint *edgepoint, int directed,

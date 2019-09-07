@@ -122,6 +122,7 @@ char 	pulling_link(graph *g, t_context *context, const char *line)
 	insert_edge(g, get_index_of_link(link_one, context), get_index_of_link(link_two, context), 0);
 	return (1);
 }
+
 void	input(graph *g, t_context *context)
 {
 	char	**names;
@@ -139,7 +140,7 @@ void	input(graph *g, t_context *context)
 	//если коментарий пропустить, если две решетки проверить на старт и следующий определить
 	//Если цифра и потом
 
-	fd = open("ant_gen.txt", O_RDONLY);
+	fd = open("ant14.txt", O_RDONLY);
 
 //	fd = 0;
 	pulling_ants(fd, context, &line);

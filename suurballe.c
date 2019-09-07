@@ -274,7 +274,6 @@ t_beam *find_true_beam(graph *g, t_context *context, t_beam *fake_beam, t_edgepo
 
 	tmp_point.x = start_end.x;
 
-
 //	print_graph(g);
 //	print_beam(fake_beam);
 
