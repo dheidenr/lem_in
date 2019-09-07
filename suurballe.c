@@ -258,6 +258,7 @@ t_beam *find_true_beam(graph *g, t_context *context, t_beam *fake_beam, t_edgepo
 //	print_beam(fake_beam);
 	//Добавить функцию которая изаллирует все ребра.
 	isolate_all_edges(g);
+
 //	print_graph(g);
 //	print_beam(fake_beam);
 //	print_graph(g);
