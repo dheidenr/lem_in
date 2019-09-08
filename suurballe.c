@@ -148,6 +148,11 @@ void 	remove_fake_vertex(graph *g, t_context *context, int	vertex, t_path **path
 			prev = *path;
 			(*path) = (*path)->next;
 		}
+//		if (tmp)
+//		{
+//			free((tmp));
+//			tmp = NULL;
+//		}
 	}
 }
 

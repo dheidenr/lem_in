@@ -107,10 +107,13 @@ void			dfs(graph *g, t_context *context, int v);
 void			dfs2(graph *g, t_context *context, int v);
 void			dijkstra(graph *g, int start);
 int				bellman_ford(graph *g, t_context *context, int start);
-t_queue			*shortest_bfs_path_search(graph *g, int start, int end);
 void			print_path_start_end(int start, int end, int *parents);
-t_queue			*qfind_path(int start, int end, int parents[], t_queue **q);
+
 t_path			*find_path(int start, int end, int parents[], t_path **path);
+
+//t_queue			*qfind_path(int start, int end, int parents[], t_queue **q);
+//t_queue			*shortest_bfs_path_search(graph *g, int start, int end);
+
 
 void			test_1_graph(graph *g, t_context *context, int directed);
 void			test_too_path_graph(graph *g, t_context *context, int directed);

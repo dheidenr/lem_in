@@ -205,6 +205,7 @@ graph*	graphdub(graph* g)
 
 	graph_result =  (graph *)malloc(sizeof(*g));
 	i = 0;
+	//Инициализировать граф с обнулением или в -1 значениями
 	while(i <= g->nvertices)
 	{
 		edgenode = g->edges[i];

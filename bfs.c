@@ -2,7 +2,7 @@
 #include "queue.h"
 #include "exdlst.h"
 #include "lem_in.h"
-
+#include "aqueue.h"
 
 void	initialize_bfs_search(graph *g)
 {
@@ -35,17 +35,18 @@ void process_edge(int x, int y, graph *g)
 }
 void	bfs(graph *g, int start)
 {
-	t_queue		*q;
+	t_aqueue		*q;
 	int			v;
 	int 		y;
 	t_edgenode *p;
 
-	init_queue(&q);
-	enqueue(&q, start);
+	q = NULL;
+	init_aqueue(&q);
+	enaqueue(q, start);
 	g->color[start] = WHITE;
-	while (is_empty_queue(q) == FALSE)
+	while (is_empty_aqueue(q) == FALSE)
 	{
-		v = dequeue(&q);
+		v = deaqueue(q);
 		process_vertex_early(v);
 		g->color[v] = BLACK;
 		p = g->edges[v];
@@ -62,7 +63,7 @@ void	bfs(graph *g, int start)
 			if ((g->color[y] != BLACK) || (g->directed))
 				process_edge(v, y, g);
 			if (g->color[y] == WHITE && !p->isolate)
-			{				enqueue(&q, y);
+			{				enaqueue(q, y);
 				g->color[y] = GRAY;
 				g->parents[y] = v;
 			}
@@ -71,7 +72,7 @@ void	bfs(graph *g, int start)
 		process_vertex_late(v);
 	}
 
-	while((v = dequeue(&q), v != -1))
+	while((v = deaqueue(q), v != -1))
 		;
 	free(q);
 }
