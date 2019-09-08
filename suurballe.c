@@ -254,13 +254,13 @@ t_beam *find_true_beam(graph *g, t_context *context, t_beam *fake_beam, t_edgepo
 	t_beam *beam;
 
 	beam = fake_beam;
-//	print_graph(g);
-//	print_beam(fake_beam);
+	print_graph(g);
+	print_beam(fake_beam);
 	//Добавить функцию которая изаллирует все ребра.
 	isolate_all_edges(g);
 
-//	print_graph(g);
-//	print_beam(fake_beam);
+	print_graph(g);
+	print_beam(fake_beam);
 //	print_graph(g);
 	//Добавить функцию помечающую ребра которые входят в пути как не изаллированные и удаляет ребра перевернутого(пометить изаллированным)
 	no_isolate_all_edges_of_beam(g, fake_beam);
@@ -275,8 +275,8 @@ t_beam *find_true_beam(graph *g, t_context *context, t_beam *fake_beam, t_edgepo
 
 	tmp_point.x = start_end.x;
 
-//	print_graph(g);
-//	print_beam(fake_beam);
+	print_graph(g);
+	print_beam(fake_beam);
 
 	while(fake_beam)
 	{
@@ -284,6 +284,9 @@ t_beam *find_true_beam(graph *g, t_context *context, t_beam *fake_beam, t_edgepo
 		tmp_point.y = fake_beam->path->next->vertex;
 		tmp_edge = get_edgenode(g, &tmp_point);
 		tmp_edge->isolate = FALSE;
+
+		print_graph(g);
+		print_beam(true_beam);
 
 		initialize_bfs_search(g);
 		bfs(g, start_end.x);//Popravit' bfs dlya isolate

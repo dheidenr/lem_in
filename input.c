@@ -140,7 +140,7 @@ void	input(graph *g, t_context *context)
 	//если коментарий пропустить, если две решетки проверить на старт и следующий определить
 	//Если цифра и потом
 
-	fd = open("ant14.txt", O_RDONLY);
+	fd = open("/Users/dheidenr/CLionProjects/lem_in/cmake-build-debug/kir/test_KIR_22", O_RDONLY);
 
 //	fd = 0;
 	pulling_ants(fd, context, &line);
