@@ -13,12 +13,16 @@ int 	print_gnl(const int fd, char **line)
 	return (result);
 }
 
-char 	is_comment(const char *line)
+char 	is_comment(char *line)
 {
 	if (!line)
 		return (0);
 	if (line[0] == '#' && line[1] != '#')
+	{
+		free(line);
+		line = NULL;
 		return (1);
+	}
 	return (0);
 }
 
@@ -27,7 +31,11 @@ void	pulling_ants(int fd, t_context *context, char **line)
 	if (print_gnl(fd, line))
 	{
 		if (*line && ft_str_is_numeric(*line))
+		{
 			context->global_ants = ft_atoi(*line);
+			free(*line);
+			line = NULL;
+		}
 		else
 			error();
 	}
@@ -36,6 +44,7 @@ void	pulling_ants(int fd, t_context *context, char **line)
 size_t	pulling_room(graph *g, t_context *context, int fd, char **line)
 {
 	const char	*str;
+	char 		*str_free;
 	size_t		len;
 	char 		*name;
 	size_t 		index;
@@ -49,12 +58,16 @@ size_t	pulling_room(graph *g, t_context *context, int fd, char **line)
 	{
 		print_gnl(fd, line);
 		context->start = pulling_room(g, context, fd, line);
+		free(*line);
+		*line = NULL;
 		return (context->start);
 	}
 	if (ft_strcmp("##end", *line) == 0)
 	{
 		print_gnl(fd, line);
 		context->end = pulling_room(g, context,fd, line);
+		free(*line);
+		*line = NULL;
 		return (context->end);
 	}
 
@@ -74,6 +87,8 @@ size_t	pulling_room(graph *g, t_context *context, int fd, char **line)
 	context->names[index] = name;
 	//get x and y?
 	g->nvertices = index;
+//	free(*line);
+//	*line = NULL;
 	return (index);
 }
 
@@ -90,7 +105,7 @@ int	get_index_of_link(char *link, t_context *context)
 	return (0);
 }
 
-char 	pulling_link(graph *g, t_context *context, const char *line)
+char 	pulling_link(graph *g, t_context *context, char *line)
 {
 	const char	*str;
 	size_t		len;
@@ -120,6 +135,12 @@ char 	pulling_link(graph *g, t_context *context, const char *line)
 	while (*str != '-' && *str != '\0')
 		str++;
 	insert_edge(g, get_index_of_link(link_one, context), get_index_of_link(link_two, context), 0);
+	free(line);
+	line = NULL;
+	free(link_one);
+	link_one = NULL;
+	free(link_two);
+	link_two = NULL;
 	return (1);
 }
 
@@ -140,7 +161,7 @@ void	input(graph *g, t_context *context)
 	//если коментарий пропустить, если две решетки проверить на старт и следующий определить
 	//Если цифра и потом
 
-	fd = open("/Users/dheidenr/CLionProjects/lem_in/cmake-build-debug/kir/test_KIR_22", O_RDONLY);
+	fd = open("ant_gen.txt", O_RDONLY);
 
 //	fd = 0;
 	pulling_ants(fd, context, &line);
@@ -148,9 +169,10 @@ void	input(graph *g, t_context *context)
 	while (print_gnl(fd, &line))
 	{
 		if (is_comment(line))
-			continue ;
+			continue;
 		if (!pulling_room(g, context,fd, &line))
 			if (!pulling_link(g, context, line))
 				error();
+
 	}
 }

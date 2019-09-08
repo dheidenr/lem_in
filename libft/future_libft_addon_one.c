@@ -73,3 +73,12 @@ int		ft_putstr_return(const char *str, int result)
 	write(2, str, ft_strlen(str));
 	return (result);
 }
+
+void	putstr_free(char *str)
+{
+	if (!str)
+		return ;
+	write(1, str, ft_strlen(str));
+	free(str);
+	str = NULL;
+}

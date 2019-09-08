@@ -137,11 +137,15 @@ size_t			get_length_beam(t_beam *beam);
 void			prepare_beam_ants(size_t global_ants, t_beam *beam);
 void			ants_go_the_paths(t_beam *beam, t_context *context);
 void			add_vertex_to_path(t_path **path, int vertex);
+t_beam			*get_min_length_beam(t_beam	*beam);
 t_beam			*get_next_min_length_beam_and_isolate(t_beam *beam);
 void			input(graph *g, t_context *context);
 void			output(t_beam *beam, t_context *context);
 //utilits
 size_t	ft_charcount(char const *s, char c);
+void	clearing_structures(graph *g, t_context *context, t_beam *beam);
+void	clear_path(t_path *path);
+void	clear_graph(graph *g);
 void	error();
 
 //Trash

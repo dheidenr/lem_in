@@ -36,6 +36,33 @@ t_beam	*get_next_min_length_beam_and_isolate(t_beam	*beam)
 	return (result);
 }
 
+t_beam	*get_min_length_beam(t_beam	*beam)
+{
+	t_beam *tmp;
+	t_beam	*result;
+	size_t	min_len;
+
+//	tmp = (beam->isolate) ? NULL : beam;
+	tmp = beam;
+	if (!beam)
+		return (NULL);
+	while(tmp && tmp->isolate)
+		tmp = tmp->next;
+
+	min_len = (tmp) ? tmp->length : 0;
+	result = tmp;
+	while (tmp)
+	{
+		if (tmp->length < min_len)
+		{
+			min_len = tmp->length;
+			result = tmp;
+		}
+		tmp = tmp->next;
+	}
+	return (result);
+}
+
 void	prepare_beam_ants(size_t global_ants, t_beam *beam)
 {
 	size_t	lost_ants;
@@ -88,8 +115,8 @@ void	prepare_beam_ants(size_t global_ants, t_beam *beam)
 
 void	print_ant_to_vertex(int ant, int vertex, t_context *context)
 {
-	ft_putstr(ft_strjoin("L", ft_itoa(ant)));
-	ft_putstr(ft_strjoin("-", context->names[(size_t)vertex]));
+	putstr_free(strjoin_free("L", ft_itoa(ant), 2));
+	putstr_free(ft_strjoin("-", context->names[(size_t)vertex]));
 //	ft_putchar(' ');
 }
 
@@ -117,7 +144,7 @@ t_path	*get_path(t_path *path, size_t step)
 		return (NULL);
 	p = path;
 //	step--;
-	while(step > 0)
+	while(p && step > 0)
 	{
 		step--;
 		p = p->next;

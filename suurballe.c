@@ -254,14 +254,14 @@ t_beam *find_true_beam(graph *g, t_context *context, t_beam *fake_beam, t_edgepo
 	t_beam *beam;
 
 	beam = fake_beam;
-	print_graph(g);
-	print_beam(fake_beam);
+//	print_graph(g);
+//	print_beam(fake_beam);
 	//Добавить функцию которая изаллирует все ребра.
 	isolate_all_edges(g);
 
-	print_graph(g);
-	print_beam(fake_beam);
 //	print_graph(g);
+//	print_beam(fake_beam);
+
 	//Добавить функцию помечающую ребра которые входят в пути как не изаллированные и удаляет ребра перевернутого(пометить изаллированным)
 	no_isolate_all_edges_of_beam(g, fake_beam);
 
@@ -274,9 +274,9 @@ t_beam *find_true_beam(graph *g, t_context *context, t_beam *fake_beam, t_edgepo
 	isolate_edgenode(edgenode, TRUE);
 
 	tmp_point.x = start_end.x;
-
-	print_graph(g);
-	print_beam(fake_beam);
+//
+//	print_graph(g);
+//	print_beam(fake_beam);
 
 	while(fake_beam)
 	{
@@ -285,8 +285,8 @@ t_beam *find_true_beam(graph *g, t_context *context, t_beam *fake_beam, t_edgepo
 		tmp_edge = get_edgenode(g, &tmp_point);
 		tmp_edge->isolate = FALSE;
 
-		print_graph(g);
-		print_beam(true_beam);
+//		print_graph(g);
+//		print_beam(true_beam);
 
 		initialize_bfs_search(g);
 		bfs(g, start_end.x);//Popravit' bfs dlya isolate
@@ -301,9 +301,15 @@ t_beam *find_true_beam(graph *g, t_context *context, t_beam *fake_beam, t_edgepo
 	//kostyl!!!
 	if (!true_beam && beam)
 	{
-		path = get_next_min_length_beam_and_isolate(beam)->path;
+		true_beam = get_min_length_beam(beam);
+		path = beam->path;
+		true_beam->path = NULL;
+		true_beam = NULL;
 		add_path_to_beam(&true_beam, &path, get_length_path(path));
 	}
+	clearing_structures(NULL, NULL, beam);
+//	print_graph(g);
+//	print_beam(true_beam);
 	return (true_beam);
 }
 
@@ -314,13 +320,14 @@ t_beam	*suurballe(graph *g, t_context *context, int start, int end)
 	t_path 			*path;
 	t_beam			*beam;
 	size_t			i;
+	graph	*gdub;
 
 	i = 1;
 	start_end.x = start;
 	start_end.y = end;
 //	beam = (t_beam *)ft_memalloc(sizeof(t_beam));
 //	path = (t_path *)ft_memalloc(sizeof(t_path));
-	graph	*gdub;
+
 	//Zero step Suurballe
 	gdub = graphdub(g);
 	//non duplicate
@@ -378,5 +385,6 @@ t_beam	*suurballe(graph *g, t_context *context, int start, int end)
 //	duplicate_vertex(gdub, context, 3);
 //	ft_putstr("\nafter duplicate vertex\n");
 //	print_graph(gdub);
+	clear_graph(gdub);
 	return (beam);
 }

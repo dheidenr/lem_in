@@ -23,7 +23,7 @@ void	enqueue(t_queue **q, int start)
 		init_queue(q);
 	if (!*q)
 		return ;
-	exdlist =  exdlstnew((void *)st, sizeof(int));
+	exdlist = exdlstnew((void *)st, sizeof(int));
 	free(st);
 	if ((*q)->exdlist)
 	{
@@ -41,16 +41,21 @@ void	enqueue(t_queue **q, int start)
 		tmp->end = exdlist;
 	}
 	else
-	{
 		(*q)->exdlist = exdlist;
-	}
 	(*q)->length++;
 }
+
+//void	memsetdel(void *entity, size_t size)
+//{
+//	ft_memset(entity, 0, size);
+//	free(entity);
+//}
 
 int		dequeue(t_queue **q)
 {
 	t_exdlist *exdlist;
 	t_exdlist	*tmp;
+	t_exdlist	*free_tmp;
 	int 				result;
 
 	if (!(*q) || !(*q)->length)
@@ -61,6 +66,7 @@ int		dequeue(t_queue **q)
 			exdlist = (*q)->exdlist->next;
 	tmp = (*q)->exdlist;
 	result = *(int *)(tmp->content);
+	free_tmp = tmp;
 	while (tmp->next)
 	{
 		tmp->start = exdlist;
@@ -71,6 +77,14 @@ int		dequeue(t_queue **q)
 	tmp->start = exdlist;
 	(*q)->exdlist = exdlist;
 	(*q)->length--;
+//	if (free_tmp && free_tmp->content)
+//	{
+//		memsetdel(free_tmp->content, free_tmp->content_size);
+////		free(free_tmp->content);
+//		free_tmp->content = NULL;
+//		memsetdel(free_tmp, sizeof(free_tmp));
+//		free_tmp = NULL;
+//	}
 	return (result);
 }
 

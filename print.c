@@ -15,13 +15,17 @@ void	print_path(t_path *path)
 void	print_beam(t_beam *beam)
 {
 	int 	count;
+	char 	*str;
 
 	ft_putstr(__FUNCTION__);
 	ft_putstr("\n");
 	count = 1;
 	while(beam)
 	{
-		ft_putstr(ft_itoa(count));
+		str = ft_itoa(count);
+		ft_putstr(str);
+		if (str)
+			free(str);
 		ft_putstr(":");
 		if (beam->path)
 			print_path(beam->path);

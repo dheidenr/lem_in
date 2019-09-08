@@ -118,6 +118,7 @@ void	*void_free(void *void_free, void *value);
 void	*dlst_free(t_dlist *dlist_free, void *value);
 void	*val_free_void(char **values, t_dlist **space_stack);
 char	*malloc_str(char *str);
+void	putstr_free(char *str);
 
 int		equiv_max_template(char *src, char *template);
 void	brute_force_one_symbol(char *elements, char *template);

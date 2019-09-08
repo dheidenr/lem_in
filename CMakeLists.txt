@@ -79,7 +79,7 @@ add_executable(lem_in main.c lem_in.h graph.c
         libft/future_libft.c
         libft/future_libft_addon_one.c
         libft/future_libft_addone_two.c
-        libft/future_libft_addon_three.c exdlstnew.c exdlstdel.c exdlstadd.c exdlst.h exdlstlen.c exdlstdub.c exdlst.c queue.c queue.h trash.c bfs.c shortest_path.c dfs.c graph_tests.c dijkstra.c bellman_ford.c suurballe.c utilits.c print.c test.c get_next_line.c ft_charcount.c input.c helpfulness.c libft/ft_isspace.c output.c path.c beams.c)
+        libft/future_libft_addon_three.c exdlstnew.c exdlstdel.c exdlstadd.c exdlst.h exdlstlen.c exdlstdub.c exdlst.c queue.c queue.h trash.c bfs.c shortest_path.c dfs.c graph_tests.c dijkstra.c bellman_ford.c suurballe.c utilits.c print.c test.c get_next_line.c ft_charcount.c input.c helpfulness.c libft/ft_isspace.c output.c path.c beams.c clearing_structures.c)
 
 
 include_directories("${PROJECT_SOURCE_DIR}/include" "${PROJECT_SOURCE_DIR}/libft")

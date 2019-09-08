@@ -8,7 +8,7 @@ void	initialize_graph(graph *g, t_context *context, int directed)
 	g->nvertices = 0;
 	g->nedges = 0;
 	g->directed = directed;
-	i = 1;
+	i = 0;
 	while (i <= MAXV)
 	{
 		g->degree[i] = 0;

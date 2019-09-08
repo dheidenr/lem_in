@@ -35,8 +35,8 @@ void process_edge(int x, int y, graph *g)
 }
 void	bfs(graph *g, int start)
 {
-	t_queue *q;
-	int		v;
+	t_queue		*q;
+	int			v;
 	int 		y;
 	t_edgenode *p;
 
@@ -70,4 +70,8 @@ void	bfs(graph *g, int start)
 		}
 		process_vertex_late(v);
 	}
+
+	while((v = dequeue(&q), v != -1))
+		;
+	free(q);
 }

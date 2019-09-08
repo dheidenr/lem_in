@@ -36,5 +36,6 @@ int main()
 	output(beam, &context);
 
 //	test();
+	clearing_structures(&g, &context, beam);
 	return (0);
 }
