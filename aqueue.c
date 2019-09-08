@@ -1,0 +1,64 @@
+
+#include "aqueue.h"
+#include "libft.h"
+#include "lem_in.h"
+
+void	init_aqueue(t_aqueue **q)
+{
+	*q = ft_memalloc(sizeof(t_aqueue));
+	ft_memset((*q)->elements,0, sizeof(t_aqueue));
+	(*q)->cursor = 0;
+	(*q)->end = 0;
+	(*q)->length = 0;
+}
+
+void	enaqueue(t_aqueue *q, int src)
+{
+	q->elements[q->end] = src;
+	q->end++;
+	q->length = q->end - q->cursor;
+}
+
+//void	memsetdel(void *entity, size_t size)
+//{
+//	ft_memset(entity, 0, size);
+//	free(entity);
+//}
+
+int		deaqueue(t_aqueue *q)
+{
+	int		result;
+
+	if (!q->length)
+		return (-1);
+	result = q->elements[q->cursor];
+	q->cursor++;
+	q->length = q->end - q->cursor;
+	return (result);
+}
+
+int 		is_empty_aqueue(t_aqueue *q)
+{
+	return (q && q->length ? 0 : 1);
+}
+
+void	print_aqueue(t_aqueue *q)//, int	debug)
+{
+	t_exdlist	*exdlist;
+	size_t		count;
+
+	if (is_empty_aqueue(q))
+		ft_putstr("Null\n");
+	count = q->cursor;
+
+//	if  (!debug)
+		while (count < q->end)
+		{
+			ft_putnbr(q->elements[count]);
+			ft_putstr(" ");
+			count++;
+		}
+//	else
+//		exdlist_int_put(exdlist);
+	ft_putstr("\n");
+}
