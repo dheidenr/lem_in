@@ -12,8 +12,6 @@ int main()
 //	final_beam = suurballe();
 //	output_ants(&g, final_beam);
 	beam = NULL;
-	context.start = 0;
-	context.end = 0;
 	initialize_graph(&g, &context, 0);
 	input(&g, &context);
 //	count = 1;

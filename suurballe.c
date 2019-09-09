@@ -204,6 +204,24 @@ void 	isolate_all_edges(graph *g)
 	}
 }
 
+void 	turn_to_zero_all_edges(graph *g)
+{
+	size_t 	count;
+	t_edgenode	*edgenode;
+
+	count = 1;
+	while (count <= g->nvertices)
+	{
+		edgenode = g->edges[count];
+		while (edgenode)
+		{
+			edgenode->turn = FALSE;
+			edgenode = edgenode->next;
+		}
+		count++;
+	}
+}
+
 t_edgepoint	*reverse_edgepoint(t_edgepoint *edgepoint, t_edgepoint *reverse_edge)
 {
 	reverse_edge->x = edgepoint->y;
@@ -218,7 +236,9 @@ void 	no_isolate_all_edges_of_beam(graph *g, t_beam *beam)
 	t_edgepoint edp;
 	t_edgenode *reverse_edge;
 	t_edgepoint *rev_edp;
+	t_beam	*tmp;
 
+	tmp = beam;
 	rev_edp = (t_edgepoint *)ft_memalloc(sizeof(t_edgepoint));
 	while (beam)
 	{
@@ -231,19 +251,24 @@ void 	no_isolate_all_edges_of_beam(graph *g, t_beam *beam)
 			edgenode = get_edgenode(g, &edp);
 			if (edgenode)
 			{
-				reverse_edge = get_edgenode(g, reverse_edgepoint(&edp, rev_edp));
+//				reverse_edge = get_edgenode(g, reverse_edgepoint(&edp, rev_edp));
 				edgenode->turn++;
+				edgenode->isolate = FALSE;
+				if ((edp.y == 289) && (edp.x == 251))
+					printf(" 251 289 %d(w:%d,t:%d,i:%d)\n", edgenode->y, edgenode->weight, edgenode->turn, edgenode->isolate);
 //				if (reverse_edge)
 //				{
-					if (edgenode->turn > 0 && reverse_edge->turn > 0)
-					{
-						edgenode->isolate = TRUE;
-						reverse_edge->isolate = TRUE;
-					}
-					if (edgenode->turn + reverse_edge->turn < 2)
-						edgenode->isolate = FALSE;
-					else
-						edgenode->isolate = TRUE;
+
+//					if (edgenode->turn > 0 && reverse_edge->turn > 0)
+//					{
+//						edgenode->isolate = TRUE;
+//						reverse_edge->isolate = TRUE;
+//					}
+//					if (edgenode->turn + reverse_edge->turn < 2)
+//						edgenode->isolate = FALSE;
+//					else
+//						edgenode->isolate = TRUE;
+
 //				}
 //				else if (edgenode->turn < 2)
 //					edgenode->isolate = FALSE;
@@ -255,8 +280,70 @@ void 	no_isolate_all_edges_of_beam(graph *g, t_beam *beam)
 		}
 		beam = beam->next;
 	}
+
+	beam = tmp;
+	while (beam)
+	{
+		path = beam->path;
+		edp.x = path->vertex;
+		path = path->next;
+		while (path)
+		{
+			edp.y = path->vertex;
+			edgenode = get_edgenode(g, &edp);
+			if (edgenode)
+			{
+				reverse_edge = get_edgenode(g, reverse_edgepoint(&edp, rev_edp));
+//				edgenode->turn++;
+
+				if (edgenode->turn > 0 && reverse_edge->turn > 0)
+					{
+						edgenode->isolate = TRUE;
+						reverse_edge->isolate = TRUE;
+						printf(" %d(w:%d,t:%d,i:%d)\n", edgenode->y, edgenode->weight, edgenode->turn, edgenode->isolate);
+					}
+				if (edgenode->turn > 1)
+				{
+					edgenode->isolate = TRUE;
+					printf(" %d(w:%d,t:%d,i:%d)\n", edgenode->y, edgenode->weight, edgenode->turn, edgenode->isolate);
+				}
+				if (reverse_edge->turn > 1)
+				{
+					reverse_edge->isolate = TRUE;
+					printf(" %d(w:%d,t:%d,i:%d)\n", edgenode->y, edgenode->weight, edgenode->turn, edgenode->isolate);
+				}
+//				edgenode->isolate = FALSE;
+
+//				if (reverse_edge)
+//				{
+
+//					if (edgenode->turn > 0 && reverse_edge->turn > 0)
+//					{
+//						edgenode->isolate = TRUE;
+//						reverse_edge->isolate = TRUE;
+//					}
+//					if (edgenode->turn + reverse_edge->turn < 2)
+//						edgenode->isolate = FALSE;
+//					else
+//						edgenode->isolate = TRUE;
+
+//				}
+//				else if (edgenode->turn < 2)
+//					edgenode->isolate = FALSE;
+//				else
+//					edgenode->isolate = TRUE;
+			}
+			path = path->next;
+			edp.x = edp.y;
+		}
+		beam = beam->next;
+	}
+
+
+
 	free(rev_edp);
 	rev_edp = NULL;
+
 }
 
 t_beam *find_true_beam(graph *g, t_context *context, t_beam *fake_beam, t_edgepoint start_end)
@@ -272,6 +359,7 @@ t_beam *find_true_beam(graph *g, t_context *context, t_beam *fake_beam, t_edgepo
 //	print_graph(g);
 //	print_beam(fake_beam);
 	//Добавить функцию которая изаллирует все ребра.
+	turn_to_zero_all_edges(g);
 	isolate_all_edges(g);
 
 //	print_graph(g);
@@ -280,7 +368,7 @@ t_beam *find_true_beam(graph *g, t_context *context, t_beam *fake_beam, t_edgepo
 	//Добавить функцию помечающую ребра которые входят в пути как не изаллированные и удаляет ребра перевернутого(пометить изаллированным)
 	no_isolate_all_edges_of_beam(g, fake_beam);
 
-//	print_graph(g);
+	print_graph(g);
 //	ft_putstr("\nafter isolate_all_edges and no_isolate_all_edges_of_beam \n");
 
 	path = NULL;
@@ -360,7 +448,7 @@ t_beam	*suurballe(graph *g, t_context *context, int start, int end)
 	beam = NULL;
 	path = find_path(start, end, gdub->parents, &path);
 //	ft_putstr("before add path null duplicate vertexes\n");
-//	print_graph(gdub);
+	print_graph(g);
 //	print_array_graph(gdub->parents, gdub, "\nparent surrballe dubg\n");
 
 	reverse_path(gdub, context, path);
@@ -393,7 +481,8 @@ t_beam	*suurballe(graph *g, t_context *context, int start, int end)
 //	ft_putstr("\n before find suurballe beam:\n");
 //	print_beam(beam);
 	if (get_length_beam(beam) > 1)
-		beam = find_true_beam(g, context, beam, start_end);
+//		beam = find_true_beam(g, context, beam, start_end);
+		beam = find_optimal_beam(g, context, beam, start_end);
 //	ft_putstr("\n after find suurballe beam:\n");
 //	print_beam(beam);
 

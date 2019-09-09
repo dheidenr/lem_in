@@ -101,7 +101,8 @@ void	print_graph(graph *g)
 		p = g->edges[i];
 		while (p != NULL)
 		{
-			printf(" %d(w:%d,t:%d,i:%d)", p->y, p->weight, p->turn, p->isolate);
+//			if (!p->isolate)
+				printf(" %d(w:%d,t:%d,i:%d)", p->y, p->weight, p->turn, p->isolate);
 			p = p->next;
 		}
 		printf("\n");

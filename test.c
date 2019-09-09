@@ -75,7 +75,7 @@ void	test()
 	ft_putstr("\n");
 //	print_queue(shortest_bfs_path_search(&g, 1, 5), 0);
 	init_queue(&q);
-	print_queue(qfind_path(START, END, g.parents, &q), 0);
+//	print_queue(qfind_path(START, END, g.parents, &q), 0);
 
 	//test function of suurballe
 	path = NULL;

@@ -90,6 +90,8 @@ typedef	struct		s_beams
 	struct s_beams	*next;
 }					t_beams;
 
+t_beam			*find_true_beam(graph *g, t_context *context, t_beam *fake_beam,
+														t_edgepoint start_end);
 void			initialize_graph(graph *g, t_context *context, int directed);
 void			insert_edge(graph *g, int x, int y, int directed);
 void			insert_edge_weight(graph *g, t_edgepoint *edgepoint, int directed,
@@ -97,7 +99,8 @@ void			insert_edge_weight(graph *g, t_edgepoint *edgepoint, int directed,
 void			print_graph(graph *g);
 void			print_array_graph(int array[], graph *g, char *str);
 void			read_graph(graph *g, t_context *context, int directed);
-void			random_graph(graph *g, t_context *context, int directed, int nvertices, unsigned int r, int edges);
+void			random_graph(graph *g, t_context *context, int directed,
+									int nvertices, unsigned int r, int edges);
 void			initialize_bfs_search(graph *g);
 void			initialize_dfs_search(graph *g, t_context *context);
 void			initialize_dijkstra_search(graph *g, t_context* context);
@@ -146,6 +149,8 @@ t_beam			*get_next_min_length_beam_and_isolate(t_beam *beam);
 void			input(graph *g, t_context *context);
 void			output(t_beam *beam, t_context *context);
 //utilits
+t_beam	*find_optimal_beam(graph *g, t_context *context, t_beam *beam,
+														t_edgepoint start_end);
 size_t	ft_charcount(char const *s, char c);
 void	clearing_structures(graph *g, t_context *context, t_beam *beam);
 void	clear_path(t_path *path);
