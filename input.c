@@ -1,7 +1,7 @@
 
 
 #include "lem_in.h"
-#include "get_next_line.h"
+#include "libft/get_next_line.h"
 
 int 	print_gnl(const int fd, char **line)
 {
@@ -56,18 +56,18 @@ size_t	pulling_room(graph *g, t_context *context, int fd, char **line)
 		return (0);
 	if (ft_strcmp("##start", *line) == 0)
 	{
-		print_gnl(fd, line);
-		context->start = pulling_room(g, context, fd, line);
 		free(*line);
 		*line = NULL;
+		print_gnl(fd, line);
+		context->start = pulling_room(g, context, fd, line);
 		return (context->start);
 	}
 	if (ft_strcmp("##end", *line) == 0)
 	{
-		print_gnl(fd, line);
-		context->end = pulling_room(g, context,fd, line);
 		free(*line);
 		*line = NULL;
+		print_gnl(fd, line);
+		context->end = pulling_room(g, context,fd, line);
 		return (context->end);
 	}
 
@@ -87,8 +87,8 @@ size_t	pulling_room(graph *g, t_context *context, int fd, char **line)
 	context->names[index] = name;
 	//get x and y?
 	g->nvertices = index;
-//	free(*line);
-//	*line = NULL;
+	free(*line);
+	*line = NULL;
 	return (index);
 }
 
@@ -175,4 +175,7 @@ void	input(graph *g, t_context *context)
 				error();
 
 	}
+//	if (*line)
+//		free(line);
+	line = NULL;
 }

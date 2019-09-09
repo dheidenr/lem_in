@@ -12,6 +12,8 @@ int main()
 //	final_beam = suurballe();
 //	output_ants(&g, final_beam);
 	beam = NULL;
+	context.start = 0;
+	context.end = 0;
 	initialize_graph(&g, &context, 0);
 	input(&g, &context);
 //	count = 1;
@@ -38,27 +40,36 @@ int main()
 //	test();
 	clearing_structures(&g, &context, beam);
 
-	t_aqueue *q;
-	size_t		count;
-	int 		number;
-	int 		xz;
+//	t_aqueue *q;
+//	size_t		count;
+//	int 		number;
+//	int 		xz;
+//
+//	count = 666;
+//	xz = 7;
+//	q = NULL;
+//	init_aqueue(&q);
+//
+//	while (count <= 7777)
+//	{
+//		enaqueue(q, count);
+//		count++;
+//	}
+//
+//	while (!is_empty_aqueue(q))
+//	{
+//		number = deaqueue(q);
+//		printf("len:%lu|cursor:%lu|end:%lu|nbr:%d|\n", q->length, q->cursor, q->end, number);
+//	}
+//
+//	count = 0;
+//	while (count <= 7)
+//	{
+//		enaqueue(q, count);
+//		count++;
+//	}
+//
+//	print_aqueue(q);
 
-	count = 666;
-	xz = 7;
-	q = NULL;
-	init_aqueue(&q);
-
-	while (count <= 7777)
-	{
-		enaqueue(q, count);
-		count++;
-	}
-
-	while (!is_empty_aqueue(q))
-	{
-		number = deaqueue(q);
-		printf("len:%lu|cursor:%lu|end:%lu|nbr:%d|\n", q->length, q->cursor, q->end, number);
-	}
-	print_aqueue(q);
 	return (0);
 }

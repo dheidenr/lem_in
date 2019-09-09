@@ -48,7 +48,6 @@ t_beam	*get_min_length_beam(t_beam	*beam)
 		return (NULL);
 	while(tmp && tmp->isolate)
 		tmp = tmp->next;
-
 	min_len = (tmp) ? tmp->length : 0;
 	result = tmp;
 	while (tmp)

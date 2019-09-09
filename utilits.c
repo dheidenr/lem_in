@@ -27,7 +27,7 @@ void	remove_edge_directed(graph *g, int x, int y)
 				edge = NULL;
 			}
 			--g->nedges;
-			break;
+			return ;
 		}
 		prevedge = edge;
 		edge = edge->next;
@@ -137,19 +137,23 @@ void	add_path_to_beam(t_beam **beam, t_path **path, size_t len)
 		return ;
 	if (!*beam)
 	{
-		*beam = (t_beam *) malloc(sizeof(t_beam));
+		*beam = (t_beam *)ft_memalloc(sizeof(t_beam));
 		(*beam)->next = NULL;
 		(*beam)->path = *path;
 		(*beam)->length = len;
+		(*beam)->ants = 0;
+		(*beam)->isolate = 0;
 	} else
 	{
 		start_beam = *beam;
 		while ((*beam)->next)
 			*beam = (*beam)->next;
-		beamtemp = (t_beam *) malloc(sizeof(t_beam));
+		beamtemp = (t_beam *)ft_memalloc(sizeof(t_beam));
 		beamtemp->next = NULL;
 		beamtemp->path = *path;
 		beamtemp->length = len;
+		beamtemp->ants = 0;
+		beamtemp->isolate = 0;
 		(*beam)->next = beamtemp;
 		*beam = start_beam;
 	}
@@ -171,7 +175,7 @@ void	add_vertex_to_path(t_path **path, int vertex)
 	{
 		while((*path)->next)
 			(*path) = (*path)->next;
-		temppath = malloc(sizeof(t_path));
+		temppath = (t_path *)ft_memalloc(sizeof(t_path));
 		temppath->vertex = vertex;
 		temppath->ant = 0;
 		temppath->next = NULL;
@@ -194,6 +198,23 @@ t_path	*find_path(int start, int end, int parents[], t_path **path)
 	return (*path);
 }
 
+void	initialize_only_graph(graph *g, int directed)
+{
+	int 	i;
+
+	g->nvertices = 0;
+	g->nedges = 0;
+	g->directed = directed;
+	i = 0;
+	while (i <= MAXV)
+	{
+		g->degree[i] = 0;
+		g->edges[i] = NULL;
+		i++;
+	}
+}
+
+
 graph*	graphdub(graph* g)
 {
 	graph 			*graph_result;
@@ -204,6 +225,8 @@ graph*	graphdub(graph* g)
 
 
 	graph_result =  (graph *)malloc(sizeof(*g));
+
+	initialize_only_graph(graph_result, g->directed);
 	i = 0;
 	//Инициализировать граф с обнулением или в -1 значениями
 	while(i <= g->nvertices)

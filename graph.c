@@ -12,10 +12,21 @@ void	initialize_graph(graph *g, t_context *context, int directed)
 	while (i <= MAXV)
 	{
 		g->degree[i] = 0;
+		context->entry_time[i] = -1;
+		context->exit_time[i] = -1;
+		context->short_paths[i] = -1;
 		g->edges[i] = NULL;
 		i++;
 	}
 	context->in_out_vertices = 0;
+	context->end = 0;
+	context->start = 0;
+	ft_memset(context->v_out, 0, sizeof(context->v_out));
+	ft_memset(context->v_in, 0, sizeof(context->v_in));
+	context->finish_ants = 0;
+	context->global_ants = 0;
+	context->edgenode = NULL;
+	context->flag = 0;
 }
 
 int 	is_in_edges(t_edgenode *p, int y)

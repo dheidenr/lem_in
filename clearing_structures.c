@@ -45,7 +45,8 @@ void	clear_edges(t_edgenode **edges)
 //	ed = edges;
 	while(count < MAXV)
 	{
-		free(edges[count]);
+		clear_edgenode(edges[count]);
+
 //		edges++;
 //		free(ed);
 //		ed = NULL;
@@ -87,6 +88,8 @@ void	clear_beam(t_beam *beam)
 		free_beam = NULL;
 		free_beam = beam;
 	}
+	free(beam);
+	beam = NULL;
 }
 
 void	clear_graph(graph *g)
@@ -108,4 +111,7 @@ void	clearing_structures(graph *g, t_context *context, t_beam *beam)
 	if (g)
 		clear_edges(g->edges);
 	clear_beam(beam);
+
 }
+
+

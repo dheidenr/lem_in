@@ -54,7 +54,7 @@ void	duplicate_vertex(graph *g, t_context *context, int vertex)
 		//Есть поле для оптимизации, если не вести поиск а добавить новую функцию добавления ребра не тольк с весом но и с значением поворота (turn)
 		edtemp = get_edgenode(g, &edgepoint);
 		edtemp->turn = edgenode->turn;
-		//Удавление старого ребра
+		//Удаление старого ребра
 		edgepoint.x = vertex;
 		remove_edge(g, edgepoint, TRUE);
 		edgenode = edgenode->next;
@@ -136,8 +136,11 @@ void 	remove_fake_vertex(graph *g, t_context *context, int	vertex, t_path **path
 				prev->next = (*path)->next;
 //				*path = (*path)->next;
 				*path = start;
-				free((tmp));
-				tmp = NULL;
+				if (tmp  != *path)
+				{
+					free((tmp));
+					tmp = NULL;
+				}
 				return ;
 			} else
 			{
@@ -247,6 +250,8 @@ void 	no_isolate_all_edges_of_beam(graph *g, t_beam *beam)
 		}
 		beam = beam->next;
 	}
+	free(rev_edp);
+	rev_edp = NULL;
 }
 
 t_beam *find_true_beam(graph *g, t_context *context, t_beam *fake_beam, t_edgepoint start_end)
