@@ -2,8 +2,6 @@
 #Here is the number of lines required: 32
 ##start
 Wfe6 2 2
-##end
-Ojn4 6 6
 Ijz2 9 9
 Oya6 13 13
 Igj5 14 14
@@ -515,6 +513,8 @@ Ri_9 1530 1530
 Byu4 1533 1533
 Mdf1 1537 1537
 Fzk1 1540 1540
+##end
+Ojn4 6 6
 Mpv5-Oya6
 Zfl9-Fzk1
 Ztj7-Byu4
