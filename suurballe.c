@@ -57,7 +57,9 @@ void	duplicate_vertex(graph *g, t_context *context, int vertex)
 		//Удаление старого ребра
 		edgepoint.x = vertex;
 		remove_edge(g, edgepoint, TRUE);
-		edgenode = edgenode->next;
+		edgenode = g->edges[vertex]->next;
+		if (edgenode)
+			edgenode = edgenode->next;
 	}
 }
 
@@ -167,7 +169,10 @@ void	remove_fake_vertexes(graph *g, t_context *context, t_path **path)
 	while(tmp)
 	{
 		if (tmp->vertex > g->nvertices - context->in_out_vertices)
+		{
 			remove_fake_vertex(g, context, tmp->vertex, path);
+			tmp = *path;
+		}
 		tmp = tmp->next;
 	}
 }

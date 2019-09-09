@@ -75,7 +75,7 @@ void	insert_edge_weight(graph *g, t_edgepoint *edgepoint, int directed, int weig
 	if (g->edges[edgepoint->x])
 		if (is_in_edges(g->edges[edgepoint->x], edgepoint->y))
 			return ;
-	p = malloc(sizeof(t_edgenode));
+	p = ft_memalloc(sizeof(t_edgenode));
 	p->weight = weight;
 	p->turn = 0;
 	p->isolate = FALSE;
