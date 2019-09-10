@@ -254,8 +254,8 @@ void 	no_isolate_all_edges_of_beam(graph *g, t_beam *beam)
 //				reverse_edge = get_edgenode(g, reverse_edgepoint(&edp, rev_edp));
 				edgenode->turn++;
 				edgenode->isolate = FALSE;
-				if ((edp.y == 289) && (edp.x == 251))
-					printf(" 251 289 %d(w:%d,t:%d,i:%d)\n", edgenode->y, edgenode->weight, edgenode->turn, edgenode->isolate);
+//				if ((edp.y == 289) && (edp.x == 251))
+//					printf(" 251 289 %d(w:%d,t:%d,i:%d)\n", edgenode->y, edgenode->weight, edgenode->turn, edgenode->isolate);
 //				if (reverse_edge)
 //				{
 
@@ -300,17 +300,17 @@ void 	no_isolate_all_edges_of_beam(graph *g, t_beam *beam)
 					{
 						edgenode->isolate = TRUE;
 						reverse_edge->isolate = TRUE;
-						printf(" %d(w:%d,t:%d,i:%d)\n", edgenode->y, edgenode->weight, edgenode->turn, edgenode->isolate);
+//						printf(" %d(w:%d,t:%d,i:%d)\n", edgenode->y, edgenode->weight, edgenode->turn, edgenode->isolate);
 					}
 				if (edgenode->turn > 1)
 				{
 					edgenode->isolate = TRUE;
-					printf(" %d(w:%d,t:%d,i:%d)\n", edgenode->y, edgenode->weight, edgenode->turn, edgenode->isolate);
+//					printf(" %d(w:%d,t:%d,i:%d)\n", edgenode->y, edgenode->weight, edgenode->turn, edgenode->isolate);
 				}
 				if (reverse_edge->turn > 1)
 				{
 					reverse_edge->isolate = TRUE;
-					printf(" %d(w:%d,t:%d,i:%d)\n", edgenode->y, edgenode->weight, edgenode->turn, edgenode->isolate);
+//					printf(" %d(w:%d,t:%d,i:%d)\n", edgenode->y, edgenode->weight, edgenode->turn, edgenode->isolate);
 				}
 //				edgenode->isolate = FALSE;
 
@@ -368,7 +368,7 @@ t_beam *find_true_beam(graph *g, t_context *context, t_beam *fake_beam, t_edgepo
 	//Добавить функцию помечающую ребра которые входят в пути как не изаллированные и удаляет ребра перевернутого(пометить изаллированным)
 	no_isolate_all_edges_of_beam(g, fake_beam);
 
-	print_graph(g);
+//	print_graph(g);
 //	ft_putstr("\nafter isolate_all_edges and no_isolate_all_edges_of_beam \n");
 
 	path = NULL;
@@ -448,7 +448,7 @@ t_beam	*suurballe(graph *g, t_context *context, int start, int end)
 	beam = NULL;
 	path = find_path(start, end, gdub->parents, &path);
 //	ft_putstr("before add path null duplicate vertexes\n");
-	print_graph(g);
+//	print_graph(g);
 //	print_array_graph(gdub->parents, gdub, "\nparent surrballe dubg\n");
 
 	reverse_path(gdub, context, path);
@@ -481,8 +481,8 @@ t_beam	*suurballe(graph *g, t_context *context, int start, int end)
 //	ft_putstr("\n before find suurballe beam:\n");
 //	print_beam(beam);
 	if (get_length_beam(beam) > 1)
-//		beam = find_true_beam(g, context, beam, start_end);
-		beam = find_optimal_beam(g, context, beam, start_end);
+		beam = find_true_beam(g, context, beam, start_end);
+//		beam = find_optimal_beam(g, context, beam, start_end);
 //	ft_putstr("\n after find suurballe beam:\n");
 //	print_beam(beam);
 

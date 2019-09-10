@@ -3,7 +3,7 @@
 #include "exdlst.h"
 #include "aqueue.h"
 
-int main()
+int main(int ac, char **av)
 {
 	graph g;
 	t_context context;
@@ -11,6 +11,11 @@ int main()
 //	size_t	count;
 //	final_beam = suurballe();
 //	output_ants(&g, final_beam);
+	if (ac == 2 && av[1] && av[1][0] && av[1][0] == '-' && av[1][1] && av[1][1] == 'd' && av[1][2] == '\0')
+		context.debug = TRUE;
+	else
+		context.debug = FALSE;
+
 	beam = NULL;
 	initialize_graph(&g, &context, 0);
 	input(&g, &context);
@@ -32,7 +37,7 @@ int main()
 //	context.end = 3;
 //	context.global_ants = 3;
 	beam = suurballe(&g, &context, context.start, context.end);
-	print_beam(beam);
+//	print_beam(beam);
 	output(beam, &context);
 
 //	test();

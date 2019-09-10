@@ -50,7 +50,7 @@ typedef struct	s_context
 	int 			exit_time[MAXV + 1];
 	int long 		short_paths[MAXV + 1];
 	unsigned char	v_in[MAXV + 1];
-	unsigned char	v_out[MAXV + 1];
+	unsigned int	v_out[MAXV + 1];
 	int				in_out_vertices;
 	char			**names;
 	int 			start;
@@ -58,6 +58,7 @@ typedef struct	s_context
 	int 			global_ants;
 	int 			finish_ants;
 	int 			flag;
+	int 			debug;
 	t_edgenode		*edgenode;
 }				t_context;
 
