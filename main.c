@@ -37,7 +37,6 @@ int main(int ac, char **av)
 //	context.end = 3;
 //	context.global_ants = 3;
 	beam = suurballe(&g, &context, context.start, context.end);
-//	print_beam(beam);
 	output(beam, &context);
 
 //	test();

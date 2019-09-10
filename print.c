@@ -27,6 +27,12 @@ void	print_beam(t_beam *beam)
 		if (str)
 			free(str);
 		ft_putstr(":");
+		str = ft_itoa(beam->ants);
+		ft_putstr(str);
+		ft_putstr(" ants:");
+		str = ft_itoa(beam->length);
+		ft_putstr(str);
+		ft_putstr(" length:");
 		if (beam->path)
 			print_path(beam->path);
 		beam = beam->next;

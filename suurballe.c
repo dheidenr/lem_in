@@ -431,6 +431,15 @@ t_beam	*suurballe(graph *g, t_context *context, int start, int end)
 //	beam = (t_beam *)ft_memalloc(sizeof(t_beam));
 //	path = (t_path *)ft_memalloc(sizeof(t_path));
 
+//получить кратчайший путь графа
+//	initialize_bfs_search(g);
+//	bfs(g, start);
+//	path = NULL;
+//	context->short_path = NULL;
+//	path = find_path(start, end, g->parents, &path);
+//	add_path_to_beam(&context->short_path, &path, get_length_path(path));
+//Закончить получать кратчайший
+
 	//Zero step Suurballe
 	gdub = graphdub(g);
 	//non duplicate

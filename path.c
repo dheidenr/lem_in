@@ -62,13 +62,39 @@ t_beam	*get_min_length_beam(t_beam	*beam)
 	return (result);
 }
 
+void 	swap_paths(t_beam *one, t_beam *two)
+{
+	t_path *path;
+	size_t	tmp;
+	char	isolate;
+
+	if (!one || !two || one == two)
+		return ;
+	tmp = one->length;
+	one->length = two->length;
+	two->length = tmp;
+
+	tmp = one->ants;
+	one->ants = two->ants;
+	two->ants = tmp;
+
+	isolate = one->isolate;
+	one->isolate = two->isolate;
+	two->isolate = isolate;
+
+	path = one->path;
+	one->path = two->path;
+	two->path = path;
+}
+
 void	prepare_beam_ants(size_t global_ants, t_beam *beam)
 {
 	size_t	lost_ants;
 	size_t	global_length;
 	size_t	number_paths;
-	float	cast;
+//	float	cast;
 	t_beam	*tmp;
+	t_beam	*swap_beam;
 
 	lost_ants = global_ants;
 	//kostyl niz
@@ -81,21 +107,31 @@ void	prepare_beam_ants(size_t global_ants, t_beam *beam)
 		return ;
 	}
 	//kostyl verh
+	swap_beam = beam;
 	tmp = get_next_min_length_beam_and_isolate(beam);
-	global_length = get_length_paths(beam);
+
+	//пересортировка свапом путей по длинне // можно вынести вотдельную функцию при норминировании
+	swap_paths(swap_beam, tmp);
+	tmp = swap_beam;
+	if (swap_beam)
+		swap_beam = swap_beam->next;
+
+//	global_length = get_length_paths(beam);
 	number_paths = get_length_beam(beam);
 
 	while(tmp)
 	{
 		if (lost_ants > 0)
 		{
-			cast = ((float) global_ants + (float) global_length) /
-				   number_paths - tmp->length;
-			tmp->ants = (cast - (size_t) cast == 0) ?
-						(global_ants + global_length) / number_paths
-						- tmp->length :
-						(global_ants + global_length) / number_paths
-						- tmp->length + 1;
+//			cast = ((float) global_ants + (float) global_length) /
+//				   number_paths - tmp->length;
+//			tmp->ants = (cast - (size_t) cast > 1.0/number_paths) ?
+//						(global_ants + global_length) / number_paths
+//						- tmp->length :
+//						(global_ants + global_length) / number_paths
+//						- tmp->length + 1;
+			tmp->ants = (global_ants + global_length) / number_paths - tmp->length;
+
 			if (tmp->ants >= lost_ants)
 			{
 				tmp->ants = lost_ants;
@@ -109,6 +145,12 @@ void	prepare_beam_ants(size_t global_ants, t_beam *beam)
 		else
 			tmp->ants = 0;
 		tmp = get_next_min_length_beam_and_isolate(beam);
+
+		//пересортировка свапом путей по длинне // можно вынести вотдельную функцию при норминировании
+		swap_paths(swap_beam, tmp);
+		tmp = swap_beam;
+		if (swap_beam)
+			swap_beam = swap_beam->next;
 	}
 }
 
@@ -285,5 +327,16 @@ void	ants_go_the_paths(t_beam *beam, t_context *context)
 //			exit(0);
 	}
 	if (debug_len)
+	{
 		putstr_free(ft_itoa(debug_len));
+		ft_putchar('\n');
+		putstr_free(ft_itoa(get_number_steps(context, &tmp_beam)));
+	}
 }
+
+//--help : to read the manual
+//--flow-one : generates an ant farm with distinctive path and [1] ant in it
+//--flow-ten : generates an ant farm with distinctive path and approximately [10] ants in it
+//--flow-thousand : generates an ant farm with distinctive path and approximately [100] ants in it
+//--big : generates a big map (approximately [1000] rooms) to test the time complexity
+//--big-superposition : generates a big map with overlapping paths

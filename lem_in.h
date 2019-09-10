@@ -12,7 +12,7 @@
 //#include "aqueue.h"
 
 
-#define MAXV 8000
+#define MAXV 16000
 #define FALSE 0
 #define TRUE 1
 #define WHITE 0
@@ -44,6 +44,26 @@ typedef	struct
 	unsigned char	finished;
 }				graph;
 
+
+
+typedef struct s_path
+{
+	int			vertex;
+	int 		ant;
+	struct s_path *next;
+}				t_path;
+
+
+
+typedef	struct		s_beam
+{
+	t_path			*path;
+	size_t			length;
+	size_t			ants;
+	char 			isolate;
+	struct s_beam	*next;
+}					t_beam;
+
 typedef struct	s_context
 {
 	int 			entry_time[MAXV + 1];
@@ -59,6 +79,7 @@ typedef struct	s_context
 	int 			finish_ants;
 	int 			flag;
 	int 			debug;
+//	t_beam			*short_path;
 	t_edgenode		*edgenode;
 }				t_context;
 
@@ -67,22 +88,6 @@ typedef  struct	s_edgepoint
 	int x;
 	int y;
 }				t_edgepoint;
-
-typedef struct s_path
-{
-	int			vertex;
-	int 		ant;
-	struct s_path *next;
-}				t_path;
-
-typedef	struct		s_beam
-{
-	t_path			*path;
-	size_t			length;
-	size_t			ants;
-	char 			isolate;
-	struct s_beam	*next;
-}					t_beam;
 
 typedef	struct		s_beams
 {
@@ -152,6 +157,7 @@ void			output(t_beam *beam, t_context *context);
 //utilits
 t_beam	*find_optimal_beam(graph *g, t_context *context, t_beam *beam,
 														t_edgepoint start_end);
+size_t	get_number_steps(t_context *context, t_beam **beam);
 size_t	ft_charcount(char const *s, char c);
 void	clearing_structures(graph *g, t_context *context, t_beam *beam);
 void	clear_path(t_path *path);

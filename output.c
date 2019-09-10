@@ -11,10 +11,12 @@ void	output(t_beam *beam, t_context *context)
 	//Функция которая получает сумму всех длин путей пучка сохранить в переменную.
 
 	//Функция которая сохраняет число муравьев которых надо пустить по каждому пути в ants
+//	beam->next->next->next->next->next->next->next->next->next->next->next->next->next->next->next->next->next = NULL;
 	prepare_beam_ants(context->global_ants, beam);
 
 	//Функция которая получает число путей из beam
 	//Функция которая отправляет одного муравья по пути с выводом шага
+	print_beam(beam);
 	ants_go_the_paths(beam, context);
 	//Функия которая отправляет муравьев по путям с выводом этих путей и переходом на новую строку
 }
