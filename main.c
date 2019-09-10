@@ -41,7 +41,6 @@ int main(int ac, char **av)
 
 //	test();
 	clearing_structures(&g, &context, beam);
-
 //	t_aqueue *q;
 //	size_t		count;
 //	int 		number;

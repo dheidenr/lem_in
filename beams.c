@@ -2,7 +2,7 @@
 
 #include "lem_in.h"
 
-void	add_beam_to_beams(t_beams **beams, t_beam **beam, size_t number_steps)
+void	add_beam_to_beams(t_beams **beams, t_beam **beam, float number_steps)
 {
 	t_beams		*beams_temp;
 	t_beams		*start_beams;
@@ -14,6 +14,7 @@ void	add_beam_to_beams(t_beams **beams, t_beam **beam, size_t number_steps)
 		*beams = (t_beams *) malloc(sizeof(t_beams));
 		(*beams)->next = NULL;
 		(*beams)->number_steps = number_steps;
+		(*beams)->beam = *beam;
 	} else
 	{
 		start_beams = *beams;
@@ -55,16 +56,16 @@ t_beam	*get_beam_size(t_beam *beam, size_t	size)
 }
 
 //	(M+L)/k-1 (+1, если (M+L)%k != 0)
-size_t	get_number_steps(t_context *context, t_beam **beam)
+float	get_number_steps(t_context *context, t_beam **beam)
 {
 	size_t	global_length;
-	size_t	result;
+	float	result;
 	size_t	paths;
 
-	prepare_beam_ants(context->global_ants, *beam);
+//	prepare_beam_ants(context->global_ants, *beam);
 	global_length = get_length_paths(*beam);
 	paths = get_length_beam(*beam);
-	result = (context->global_ants + global_length)/paths;
+	result = ((float)context->global_ants + (float)global_length)/ (float)paths - 1;
 	result += ((context->global_ants + global_length)%paths) ? 1 : 0;
 	return (result);
 }
@@ -73,7 +74,7 @@ t_beam	*get_min_number_steps_beam(t_beams	*beams)
 {
 	t_beams *tmp;
 	t_beam	*result;
-	size_t	min_steps;
+	float	min_steps;
 
 	tmp = beams;
 	if (!tmp)
@@ -96,7 +97,6 @@ t_beam	*find_optimal_beam(graph *g, t_context *context, t_beam *beam, t_edgepoin
 {
 	t_beam *_beam;
 	t_beam *tmp_beam;
-	t_beam *start_beam;
 	t_beams *beams;
 	size_t size;
 	size_t len;
@@ -109,8 +109,8 @@ t_beam	*find_optimal_beam(graph *g, t_context *context, t_beam *beam, t_edgepoin
 	while (size <= len)
 	{
 		_beam = get_beam_size(beam, size);
-		ft_putstr("_beam:\n");
-		print_beam(_beam);
+//		ft_putstr("_beam:\n");
+//		print_beam(_beam);
 		add_beam_to_beams(&beams, &_beam, get_number_steps(context, &_beam));
 //		tmp_beam = find_true_beam(g, context, _beam, start_end);
 //		if (tmp_beam)

@@ -52,7 +52,7 @@ t_beam	*get_min_length_beam(t_beam	*beam)
 	result = tmp;
 	while (tmp)
 	{
-		if (tmp->length < min_len)
+		if (tmp->length <= min_len)
 		{
 			min_len = tmp->length;
 			result = tmp;
@@ -87,16 +87,41 @@ void 	swap_paths(t_beam *one, t_beam *two)
 	two->path = path;
 }
 
-void	prepare_beam_ants(size_t global_ants, t_beam *beam)
+void	sort_by_lengths(t_beam *beam)
 {
-	size_t	lost_ants;
-	size_t	global_length;
-	size_t	number_paths;
-//	float	cast;
 	t_beam	*tmp;
 	t_beam	*swap_beam;
 
+	swap_beam = beam;
+	tmp = get_next_min_length_beam_and_isolate(beam);
+	//пересортировка свапом путей по длинне // можно вынести вотдельную функцию при норминировании
+	swap_paths(swap_beam, tmp);
+	tmp = swap_beam;
+	if (swap_beam)
+		swap_beam = swap_beam->next;
+	while (tmp)
+	{
+		tmp = get_next_min_length_beam_and_isolate(beam);
+
+		//пересортировка свапом путей по длинне // можно вынести вотдельную функцию при норминировании
+		swap_paths(swap_beam, tmp);
+		tmp = swap_beam;
+		if (swap_beam)
+			swap_beam = swap_beam->next;
+	}
+}
+
+void	prepare_beam_ants(size_t global_ants, t_beam *beam)
+{
+	float	lost_ants;
+	size_t	global_length;
+	size_t	number_paths;
+	float	residue;
+	t_beam	*tmp;
+//	t_beam	*swap_beam;
+
 	lost_ants = global_ants;
+	residue = 0.0;
 	//kostyl niz
 	global_length = get_length_paths(beam);
 	if (global_length == 1)
@@ -107,14 +132,14 @@ void	prepare_beam_ants(size_t global_ants, t_beam *beam)
 		return ;
 	}
 	//kostyl verh
-	swap_beam = beam;
-	tmp = get_next_min_length_beam_and_isolate(beam);
-
-	//пересортировка свапом путей по длинне // можно вынести вотдельную функцию при норминировании
-	swap_paths(swap_beam, tmp);
-	tmp = swap_beam;
-	if (swap_beam)
-		swap_beam = swap_beam->next;
+//	swap_beam = beam;
+//	tmp = get_next_min_length_beam_and_isolate(beam);
+	tmp = beam;
+//	//пересортировка свапом путей по длинне // можно вынести вотдельную функцию при норминировании
+//	swap_paths(swap_beam, tmp);
+//	tmp = swap_beam;
+//	if (swap_beam)
+//		swap_beam = swap_beam->next;
 
 //	global_length = get_length_paths(beam);
 	number_paths = get_length_beam(beam);
@@ -123,34 +148,51 @@ void	prepare_beam_ants(size_t global_ants, t_beam *beam)
 	{
 		if (lost_ants > 0)
 		{
-//			cast = ((float) global_ants + (float) global_length) /
-//				   number_paths - tmp->length;
-//			tmp->ants = (cast - (size_t) cast > 1.0/number_paths) ?
-//						(global_ants + global_length) / number_paths
-//						- tmp->length :
-//						(global_ants + global_length) / number_paths
-//						- tmp->length + 1;
+			residue = (((float) global_ants + (float) global_length) /	(float)number_paths - (float)tmp->length);
+//					- (size_t)((global_ants + global_length) / number_paths - tmp->length);
+
+//			tmp->ants = (cast - (size_t) cast < 0.50 && tmp->next) ? //kostyletto tmp->next for big flag
+////						(global_ants + global_length) / number_paths
+////						(global_ants + global_length) / number_paths
+////						- tmp->length :
+//						(size_t)cast:
+////						(global_ants + global_length) / number_paths
+////						- tmp->length + 1;
+//						(size_t)cast + 1;
+
+
 			tmp->ants = (global_ants + global_length) / number_paths - tmp->length;
 
-			if (tmp->ants >= lost_ants)
+//			tmp->ants += (size_t)residue;
+//			residue = residue - (size_t)residue;
+
+			if (tmp->ants >= lost_ants || !tmp->next)
 			{
 				tmp->ants = lost_ants;
 				lost_ants = 0;
 			}
 			else if (lost_ants)
+			{
 				lost_ants -= tmp->ants;
+				//kostyl
+//				if (!tmp->next)
+//				{
+//					beam->ants += lost_ants;
+//					lost_ants = 0;
+//				}
+			}
 			else
 				tmp->ants = 0;
 		}
 		else
 			tmp->ants = 0;
-		tmp = get_next_min_length_beam_and_isolate(beam);
-
-		//пересортировка свапом путей по длинне // можно вынести вотдельную функцию при норминировании
-		swap_paths(swap_beam, tmp);
-		tmp = swap_beam;
-		if (swap_beam)
-			swap_beam = swap_beam->next;
+//		tmp = get_next_min_length_beam_and_isolate(beam);
+		tmp = tmp->next;
+//		//пересортировка свапом путей по длинне // можно вынести вотдельную функцию при норминировании
+//		swap_paths(swap_beam, tmp);
+//		tmp = swap_beam;
+//		if (swap_beam)
+//			swap_beam = swap_beam->next;
 	}
 }
 

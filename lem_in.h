@@ -92,7 +92,7 @@ typedef  struct	s_edgepoint
 typedef	struct		s_beams
 {
 	t_beam			*beam;
-	size_t			number_steps;
+	float			number_steps;
 	struct s_beams	*next;
 }					t_beams;
 
@@ -157,7 +157,9 @@ void			output(t_beam *beam, t_context *context);
 //utilits
 t_beam	*find_optimal_beam(graph *g, t_context *context, t_beam *beam,
 														t_edgepoint start_end);
-size_t	get_number_steps(t_context *context, t_beam **beam);
+float	get_number_steps(t_context *context, t_beam **beam);
+void	sort_by_lengths(t_beam *beam);
+
 size_t	ft_charcount(char const *s, char c);
 void	clearing_structures(graph *g, t_context *context, t_beam *beam);
 void	clear_path(t_path *path);
