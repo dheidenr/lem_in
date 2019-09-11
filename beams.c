@@ -113,7 +113,9 @@ t_beam	*find_optimal_beam(graph *g, t_context *context, t_beam *beam, t_edgepoin
 //		ft_putstr("_beam:\n");
 //		print_beam(_beam);
 		_beam = find_true_beam(g, context, _beam, start_end);
+
 		sort_by_lengths(_beam);
+
 		add_beam_to_beams(&beams, &_beam, get_number_steps(context, &_beam));
 //		tmp_beam = find_true_beam(g, context, _beam, start_end);
 //		if (tmp_beam)
@@ -128,6 +130,11 @@ t_beam	*find_optimal_beam(graph *g, t_context *context, t_beam *beam, t_edgepoin
 //		printf("number_steps:%f| len beam:%lu|\n", beamss->number_steps, get_length_beam(beamss->beam));
 //		beamss = beamss->next;
 //	}
+	context->free_beams = beams;
 	tmp_beam = get_min_number_steps_beam(beams);
+
+//	clear_beams(beams);
+
+
 	return (tmp_beam);
 }

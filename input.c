@@ -161,7 +161,7 @@ void	input(graph *g, t_context *context)
 	//если коментарий пропустить, если две решетки проверить на старт и следующий определить
 	//Если цифра и потом
 
-	fd = open("ant4.txt", O_RDONLY);
+	fd = open("test.txt", O_RDONLY);
 //	fd = 0;
 	pulling_ants(fd, context, &line);
 
@@ -173,6 +173,7 @@ void	input(graph *g, t_context *context)
 			if (!pulling_link(g, context, line))
 				error();
 	}
+
 ////	if (*line)
 ////		free(line);
 //	line = NULL;

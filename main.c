@@ -40,7 +40,8 @@ int main(int ac, char **av)
 	output(beam, &context);
 
 //	test();
-	clearing_structures(&g, &context, beam);
+
+	clearing_structures(&g, &context, context.free_beams);
 //	t_aqueue *q;
 //	size_t		count;
 //	int 		number;

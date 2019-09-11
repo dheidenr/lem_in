@@ -64,6 +64,14 @@ typedef	struct		s_beam
 	struct s_beam	*next;
 }					t_beam;
 
+typedef	struct		s_beams
+{
+	t_beam			*beam;
+	float			number_steps;
+	struct s_beams	*next;
+}					t_beams;
+
+
 typedef struct	s_context
 {
 	int 			entry_time[MAXV + 1];
@@ -79,6 +87,8 @@ typedef struct	s_context
 	int 			finish_ants;
 	int 			flag;
 	int 			debug;
+	t_beam			*free_beam;
+	t_beams			*free_beams;
 //	t_beam			*short_path;
 	t_edgenode		*edgenode;
 }				t_context;
@@ -89,12 +99,6 @@ typedef  struct	s_edgepoint
 	int y;
 }				t_edgepoint;
 
-typedef	struct		s_beams
-{
-	t_beam			*beam;
-	float			number_steps;
-	struct s_beams	*next;
-}					t_beams;
 
 t_beam			*find_true_beam(graph *g, t_context *context, t_beam *fake_beam,
 														t_edgepoint start_end);
@@ -154,14 +158,17 @@ t_beam			*get_min_length_beam(t_beam	*beam);
 t_beam			*get_next_min_length_beam_and_isolate(t_beam *beam);
 void			input(graph *g, t_context *context);
 void			output(t_beam *beam, t_context *context);
+
 //utilits
 t_beam	*find_optimal_beam(graph *g, t_context *context, t_beam *beam,
 														t_edgepoint start_end);
 float	get_number_steps(t_context *context, t_beam **beam);
 void	sort_by_lengths(t_beam *beam);
+t_beam	*get_min_number_steps_beam(t_beams	*beams);
+void	clear_beams(t_beams *beams);
 
 size_t	ft_charcount(char const *s, char c);
-void	clearing_structures(graph *g, t_context *context, t_beam *beam);
+void	clearing_structures(graph *g, t_context *context, t_beams *beams);
 void	clear_path(t_path *path);
 void	clear_graph(graph *g);
 void	error();
