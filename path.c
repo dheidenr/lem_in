@@ -162,13 +162,14 @@ void	prepare_beam_ants(size_t global_ants, t_beam *beam)
 
 
 			tmp->ants = (global_ants + global_length + number_paths) / (number_paths) - (tmp->length);
+			tmp->ants -= (number_paths == 2)? 1:0; // kostyl dya ant3.txt
 
 //			tmp->ants += (size_t)residue;
 //			residue = residue - (size_t)residue;
 
 			if (tmp->ants >= lost_ants || !tmp->next)
 			{
-				tmp->ants /= 2;
+//				tmp->ants /= 2;
 				tmp->ants = lost_ants;
 				lost_ants = 0;
 			}

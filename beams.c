@@ -74,7 +74,7 @@ t_beam	*get_min_number_steps_beam(t_beams	*beams)
 {
 	t_beams *tmp;
 	t_beam	*result;
-	float	min_steps;
+	size_t	min_steps;
 
 	tmp = beams;
 	if (!tmp)
@@ -83,9 +83,9 @@ t_beam	*get_min_number_steps_beam(t_beams	*beams)
 	result = tmp->beam;
 	while (tmp)
 	{
-		if (tmp->number_steps < min_steps)
+		if ((size_t)tmp->number_steps <= min_steps)
 		{
-			min_steps = tmp->number_steps;
+			min_steps = (size_t)tmp->number_steps;
 			result = tmp->beam;
 		}
 		tmp = tmp->next;
@@ -112,6 +112,8 @@ t_beam	*find_optimal_beam(graph *g, t_context *context, t_beam *beam, t_edgepoin
 		_beam = get_beam_size(beam, size);
 //		ft_putstr("_beam:\n");
 //		print_beam(_beam);
+		_beam = find_true_beam(g, context, _beam, start_end);
+		sort_by_lengths(_beam);
 		add_beam_to_beams(&beams, &_beam, get_number_steps(context, &_beam));
 //		tmp_beam = find_true_beam(g, context, _beam, start_end);
 //		if (tmp_beam)
