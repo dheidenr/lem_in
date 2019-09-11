@@ -98,7 +98,7 @@ t_beam	*find_optimal_beam(graph *g, t_context *context, t_beam *beam, t_edgepoin
 	t_beam *_beam;
 	t_beam *tmp_beam;
 	t_beams *beams;
-	t_beams *beamss;
+//	t_beams *beamss;
 	size_t size;
 	size_t len;
 
@@ -122,12 +122,12 @@ t_beam	*find_optimal_beam(graph *g, t_context *context, t_beam *beam, t_edgepoin
 //		print_beam(tmp_beam);
 		size++;
 	}
-	beamss = beams;
-	while(beamss)
-	{
-		printf("number_steps:%f| len beam:%lu|\n", beamss->number_steps, get_length_beam(beamss->beam));
-		beamss = beamss->next;
-	}
+//	beamss = beams;
+//	while(beamss)
+//	{
+//		printf("number_steps:%f| len beam:%lu|\n", beamss->number_steps, get_length_beam(beamss->beam));
+//		beamss = beamss->next;
+//	}
 	tmp_beam = get_min_number_steps_beam(beams);
 	return (tmp_beam);
 }
