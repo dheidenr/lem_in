@@ -161,13 +161,14 @@ void	prepare_beam_ants(size_t global_ants, t_beam *beam)
 //						(size_t)cast + 1;
 
 
-			tmp->ants = (global_ants + global_length) / number_paths - tmp->length;
+			tmp->ants = (global_ants + global_length + number_paths) / (number_paths) - (tmp->length);
 
 //			tmp->ants += (size_t)residue;
 //			residue = residue - (size_t)residue;
 
 			if (tmp->ants >= lost_ants || !tmp->next)
 			{
+				tmp->ants /= 2;
 				tmp->ants = lost_ants;
 				lost_ants = 0;
 			}
@@ -372,7 +373,7 @@ void	ants_go_the_paths(t_beam *beam, t_context *context)
 	{
 		putstr_free(ft_itoa(debug_len));
 		ft_putchar('\n');
-		putstr_free(ft_itoa(get_number_steps(context, &tmp_beam)));
+		putstr_free(ft_itoa((int)get_number_steps(context, &tmp_beam)));
 	}
 }
 

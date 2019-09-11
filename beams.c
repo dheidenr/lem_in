@@ -65,8 +65,8 @@ float	get_number_steps(t_context *context, t_beam **beam)
 //	prepare_beam_ants(context->global_ants, *beam);
 	global_length = get_length_paths(*beam);
 	paths = get_length_beam(*beam);
-	result = ((float)context->global_ants + (float)global_length)/ (float)paths - 1;
-	result += ((context->global_ants + global_length)%paths) ? 1 : 0;
+	result = ((float)context->global_ants + (float)global_length)/ (float)paths;
+	result += ((context->global_ants + global_length)%paths != 0) ? 1 : -1;
 	return (result);
 }
 
@@ -98,6 +98,7 @@ t_beam	*find_optimal_beam(graph *g, t_context *context, t_beam *beam, t_edgepoin
 	t_beam *_beam;
 	t_beam *tmp_beam;
 	t_beams *beams;
+	t_beams *beamss;
 	size_t size;
 	size_t len;
 
@@ -118,6 +119,12 @@ t_beam	*find_optimal_beam(graph *g, t_context *context, t_beam *beam, t_edgepoin
 //		ft_putstr("tmp_beam:\n");
 //		print_beam(tmp_beam);
 		size++;
+	}
+	beamss = beams;
+	while(beamss)
+	{
+		printf("number_steps:%f| len beam:%lu|\n", beamss->number_steps, get_length_beam(beamss->beam));
+		beamss = beamss->next;
 	}
 	tmp_beam = get_min_number_steps_beam(beams);
 	return (tmp_beam);

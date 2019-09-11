@@ -491,14 +491,14 @@ t_beam	*suurballe(graph *g, t_context *context, int start, int end)
 //	print_beam(beam);
 	if (get_length_beam(beam) > 1)
 	{
-		print_beam(beam);
+//		print_beam(beam);
 		beam = find_true_beam(g, context, beam, start_end);
 		sort_by_lengths(beam);
 		ft_putchar('\n');
-		print_beam(beam);
+//		print_beam(beam);
 		ft_putchar('\n');
 		beam = find_optimal_beam(g, context, beam, start_end);
-		print_beam(beam);
+//		print_beam(beam);
 	}
 //	ft_putstr("\n after find suurballe beam:\n");
 //	print_beam(beam);
