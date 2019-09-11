@@ -114,35 +114,37 @@ void	clearing_structures(graph *g, t_context *context, t_beams *beams)
 	clear_beams(beams);
 //	if (context)
 //		clear_beam(context->free_beam);
-
 }
 
 void	clear_beams(t_beams *beams)
 {
-	t_beam	*beam;
-	t_beams	*tmp;
-	t_beam	*free_beam;
-	t_beams	*free_beams;
+	t_beam *beam;
+	t_beams *tmp;
+	t_beam *free_beam;
+	t_beams *free_beams;
 
 //	beam =  get_min_number_steps_beam(beams);;
 	tmp = beams;
 	free_beams = tmp;
-	while(tmp)
+	while (tmp)
 	{
 		free_beam = tmp->beam;
-		free_beams = tmp;
-		tmp = tmp->next;
 //		if (free_beam != beam)
 //		{
-			clear_beam(free_beam);
+		clear_beam(free_beam);
 //			free(free_beam);
-			free_beam = NULL;
-		}
+		tmp->beam = NULL;
+//		}
 //		if (free_beams)
-		free(free_beams);
-		free_beams = NULL;
-	free(beams);
+
+//		free(beams);
+		free_beams = tmp;
+		tmp = tmp->next;
+		if (free_beams)
+		{
+			free(free_beams);
+			free_beams = NULL;
+		}
 	}
-
-
+}
 //}

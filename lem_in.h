@@ -166,7 +166,7 @@ float	get_number_steps(t_context *context, t_beam **beam);
 void	sort_by_lengths(t_beam *beam);
 t_beam	*get_min_number_steps_beam(t_beams	*beams);
 void	clear_beams(t_beams *beams);
-
+void	clear_beam(t_beam *beam);
 size_t	ft_charcount(char const *s, char c);
 void	clearing_structures(graph *g, t_context *context, t_beams *beams);
 void	clear_path(t_path *path);

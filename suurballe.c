@@ -412,7 +412,7 @@ t_beam *find_true_beam(graph *g, t_context *context, t_beam *fake_beam, t_edgepo
 	}
 //	clearing_structures(NULL, NULL, beam);
 
-//	free(beam);
+//	clear_beam(beam);
 
 //	print_graph(g);
 //	print_beam(true_beam);
@@ -503,7 +503,8 @@ t_beam	*suurballe(graph *g, t_context *context, int start, int end)
 		context->free_beam = beam;
 		beam = find_optimal_beam(g, context, beam, start_end);
 //		print_beam(beam);
-	}
+	} else
+		context->free_beam = beam;
 
 //	ft_putstr("\n after find suurballe beam:\n");
 //	print_beam(beam);

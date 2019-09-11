@@ -105,15 +105,17 @@ t_beam	*find_optimal_beam(graph *g, t_context *context, t_beam *beam, t_edgepoin
 	size = 1;
 	_beam = NULL;
 	beams = NULL;
-	tmp_beam = beam;
+
 	len = get_length_beam(beam);
 	while (size <= len)
 	{
 		_beam = get_beam_size(beam, size);
+		tmp_beam = _beam;
 //		ft_putstr("_beam:\n");
 //		print_beam(_beam);
 		_beam = find_true_beam(g, context, _beam, start_end);
-
+//		clear_beam(tmp_beam);
+		tmp_beam = NULL;
 		sort_by_lengths(_beam);
 
 		add_beam_to_beams(&beams, &_beam, get_number_steps(context, &_beam));
