@@ -394,7 +394,10 @@ t_beam *find_true_beam(graph *g, t_context *context, t_beam *fake_beam, t_edgepo
 		bfs(g, start_end.x);//Popravit' bfs dlya isolate
 		path = NULL;
 		path = find_path(start_end.x, start_end.y, g->parents, &path);
-		add_path_to_beam(&true_beam, &path, get_length_path(path));
+		if (!is_elements_of_path_in_beam(true_beam, path))
+			add_path_to_beam(&true_beam, &path, get_length_path(path));
+		else
+			free(path);
 		tmp_edge->isolate = TRUE;
 		fake_beam = fake_beam->next;
 	}
@@ -501,12 +504,14 @@ t_beam	*suurballe(graph *g, t_context *context, int start, int end)
 	{
 //		print_beam(beam);
 //		beam = find_true_beam(g, context, beam, start_end);
-		sort_by_lengths(beam);
-//		ft_putchar('\n');
+//		ft_putstr("after nedo-suurballe paths \n\n");
+//		sort_by_lengths(beam);
+//		ft_putstr("after sort_by_lengths \n\n");
 //		print_beam(beam);
 //		ft_putchar('\n');
 		context->free_beam = beam;
 		beam = find_optimal_beam(g, context, beam, start_end);
+//		ft_putstr("after find_optimal_beam \n\n");
 //		print_beam(beam);
 	} else
 		context->free_beam = beam;

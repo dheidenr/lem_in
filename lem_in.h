@@ -162,6 +162,7 @@ void			output(t_beam *beam, t_context *context);
 //utilits
 t_beam	*find_optimal_beam(graph *g, t_context *context, t_beam *beam,
 														t_edgepoint start_end);
+int 	is_elements_of_path_in_beam(t_beam *beam, t_path *path);
 float	get_number_steps(t_context *context, t_beam **beam);
 void	sort_by_lengths(t_beam *beam);
 t_beam	*get_min_number_steps_beam(t_beams	*beams);
