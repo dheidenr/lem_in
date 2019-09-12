@@ -3,7 +3,6 @@
 #include "libft.h"
 #include "exdlst.h"
 
-
 void	initialize_suurballe_search(graph *g, t_context* context)
 {
 	int 	i;
@@ -412,8 +411,14 @@ t_beam *find_true_beam(graph *g, t_context *context, t_beam *fake_beam, t_edgepo
 	}
 //	clearing_structures(NULL, NULL, beam);
 
-//	clear_beam(beam);
-
+	fake_beam = beam;
+	while (beam)
+	{
+		beam = beam->next;
+		free(fake_beam);
+		fake_beam = NULL;
+		fake_beam = beam;
+	}
 //	print_graph(g);
 //	print_beam(true_beam);
 	return (true_beam);
@@ -508,7 +513,6 @@ t_beam	*suurballe(graph *g, t_context *context, int start, int end)
 
 //	ft_putstr("\n after find suurballe beam:\n");
 //	print_beam(beam);
-
 //	duplicate_vertex(gdub, context, 3);
 //	ft_putstr("\nafter duplicate vertex\n");
 //	print_graph(gdub);
