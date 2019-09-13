@@ -160,8 +160,8 @@ void	input(graph *g, t_context *context)
 	//если коментарий пропустить, если две решетки проверить на старт и следующий определить
 	//Если цифра и потом
 
-//	fd = open("map", O_RDONLY);
-	fd = 0;
+	fd = open("ant_gen.txt", O_RDONLY);
+//	fd = 0;
 	pulling_ants(fd, context, &line);
 
 	while (print_gnl(fd, &line))
@@ -173,8 +173,8 @@ void	input(graph *g, t_context *context)
 				error();
 	}
 
-////	if (*line)
-////		free(line);
+//	if (*line)
+		free(line);
 //	line = NULL;
 }
 

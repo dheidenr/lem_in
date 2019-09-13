@@ -131,7 +131,8 @@ void	clear_beams(t_beams *beams)
 		free_beam = tmp->beam;
 //		if (free_beam != beam)
 //		{
-		clear_beam(free_beam);
+		if (free_beam)
+			clear_beam(free_beam);
 //			free(free_beam);
 		tmp->beam = NULL;
 //		}
@@ -140,11 +141,11 @@ void	clear_beams(t_beams *beams)
 //		free(beams);
 		free_beams = tmp;
 		tmp = tmp->next;
-		if (free_beams)
-		{
+//		if (free_beams)
+//		{
 			free(free_beams);
 			free_beams = NULL;
-		}
+//		}
 	}
 }
 //}

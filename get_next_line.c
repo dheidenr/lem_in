@@ -6,7 +6,7 @@
 /*   By: mmonahan <mmonahan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/18 21:05:18 by mmonahan          #+#    #+#             */
-/*   Updated: 2019/02/07 16:09:09 by mmonahan         ###   ########.fr       */
+/*   Updated: 2019/09/09 19:29:41 by mmonahan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,9 @@ int	get_next_line(const int fd, char **line)
 		if (ft_strchr(m[fd], '\n') != NULL || ret != BUFF_SIZE)
 			break ;
 	}
-	*line = ft_strchr(m[fd], '\n') ? ft_strsub(m[fd], 0, ft_charcount(m[fd],
-																	  '\n')) : ft_strsub(m[fd], 0, ft_strlen(m[fd]) + 1);
+	*line = ft_strchr(m[fd], '\n') ? ft_strsub(m[fd], 0, ft_charcount(m[fd],'\n')) :ft_strsub(m[fd], 0, ft_strlen(m[fd]) + 1);
 	tmp = m[fd];
-	m[fd] = ft_strsub(tmp, ft_charcount(tmp, '\n') + 1, ft_strlen(tmp) -
-														ft_charcount(tmp, '\n'));
+	m[fd] = ft_strsub(tmp, ft_charcount(tmp, '\n') + 1, ft_strlen(tmp) - ft_charcount(tmp, '\n'));
 	ft_strdel(&tmp);
 	return (!(!ret && !ft_strlen(*line)));
 }
