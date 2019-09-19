@@ -1,5 +1,4 @@
 
-#include "libft.h"
 #include "exdlst.h"
 
 void	exdlstdel(t_exdlist **aexdlist, void (*del)(void *, size_t))

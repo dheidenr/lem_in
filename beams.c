@@ -1,7 +1,5 @@
 #include "lem_in.h"
 
-#include "lem_in.h"
-
 void	add_beam_to_beams(t_beams **beams, t_beam **beam, float number_steps)
 {
 	t_beams		*beams_temp;
@@ -29,13 +27,10 @@ void	add_beam_to_beams(t_beams **beams, t_beam **beam, float number_steps)
 	}
 }
 
-
-//Написать функцию которая возвращает true_beam из beam который мы по порядку нашли.
-
-//Этот beams содержит набор пучков из которых нужно выбрать оптимальный по количеству шагов необходимых для прохождения пучка
-//Написать функцияю которая находит число шагов для прохождения конкретного пучка
-
-//Написать функцию которая создает beams(со упорядоченным набором возрастающим путей) на основе подготовленного beam с найденными через суурбалле путями
+/*
+** beams содержит набор пучков из которых нужно выбрать оптимальный, по
+** количеству шагов необходимых для прохождения пучка
+*/
 
 t_beam	*get_beam_size(t_beam *beam, size_t	size)
 {
@@ -55,14 +50,16 @@ t_beam	*get_beam_size(t_beam *beam, size_t	size)
 	return (result);
 }
 
-//	(M+L)/k-1 (+1, если (M+L)%k != 0)
+/*
+** (M+L)/p-1 (+1, если (M+L)%p != 0)
+*/
+
 float	get_number_steps(t_context *context, t_beam **beam)
 {
 	size_t	global_length;
 	float	result;
 	size_t	paths;
 
-//	prepare_beam_ants(context->global_ants, *beam);
 	global_length = get_length_paths(*beam);
 	paths = get_length_beam(*beam);
 	result = ((float)context->global_ants + (float)global_length)/ (float)paths;
@@ -93,50 +90,27 @@ t_beam	*get_min_number_steps_beam(t_beams	*beams)
 	return (result);
 }
 
-t_beam	*find_optimal_beam(graph *g, t_context *context, t_beam *beam, t_edgepoint start_end)
+t_beam	*find_optimal_beam(graph *g, t_context *context, t_beam *beam,
+														t_edgepoint start_end)
 {
 	t_beam *_beam;
 	t_beam *tmp_beam;
 	t_beams *beams;
-//	t_beams *beamss;
 	size_t size;
 	size_t len;
 
 	size = 1;
-	_beam = NULL;
 	beams = NULL;
-
 	len = get_length_beam(beam);
 	while (size <= len)
 	{
 		_beam = get_beam_size(beam, size);
-		tmp_beam = _beam;
-//		ft_putstr("_beam:\n");
-//		print_beam(_beam);
 		_beam = find_true_beam(g, context, _beam, start_end);
-//		clear_beam(tmp_beam);
-		tmp_beam = NULL;
 		sort_by_lengths(_beam);
-
 		add_beam_to_beams(&beams, &_beam, get_number_steps(context, &_beam));
-//		tmp_beam = find_true_beam(g, context, _beam, start_end);
-//		if (tmp_beam)
-//			add_beam_to_beams(&beams, &_beam, get_number_steps(context, &beam));
-//		ft_putstr("tmp_beam:\n");
-//		print_beam(tmp_beam);
 		size++;
 	}
-//	beamss = beams;
-//	while(beamss)
-//	{
-//		printf("number_steps:%f| len beam:%lu|\n", beamss->number_steps, get_length_beam(beamss->beam));
-//		beamss = beamss->next;
-//	}
 	context->free_beams = beams;
 	tmp_beam = get_min_number_steps_beam(beams);
-
-//	clear_beams(beams);
-
-
 	return (tmp_beam);
 }

@@ -1,4 +1,4 @@
-#include "libft.h"
+
 #include "exdlst.h"
 
 t_exdlist	*exdlstdub_int(t_exdlist *stack)

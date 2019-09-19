@@ -1,9 +1,6 @@
 
 #include "lem_in.h"
-#include "libft.h"
-#include "queue.h"
-#include "exdlst.h"
-
+// go to the libft
 
 void	initialize_bellman_ford_search(graph *g, t_context* context, int start)
 {
@@ -39,7 +36,7 @@ void	relax(graph *g, t_context *context, int current_vertex, int prev_vertex)
 int		bellman_ford(graph *g, t_context *context, int start)
 {
 	int				i;
-	int 				j;
+	int 			j;
 	t_edgenode		*p;
 
 	j = 1;

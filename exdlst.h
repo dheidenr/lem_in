@@ -21,6 +21,6 @@ void			memsetdel(void *entity, size_t size);
 void			exdlstadd(t_exdlist **aexdlst, t_exdlist *new);
 void			exdlist_int_put(t_exdlist *exdlist);
 size_t			exdlistlen(t_exdlist *stack);
-t_exdlist	*exdlstdub_int(t_exdlist *stack);
+t_exdlist		*exdlstdub_int(t_exdlist *stack);
 
 #endif

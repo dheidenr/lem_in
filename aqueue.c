@@ -1,7 +1,7 @@
 
 #include "aqueue.h"
 #include "libft.h"
-#include "lem_in.h"
+#include "exdlst.h"
 
 void	init_aqueue(t_aqueue **q)
 {
@@ -18,12 +18,6 @@ void	enaqueue(t_aqueue *q, int src)
 	q->end++;
 	q->length = q->end - q->cursor;
 }
-
-//void	memsetdel(void *entity, size_t size)
-//{
-//	ft_memset(entity, 0, size);
-//	free(entity);
-//}
 
 int		deaqueue(t_aqueue *q)
 {
@@ -42,7 +36,7 @@ int 		is_empty_aqueue(t_aqueue *q)
 	return (q && q->length ? 0 : 1);
 }
 
-void	print_aqueue(t_aqueue *q)//, int	debug)
+void	print_aqueue(t_aqueue *q)
 {
 	t_exdlist	*exdlist;
 	size_t		count;
@@ -50,15 +44,11 @@ void	print_aqueue(t_aqueue *q)//, int	debug)
 	if (is_empty_aqueue(q))
 		ft_putstr("Null\n");
 	count = q->cursor;
-
-//	if  (!debug)
-		while (count < q->end)
-		{
-			ft_putnbr(q->elements[count]);
-			ft_putstr(" ");
-			count++;
-		}
-//	else
-//		exdlist_int_put(exdlist);
+	while (count < q->end)
+	{
+		ft_putnbr(q->elements[count]);
+		ft_putstr(" ");
+		count++;
+	}
 	ft_putstr("\n");
 }

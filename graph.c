@@ -101,8 +101,7 @@ void	print_graph(graph *g)
 		p = g->edges[i];
 		while (p != NULL)
 		{
-//			if (!p->isolate)
-				printf(" %d(w:%d,t:%d,i:%d)", p->y, p->weight, p->turn, p->isolate);
+			printf(" %d(w:%d,t:%d,i:%d)", p->y, p->weight, p->turn, p->isolate);
 			p = p->next;
 		}
 		printf("\n");
@@ -129,7 +128,8 @@ void	read_graph(graph *g, t_context *context, int directed)
 	}
 }
 
-void	random_graph(graph *g, t_context *context, int directed, int nvertices, unsigned int r, int edges)
+void	random_graph(graph *g, t_context *context, int directed,
+								int nvertices, unsigned int r, int edges)
 {
 	int 	i;
 	int 	m;

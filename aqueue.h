@@ -7,15 +7,21 @@
 
 typedef 	struct	s_aqueue
 {
-	int 		elements[MAXV + 1];
-	size_t		cursor;
-	size_t		end;
-	size_t 		length;
+	int 				elements[MAXV + 1];
+	size_t				cursor;
+	size_t				end;
+	size_t 				length;
 }						t_aqueue;
 
-void	init_aqueue(t_aqueue **q);
-void	enaqueue(t_aqueue *q, int src);
-int		deaqueue(t_aqueue *q);
-int 	is_empty_aqueue(t_aqueue *q);
-void	print_aqueue(t_aqueue *q);
+typedef struct 		s_bfs
+{
+	t_aqueue		*q;
+	t_edgenode		*p;
+}					t_bfs;
+
+void				init_aqueue(t_aqueue **q);
+void				enaqueue(t_aqueue *q, int src);
+int					deaqueue(t_aqueue *q);
+int 				is_empty_aqueue(t_aqueue *q);
+void				print_aqueue(t_aqueue *q);
 #endif

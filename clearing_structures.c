@@ -42,54 +42,11 @@ void	clear_edges(t_edgenode **edges)
 
 	if (!edges)
 		return ;
-//	ed = edges;
 	while(count < MAXV)
 	{
 		clear_edgenode(edges[count]);
-
-//		edges++;
-//		free(ed);
-//		ed = NULL;
-//		ed = edges;
 		count++;
 	}
-//	free(edges);
-}
-
-void	clear_path(t_path *path)
-{
-	t_path *free_path;
-
-	if (!path)
-		return ;
-	free_path = path;
-	while(path)
-	{
-		path = path->next;
-		free(free_path);
-		free_path = NULL;
-		free_path = path;
-	}
-}
-
-void	clear_beam(t_beam *beam)
-{
-	t_beam *free_beam;
-
-	if (!beam)
-		return ;
-	free_beam = beam;
-	while(beam)
-	{
-		beam = beam->next;
-		clear_path(free_beam->path);
-		free_beam->path = NULL;
-		free(free_beam);
-		free_beam = NULL;
-		free_beam = beam;
-	}
-	free(beam);
-	beam = NULL;
 }
 
 void	clear_graph(graph *g)
@@ -112,40 +69,4 @@ void	clearing_structures(graph *g, t_context *context, t_beams *beams)
 	if (context)
 		clear_beam(context->free_beam);
 	clear_beams(beams);
-//	if (context)
-//		clear_beam(context->free_beam);
 }
-
-void	clear_beams(t_beams *beams)
-{
-	t_beam *beam;
-	t_beams *tmp;
-	t_beam *free_beam;
-	t_beams *free_beams;
-
-//	beam =  get_min_number_steps_beam(beams);;
-	tmp = beams;
-	free_beams = tmp;
-	while (tmp)
-	{
-		free_beam = tmp->beam;
-//		if (free_beam != beam)
-//		{
-		if (free_beam)
-			clear_beam(free_beam);
-//			free(free_beam);
-		tmp->beam = NULL;
-//		}
-//		if (free_beams)
-
-//		free(beams);
-		free_beams = tmp;
-		tmp = tmp->next;
-//		if (free_beams)
-//		{
-			free(free_beams);
-			free_beams = NULL;
-//		}
-	}
-}
-//}

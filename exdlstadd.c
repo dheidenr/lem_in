@@ -1,4 +1,4 @@
-#include "libft.h"
+
 #include "exdlst.h"
 
 void	exdlstadd(t_exdlist **aexdlst, t_exdlist *new)

@@ -23,15 +23,13 @@ void	print_beam(t_beam *beam)
 	while(beam)
 	{
 		str = ft_itoa(count);
-		ft_putstr(str);
-		if (str)
-			free(str);
+		putstr_free(str);
 		ft_putstr(":");
 		str = ft_itoa(beam->ants);
-		ft_putstr(str);
+		putstr_free(str);
 		ft_putstr(" ants:");
 		str = ft_itoa(beam->length);
-		ft_putstr(str);
+		putstr_free(str);
 		ft_putstr(" length:");
 		if (beam->path)
 			print_path(beam->path);

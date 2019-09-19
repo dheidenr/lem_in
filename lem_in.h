@@ -8,9 +8,6 @@
 #include <time.h>
 #include <limits.h>
 #include "libft.h"
-#include "queue.h"
-//#include "aqueue.h"
-
 
 #define MAXV 16000
 #define FALSE 0
@@ -44,16 +41,12 @@ typedef	struct
 	unsigned char	finished;
 }				graph;
 
-
-
 typedef struct s_path
 {
 	int			vertex;
 	int 		ant;
 	struct s_path *next;
 }				t_path;
-
-
 
 typedef	struct		s_beam
 {
@@ -71,7 +64,6 @@ typedef	struct		s_beams
 	struct s_beams	*next;
 }					t_beams;
 
-
 typedef struct	s_context
 {
 	int 			entry_time[MAXV + 1];
@@ -86,10 +78,11 @@ typedef struct	s_context
 	int 			global_ants;
 	int 			finish_ants;
 	int 			flag;
+	int 			verify;
 	int 			debug;
+	int 			fd;
 	t_beam			*free_beam;
 	t_beams			*free_beams;
-//	t_beam			*short_path;
 	t_edgenode		*edgenode;
 }				t_context;
 
@@ -98,6 +91,14 @@ typedef  struct	s_edgepoint
 	int x;
 	int y;
 }				t_edgepoint;
+
+typedef	struct	s_support_edge
+{
+	t_edgepoint point;
+	t_edgenode *edge;
+	t_edgenode *prev_edge;
+	int 		flag;
+}				t_support_edge;
 
 
 t_beam			*find_true_beam(graph *g, t_context *context, t_beam *fake_beam,
@@ -114,12 +115,12 @@ void			random_graph(graph *g, t_context *context, int directed,
 void			initialize_bfs_search(graph *g);
 void			initialize_dfs_search(graph *g, t_context *context);
 void			initialize_dijkstra_search(graph *g, t_context* context);
-void			initialize_bellman_ford_search(graph *g, t_context* context, int start);
+//void			initialize_bellman_ford_search(graph *g, t_context* context, int start);
 void			bfs(graph *g, int start);
-void			dfs(graph *g, t_context *context, int v);
-void			dfs2(graph *g, t_context *context, int v);
-void			dijkstra(graph *g, int start);
-int				bellman_ford(graph *g, t_context *context, int start);
+//void			dfs(graph *g, t_context *context, int v);
+//void			dfs2(graph *g, t_context *context, int v);
+//void			dijkstra(graph *g, int start);
+//int			bellman_ford(graph *g, t_context *context, int start);
 void			print_path_start_end(int start, int end, int *parents);
 
 t_path			*find_path(int start, int end, int parents[], t_path **path);
@@ -127,14 +128,13 @@ t_path			*find_path(int start, int end, int parents[], t_path **path);
 //t_queue			*qfind_path(int start, int end, int parents[], t_queue **q);
 //t_queue			*shortest_bfs_path_search(graph *g, int start, int end);
 
-
-void			test_1_graph(graph *g, t_context *context, int directed);
-void			test_too_path_graph(graph *g, t_context *context, int directed);
-void			test_24_4_graph_bellman_ford(graph *g, t_context *context, int directed);
-void			test_too_path_graph_suurballe(graph *g, t_context *context, int directed);
-void			test_too_path_graph_suurballe_extreme(graph *g, t_context *context, int directed);
-void			test_too_path_graph_suurballe_wiki(graph *g, t_context *context, int directed);
-void			test_three_path_graph_suurballe_little(graph *g, t_context *context, int directed);
+//void			test_1_graph(graph *g, t_context *context, int directed);
+//void			test_too_path_graph(graph *g, t_context *context, int directed);
+//void			test_24_4_graph_bellman_ford(graph *g, t_context *context, int directed);
+//void			test_too_path_graph_suurballe(graph *g, t_context *context, int directed);
+//void			test_too_path_graph_suurballe_extreme(graph *g, t_context *context, int directed);
+//void			test_too_path_graph_suurballe_wiki(graph *g, t_context *context, int directed);
+//void			test_three_path_graph_suurballe_little(graph *g, t_context *context, int directed);
 
 t_beam			*suurballe(graph *g, t_context *context, int start, int end);
 graph*			graphdub(graph* g);
@@ -162,6 +162,13 @@ void			output(t_beam *beam, t_context *context);
 //utilits
 t_beam	*find_optimal_beam(graph *g, t_context *context, t_beam *beam,
 														t_edgepoint start_end);
+t_path	*get_path(t_path *path, size_t step);
+void	offset_path(t_beam *beam, t_context *context);
+void 	swap_paths(t_beam *one, t_beam *two);
+int 	ending_room(int *ending, t_context *context, char ***line, graph *g);
+size_t	pulling_room(graph *g, t_context *context, char **line);
+char 	pulling_link(graph *g, t_context *context, char *line);
+int 	print_gnl(const int fd, char **line);
 int 	is_elements_of_path_in_beam(t_beam *beam, t_path *path);
 float	get_number_steps(t_context *context, t_beam **beam);
 void	sort_by_lengths(t_beam *beam);

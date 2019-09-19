@@ -1,8 +1,7 @@
 
-#include "queue.h"
 #include "exdlst.h"
 #include "lem_in.h"
-
+// go to the libft
 int 	time_count;
 
 void	initialize_dfs_search(graph *g, t_context *context)

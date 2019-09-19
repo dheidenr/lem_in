@@ -46,9 +46,6 @@ void	exdlist_int_put_start_end(t_exdlist *exdlist)
 
 void	exdlist_int_put(t_exdlist *exdlist)
 {
-//	ft_putchar('\n');
-//	ft_putstr(__func__);
-//	ft_putstr("\nstep of next->\n");
 	if (!exdlist)
 		ft_putstr("NULL\n");
 	while (exdlist)

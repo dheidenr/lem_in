@@ -1,4 +1,4 @@
-#include "libft.h"
+
 #include "exdlst.h"
 
 size_t	exdlistlen(t_exdlist *stack)
