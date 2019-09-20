@@ -66,4 +66,3 @@ void	input(t_graph *g, t_context *context)
 	}
 	free(line);
 }
-
