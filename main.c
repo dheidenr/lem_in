@@ -25,6 +25,8 @@ int main(int ac, char **av)
 	init_bonuses(ac, av, &context);
 	context.free_beams = NULL;
 	context.free_beam = NULL;
+	context.debug = TRUE;
+	context.verify = TRUE;
 	beam = NULL;
 	initialize_graph(&g, &context, 0);
 	input(&g, &context);

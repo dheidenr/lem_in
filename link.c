@@ -34,14 +34,14 @@ void	get_links(char *str, char **link_one, char **link_two)
 		str++;
 }
 
-char 	pulling_link(t_graph *g, t_context *context, char *line)
+char 	pulling_link(t_graph *g, t_context *context, char **line)
 {
 	char	*str;
 	char 		*link_one;
 	char		*link_two;
 
-	str = line;
-	if (!line)
+	str = *line;
+	if (!*line)
 		return (0);
 	if (!ft_strchr(str, '-'))
 		return (0);
@@ -49,8 +49,8 @@ char 	pulling_link(t_graph *g, t_context *context, char *line)
 		str++;
 	get_links(str, &link_one, &link_two);
 	insert_edge(g, get_index_of_link(link_one, context), get_index_of_link(link_two, context), 0);
-	free(line);
-	line = NULL;
+	free(*line);
+	*line = NULL;
 	free(link_one);
 	link_one = NULL;
 	free(link_two);

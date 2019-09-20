@@ -108,6 +108,13 @@ typedef	struct	s_support_beam
 	t_context	*context;
 }				t_support_beam;
 
+typedef	struct	s_compact
+{
+	t_graph		*g;
+	t_context	*c;
+}				t_compact;
+
+
 t_beam			*find_true_beam(t_graph *g, t_beam *fake_beam,
 								  t_edgepoint start_end);
 void			initialize_graph(t_graph *g, t_context *context, int directed);
@@ -156,7 +163,7 @@ void	offset_path(t_beam *beam, t_context *context);
 void 	swap_paths(t_beam *one, t_beam *two);
 int 	ending_room(int *ending, t_context *context, char ***line, t_graph *g);
 size_t	pulling_room(t_graph *g, t_context *context, char **line);
-char 	pulling_link(t_graph *g, t_context *context, char *line);
+char 	pulling_link(t_graph *g, t_context *context, char **line);
 int 	print_gnl(const int fd, char **line);
 int 	is_elements_of_path_in_beam(t_beam *beam, t_path *path);
 float	get_number_steps(t_context *context, t_beam **beam);

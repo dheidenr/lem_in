@@ -61,7 +61,7 @@ void	input(t_graph *g, t_context *context)
 		if (is_comment(line))
 			continue;
 		if (!pulling_room(g, context, &line))
-			if (!pulling_link(g, context, line))
+			if (!pulling_link(g, context, &line))
 				error();
 	}
 	free(line);
