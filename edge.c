@@ -1,7 +1,7 @@
 
 #include "lem_in.h"
 
-void	processor_step_one(t_support_edge *sup, graph *g, t_edgepoint *p)
+void	processor_step_one(t_support_edge *sup, t_graph *g, t_edgepoint *p)
 {
 	if (sup->flag)
 	{
@@ -17,7 +17,7 @@ void	processor_step_one(t_support_edge *sup, graph *g, t_edgepoint *p)
 	}
 }
 
-void	remove_edge_directed(graph *g, t_edgepoint *p)
+void	remove_edge_directed(t_graph *g, t_edgepoint *p)
 {
 	t_support_edge sup;
 
@@ -38,14 +38,14 @@ void	remove_edge_directed(graph *g, t_edgepoint *p)
 	}
 }
 
-void	remove_edge(graph *g, t_edgepoint edgepoint, int directed)
+void	remove_edge(t_graph *g, t_edgepoint edgepoint, int directed)
 {
 	remove_edge_directed(g, &edgepoint);
 	if (directed == FALSE)
 		remove_edge_directed(g, &edgepoint);
 }
 
-int 	get_weight_edge(graph *g, t_edgepoint *edp)
+int 	get_weight_edge(t_graph *g, t_edgepoint *edp)
 {
 	t_edgenode *edgenode;
 
@@ -58,6 +58,3 @@ int 	get_weight_edge(graph *g, t_edgepoint *edp)
 	}
 	return (0);
 }
-
-
-

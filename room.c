@@ -13,7 +13,7 @@ void	fill_name_room(const char **str, int len, size_t *index, t_context *context
 	context->names[*index] = name;
 }
 
-size_t	pulling_room(graph *g, t_context *context, char **line)
+size_t	pulling_room(t_graph *g, t_context *context, char **line)
 {
 	const char	*str;
 	size_t		len;
@@ -41,7 +41,7 @@ size_t	pulling_room(graph *g, t_context *context, char **line)
 	return (index);
 }
 
-int 	ending_room(int *ending, t_context *context, char ***line, graph *g)
+int 	ending_room(int *ending, t_context *context, char ***line, t_graph *g)
 {
 	free(**line);
 	**line = NULL;

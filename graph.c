@@ -1,7 +1,7 @@
 
 #include "lem_in.h"
 
-void	initialize_graph(graph *g, t_context *context, int directed)
+void	initialize_graph(t_graph *g, t_context *context, int directed)
 {
 	int 	i;
 
@@ -43,7 +43,7 @@ int 	is_in_edges(t_edgenode *p, int y)
 	return (0);
 }
 
-void	insert_edge(graph *g, int x, int y, int directed)
+void	insert_edge(t_graph *g, int x, int y, int directed)
 {
 	t_edgenode *p;
 
@@ -66,7 +66,7 @@ void	insert_edge(graph *g, int x, int y, int directed)
 		g->nedges++;
 }
 
-void	insert_edge_weight(graph *g, t_edgepoint *edgepoint, int directed, int weight)
+void	insert_edge_weight(t_graph *g, t_edgepoint *edgepoint, int directed, int weight)
 {
 	t_edgenode *p;
 
@@ -89,7 +89,7 @@ void	insert_edge_weight(graph *g, t_edgepoint *edgepoint, int directed, int weig
 		g->nedges++;
 }
 
-void	print_graph(graph *g)
+void	print_graph(t_graph *g)
 {
 	int 	i;
 	t_edgenode *p;
@@ -105,45 +105,6 @@ void	print_graph(graph *g)
 			p = p->next;
 		}
 		printf("\n");
-		i++;
-	}
-}
-
-void	read_graph(graph *g, t_context *context, int directed)
-{
-	int 	i;
-	int 	m;
-	int 	x, y;
-
-	initialize_graph(g, context, directed);
-	printf("input please nvertices and edges");
-	scanf("%d %d", &(g->nvertices), &m);
-	i = 1;
-	while(i <= m)
-	{
-		printf("input please x and y for insert_edge");
-		scanf("%d %d", &x, &y);
-		insert_edge(g, x, y, directed);
-		i++;
-	}
-}
-
-void	random_graph(graph *g, t_context *context, int directed,
-								int nvertices, unsigned int r, int edges)
-{
-	int 	i;
-	int 	m;
-	int 	x, y;
-
-	initialize_graph(g, context, directed);
-	g->nvertices = nvertices;
-	m = edges;
-	i = 1;
-	while(i <= m)
-	{
-		x = (unsigned int)random() % r;
-		y = (unsigned int)random()  % r;
-		insert_edge(g, x, y, directed);
 		i++;
 	}
 }

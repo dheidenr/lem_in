@@ -15,6 +15,9 @@ void	output(t_beam *beam, t_context *context)
 {
 	prepare_beam_ants(context->global_ants, beam);
 	if (context->debug)
+	{
+		ft_putstr("final beam:\n");
 		print_beam(beam);
+	}
 	ants_go_the_paths(beam, context);
 }

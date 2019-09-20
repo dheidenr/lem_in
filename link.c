@@ -34,7 +34,7 @@ void	get_links(char *str, char **link_one, char **link_two)
 		str++;
 }
 
-char 	pulling_link(graph *g, t_context *context, char *line)
+char 	pulling_link(t_graph *g, t_context *context, char *line)
 {
 	char	*str;
 	char 		*link_one;

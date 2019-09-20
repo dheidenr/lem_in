@@ -18,23 +18,17 @@ void	init_bonuses(int ac, char **av, t_context *context)
 
 int main(int ac, char **av)
 {
-	graph g;
+	t_graph g;
 	t_context context;
 	t_beam	*beam;
 
 	init_bonuses(ac, av, &context);
-
-
-	context.verify = TRUE;
-
-
 	context.free_beams = NULL;
 	context.free_beam = NULL;
 	beam = NULL;
 	initialize_graph(&g, &context, 0);
 	input(&g, &context);
 	initialize_bfs_search(&g);
-//	initialize_dijkstra_search(&g, &context);
 	beam = suurballe(&g, &context, context.start, context.end);
 	output(beam, &context);
 	clearing_structures(&g, &context, context.free_beams);

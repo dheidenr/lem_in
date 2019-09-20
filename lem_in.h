@@ -15,10 +15,6 @@
 #define WHITE 0
 #define GRAY 1
 #define BLACK 2
-#define	START 1
-#define END 5
-#define END_SPACE 1
-#define NOT_END_SPACE 0
 
 typedef struct s_edgenode
 {
@@ -29,7 +25,7 @@ typedef struct s_edgenode
 	struct s_edgenode *next;
 }				t_edgenode;
 
-typedef	struct
+typedef	struct		s_graph
 {
 	t_edgenode		*edges[MAXV + 1];
 	int				degree[MAXV + 1]; //Степень
@@ -39,14 +35,14 @@ typedef	struct
 	unsigned char	color[MAXV + 1];
 	int 			parents[MAXV + 1];
 	unsigned char	finished;
-}				graph;
+}					t_graph;
 
 typedef struct s_path
 {
-	int			vertex;
-	int 		ant;
-	struct s_path *next;
-}				t_path;
+	int				vertex;
+	int 			ant;
+	struct s_path	*next;
+}					t_path;
 
 typedef	struct		s_beam
 {
@@ -94,60 +90,54 @@ typedef  struct	s_edgepoint
 
 typedef	struct	s_support_edge
 {
-	t_edgepoint point;
-	t_edgenode *edge;
-	t_edgenode *prev_edge;
+	t_edgenode	*edge;
+	t_edgenode	*prev_edge;
+	t_edgenode	*reverse_edge;
+	t_edgepoint edp;
+	t_edgepoint *rev_edp;
+	t_edgenode	*tmp_edge;
 	int 		flag;
 }				t_support_edge;
 
+typedef	struct	s_support_beam
+{
+	t_path		*path;
+	t_beam		*beam;
+	t_beam		*tmp_beam;
+	t_beam		*true_beam;
+	t_context	*context;
+}				t_support_beam;
 
-t_beam			*find_true_beam(graph *g, t_context *context, t_beam *fake_beam,
-														t_edgepoint start_end);
-void			initialize_graph(graph *g, t_context *context, int directed);
-void			insert_edge(graph *g, int x, int y, int directed);
-void			insert_edge_weight(graph *g, t_edgepoint *edgepoint, int directed,
-																	int weight);
-void			print_graph(graph *g);
-void			print_array_graph(int array[], graph *g, char *str);
-void			read_graph(graph *g, t_context *context, int directed);
-void			random_graph(graph *g, t_context *context, int directed,
-									int nvertices, unsigned int r, int edges);
-void			initialize_bfs_search(graph *g);
-void			initialize_dfs_search(graph *g, t_context *context);
-void			initialize_dijkstra_search(graph *g, t_context* context);
-//void			initialize_bellman_ford_search(graph *g, t_context* context, int start);
-void			bfs(graph *g, int start);
-//void			dfs(graph *g, t_context *context, int v);
-//void			dfs2(graph *g, t_context *context, int v);
-//void			dijkstra(graph *g, int start);
-//int			bellman_ford(graph *g, t_context *context, int start);
-void			print_path_start_end(int start, int end, int *parents);
+t_beam			*find_true_beam(t_graph *g, t_beam *fake_beam,
+								  t_edgepoint start_end);
+void			initialize_graph(t_graph *g, t_context *context, int directed);
+void			insert_edge(t_graph *g, int x, int y, int directed);
+void			insert_edge_weight(t_graph *g, t_edgepoint *edgepoint, int directed,
+								   int weight);
+void			initialize_bfs_search(t_graph *g);
+void			bfs(t_graph *g, int start);
 
 t_path			*find_path(int start, int end, int parents[], t_path **path);
 
-//t_queue			*qfind_path(int start, int end, int parents[], t_queue **q);
-//t_queue			*shortest_bfs_path_search(graph *g, int start, int end);
-
-//void			test_1_graph(graph *g, t_context *context, int directed);
-//void			test_too_path_graph(graph *g, t_context *context, int directed);
-//void			test_24_4_graph_bellman_ford(graph *g, t_context *context, int directed);
-//void			test_too_path_graph_suurballe(graph *g, t_context *context, int directed);
-//void			test_too_path_graph_suurballe_extreme(graph *g, t_context *context, int directed);
-//void			test_too_path_graph_suurballe_wiki(graph *g, t_context *context, int directed);
-//void			test_three_path_graph_suurballe_little(graph *g, t_context *context, int directed);
-
-t_beam			*suurballe(graph *g, t_context *context, int start, int end);
-graph*			graphdub(graph* g);
-void			remove_edge(graph *g, t_edgepoint edgepoint, int directed);
-void			reverse_edge_and_weight(graph *g, t_edgepoint edp);
-int			 	get_weight_edge(graph *g, t_edgepoint *edp);
+t_beam			*suurballe(t_graph *g, t_context *context, int start, int end);
+void	duplicate_all_vertexes_graph(t_graph *g, t_context *context, int start,
+									 int end);
+t_graph*			graphdub(t_graph* g);
+void			remove_edge(t_graph *g, t_edgepoint edgepoint, int directed);
+void			remove_fake_vertex(t_graph *g, t_context *context, int vertex,
+								   t_path **path);
+void			remove_fake_vertexes(t_graph *g,
+									 t_context *context, t_path **path);
+void			reverse_path(t_graph *g, t_path *path);
+void			reverse_edge_and_weight(t_graph *g, t_edgepoint edp);
+int			 	get_weight_edge(t_graph *g, t_edgepoint *edp);
 void			print_beam(t_beam *beam);
 void			print_path(t_path *path);
 
-void			duplicate_all_vertexes_graph(graph *g, t_context *context, int start, int end);
-void			duplicate_vertex(graph *g, t_context *context, int vertex);
+void			duplicate_all_vertexes_graph(t_graph *g, t_context *context, int start, int end);
+void			duplicate_vertex(t_graph *g, t_context *context, int vertex);
 size_t			get_length_path(t_path *path);
-t_edgenode* 	get_edgenode(graph *g, t_edgepoint *edp);
+t_edgenode* 	get_edgenode(t_graph *g, t_edgepoint *edp);
 void			add_path_to_beam(t_beam **beam, t_path **path, size_t len);
 size_t			get_length_paths(t_beam *beam);
 size_t			get_length_beam(t_beam *beam);
@@ -156,18 +146,17 @@ void			ants_go_the_paths(t_beam *beam, t_context *context);
 void			add_vertex_to_path(t_path **path, int vertex);
 t_beam			*get_min_length_beam(t_beam	*beam);
 t_beam			*get_next_min_length_beam_and_isolate(t_beam *beam);
-void			input(graph *g, t_context *context);
+void			input(t_graph *g, t_context *context);
 void			output(t_beam *beam, t_context *context);
 
-//utilits
-t_beam	*find_optimal_beam(graph *g, t_context *context, t_beam *beam,
-														t_edgepoint start_end);
+t_beam	*find_optimal_beam(t_graph *g, t_context *context, t_beam *beam,
+							 t_edgepoint start_end);
 t_path	*get_path(t_path *path, size_t step);
 void	offset_path(t_beam *beam, t_context *context);
 void 	swap_paths(t_beam *one, t_beam *two);
-int 	ending_room(int *ending, t_context *context, char ***line, graph *g);
-size_t	pulling_room(graph *g, t_context *context, char **line);
-char 	pulling_link(graph *g, t_context *context, char *line);
+int 	ending_room(int *ending, t_context *context, char ***line, t_graph *g);
+size_t	pulling_room(t_graph *g, t_context *context, char **line);
+char 	pulling_link(t_graph *g, t_context *context, char *line);
 int 	print_gnl(const int fd, char **line);
 int 	is_elements_of_path_in_beam(t_beam *beam, t_path *path);
 float	get_number_steps(t_context *context, t_beam **beam);
@@ -176,12 +165,17 @@ t_beam	*get_min_number_steps_beam(t_beams	*beams);
 void	clear_beams(t_beams *beams);
 void	clear_beam(t_beam *beam);
 size_t	ft_charcount(char const *s, char c);
-void	clearing_structures(graph *g, t_context *context, t_beams *beams);
+void	clearing_structures(t_graph *g, t_context *context, t_beams *beams);
 void	clear_path(t_path *path);
-void	clear_graph(graph *g);
+void	clear_graph(t_graph *g);
 void	error();
 
-//Trash
-void	test();
+void		no_isolate_all_edges_of_beam(t_graph *g, t_beam *beam);
+t_edgepoint	*reverse_edgepoint(t_edgepoint *edgepoint,
+													t_edgepoint *reverse_edge);
+
+void	isolate_edgenode(t_edgenode *edgenode, char isolate);
+void 	isolate_all_edges(t_graph *g);
+void 	turn_to_zero_all_edges(t_graph *g);
 
 #endif

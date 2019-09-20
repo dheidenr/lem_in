@@ -40,7 +40,7 @@ void	pulling_ants(t_context *context, char **line)
 	}
 }
 
-void	input(graph *g, t_context *context)
+void	input(t_graph *g, t_context *context)
 {
 	char	**names;
 	char 	*line;
@@ -50,12 +50,6 @@ void	input(graph *g, t_context *context)
 	names = (char **)ft_memalloc(sizeof(char *) * MAXV);
 	context->names = names;
 	line = NULL;
-	//получить строку
-	//обработать строку на ошибки
-	//взять данные из строки в граф
-	//взять данные из строки в names для имен
-	//если коментарий пропустить, если две решетки проверить на старт и следующ ий определить
-	//Если цифра и потом
 
 	fd = open("ant_gen.txt", O_RDONLY);
 //	fd = 0;

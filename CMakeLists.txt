@@ -82,13 +82,13 @@ add_executable(lem-in main.c lem_in.h graph.c
         libft/future_libft_addon_three.c
         exdlstnew.c exdlstdel.c exdlstadd.c
         exdlst.h exdlstlen.c exdlstdub.c
-        exdlst.c queue.c queue.h trash.c
-        bfs.c shortest_path.c dfs.c graph_tests.c
-        dijkstra.c bellman_ford.c suurballe.c
-        utilits.c print.c test.c get_next_line.c
+        exdlst.c
+        bfs.c
+        suurballe.c
+        utilits.c print.c get_next_line.c
         ft_charcount.c input.c helpfulness.c
         libft/ft_isspace.c output.c path.c
         beams.c clearing_structures.c aqueue.c
-        aqueue.h is_element.c to_libft.c cleaning_structures.c graphdub.c edge.c edgenode.c add.c room.c link.c paths.c length.c go.c ant.c ants.c)
+        aqueue.h is_element.c to_libft.c cleaning_structures.c graphdub.c edge.c edgenode.c add.c room.c link.c paths.c length.c go.c ants.c isolate.c true.c edges.c dublicate.c remove.c)
 
 include_directories("${PROJECT_SOURCE_DIR}/include" "${PROJECT_SOURCE_DIR}/libft")

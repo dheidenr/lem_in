@@ -1,7 +1,7 @@
 
 #include "lem_in.h"
 
-int 	get_turn_edge(graph *g, t_edgepoint *edp)
+int 	get_turn_edge(t_graph *g, t_edgepoint *edp)
 {
 	t_edgenode *edgenode;
 

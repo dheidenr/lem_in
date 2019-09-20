@@ -17,8 +17,6 @@ void	print_beam(t_beam *beam)
 	int 	count;
 	char 	*str;
 
-	ft_putstr(__FUNCTION__);
-	ft_putstr("\n");
 	count = 1;
 	while(beam)
 	{
@@ -39,7 +37,7 @@ void	print_beam(t_beam *beam)
 	ft_putstr("\n");
 }
 
-void	print_array_graph(int *array, graph *g, char *str)
+void	print_array_graph(int *array, t_graph *g, char *str)
 {
 	int i;
 

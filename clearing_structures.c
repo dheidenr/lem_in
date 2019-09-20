@@ -49,7 +49,7 @@ void	clear_edges(t_edgenode **edges)
 	}
 }
 
-void	clear_graph(graph *g)
+void	clear_graph(t_graph *g)
 {
 	if (g)
 		clear_edges(g->edges);
@@ -57,7 +57,7 @@ void	clear_graph(graph *g)
 	g = NULL;
 }
 
-void	clearing_structures(graph *g, t_context *context, t_beams *beams)
+void	clearing_structures(t_graph *g, t_context *context, t_beams *beams)
 {
 	if (context)
 	{

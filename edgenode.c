@@ -1,7 +1,7 @@
 
 #include "lem_in.h"
 
-char 	is_exist_edge(graph *g, t_edgepoint *edp)
+char 	is_exist_edge(t_graph *g, t_edgepoint *edp)
 {
 	t_edgenode *edgenode;
 
@@ -15,7 +15,7 @@ char 	is_exist_edge(graph *g, t_edgepoint *edp)
 	return (0);
 }
 
-t_edgenode* 	get_edgenode(graph *g, t_edgepoint *edp)
+t_edgenode* 	get_edgenode(t_graph *g, t_edgepoint *edp)
 {
 	t_edgenode *edgenode;
 
@@ -29,7 +29,7 @@ t_edgenode* 	get_edgenode(graph *g, t_edgepoint *edp)
 	return (NULL);
 }
 
-void	reverse_edge_and_weight(graph *g, t_edgepoint edp)
+void	reverse_edge_and_weight(t_graph *g, t_edgepoint edp)
 {
 	t_edgepoint reversive_edge;
 	t_edgenode	*edgenode;

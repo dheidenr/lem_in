@@ -90,8 +90,8 @@ t_beam	*get_min_number_steps_beam(t_beams	*beams)
 	return (result);
 }
 
-t_beam	*find_optimal_beam(graph *g, t_context *context, t_beam *beam,
-														t_edgepoint start_end)
+t_beam	*find_optimal_beam(t_graph *g, t_context *context, t_beam *beam,
+							 t_edgepoint start_end)
 {
 	t_beam *_beam;
 	t_beam *tmp_beam;
@@ -105,7 +105,7 @@ t_beam	*find_optimal_beam(graph *g, t_context *context, t_beam *beam,
 	while (size <= len)
 	{
 		_beam = get_beam_size(beam, size);
-		_beam = find_true_beam(g, context, _beam, start_end);
+		_beam = find_true_beam(g, _beam, start_end);
 		sort_by_lengths(_beam);
 		add_beam_to_beams(&beams, &_beam, get_number_steps(context, &_beam));
 		size++;

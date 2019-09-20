@@ -3,7 +3,7 @@
 #include "lem_in.h"
 #include "aqueue.h"
 
-void	initialize_bfs_search(graph *g)
+void	initialize_bfs_search(t_graph *g)
 {
 	int 	i;
 
@@ -16,12 +16,12 @@ void	initialize_bfs_search(graph *g)
 	}
 }
 
-void process_edge(graph *g)
+void process_edge(t_graph *g)
 {
 	g->nedges++;
 }
 
-void	cycle_bfs(t_bfs *b, graph *g, int *y, const int *v)
+void	cycle_bfs(t_bfs *b, t_graph *g, int *y, const int *v)
 {
 	while (b->p != NULL)
 	{
@@ -38,7 +38,7 @@ void	cycle_bfs(t_bfs *b, graph *g, int *y, const int *v)
 	}
 }
 
-void	bfs(graph *g, int start)
+void	bfs(t_graph *g, int start)
 {
 	int				v;
 	int 			y;

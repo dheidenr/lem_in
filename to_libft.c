@@ -3,7 +3,7 @@
 #include "lem_in.h"
 #include "exdlst.h"
 
-void	initialize_dijkstra_search(graph *g, t_context* context)
+void	initialize_dijkstra_search(t_graph *g, t_context* context)
 {
 	int 	i;
 
@@ -19,7 +19,7 @@ void	initialize_dijkstra_search(graph *g, t_context* context)
 	g->finished = FALSE;
 }
 
-void	dijkstra(graph *g, int start)
+void	dijkstra(t_graph *g, int start)
 {
 	int				i;
 	t_edgenode		*p;

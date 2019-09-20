@@ -26,43 +26,48 @@ void	print_debug(int debug_len, t_context *context, t_beam *tmp_beam)
 	}
 }
 
+void	step(t_support_beam *sup, t_context *context, int *debug_len)
+{
+	if (sup->beam)
+		sup->path = sup->beam->path;
+	else
+	{
+		sup->beam = sup->tmp_beam;
+		sup->path = sup->beam->path;
+		context->flag = 0;
+		if (context->finish_ants < context->global_ants)
+		{
+			ft_putchar('\n');
+			if (context->verify)
+				(*debug_len)++;
+		}
+	}
+}
+
 void	ants_go_the_paths(t_beam *beam, t_context *context)
 {
-	t_path	*path;
-	t_beam	*tmp_beam;
-	size_t	ant;
-	size_t	stop;
-	int	debug_len;
+	t_support_beam	sup;
+	size_t			ant;
+	size_t			stop;
+	int				debug_len;
 
 	ant = 0;
 	stop = 0;
 	debug_len = 0;
 	context->finish_ants = 0;
-	tmp_beam = beam;
+	sup.tmp_beam = beam;
 	if (!beam)
 		return ;
-	path = beam->path;
+	sup.path = beam->path;
+	sup.beam = beam;
 	while (context->finish_ants < context->global_ants)
 	{
-		if (path)
-			step_on_the_path(beam,ant = (beam->ants > 0 )  ? ant + 1 : ant,
-							 context);
-		beam = beam->next;
-		if (beam)
-			path = beam->path;
-		else
-		{
-			beam = tmp_beam;
-			path = beam->path;
-			context->flag = 0;
-			if (context->finish_ants < context->global_ants)
-			{
-				ft_putchar('\n');
-				if (context->verify)
-					debug_len++;
-			}
-		}
+		if (sup.path)
+			step_on_the_path(sup.beam,
+					ant = (sup.beam->ants > 0) ? ant + 1 : ant, context);
+		sup.beam = sup.beam->next;
+		step(&sup, context, &debug_len);
 		stop++;
 	}
-	print_debug(debug_len, context, tmp_beam);
+	print_debug(debug_len, context, sup.tmp_beam);
 }
