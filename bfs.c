@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   bfs.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dheidenr <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/09/21 13:03:21 by dheidenr          #+#    #+#             */
+/*   Updated: 2019/09/21 13:03:25 by dheidenr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "exdlst.h"
 #include "lem_in.h"
@@ -5,10 +16,10 @@
 
 void	initialize_bfs_search(t_graph *g)
 {
-	int 	i;
+	int				i;
 
 	i = 0;
-	while(i <= MAXV)
+	while (i <= MAXV)
 	{
 		g->color[i] = WHITE;
 		g->parents[i] = -1;
@@ -16,7 +27,7 @@ void	initialize_bfs_search(t_graph *g)
 	}
 }
 
-void process_edge(t_graph *g)
+void	process_edge(t_graph *g)
 {
 	g->nedges++;
 }
@@ -41,7 +52,7 @@ void	cycle_bfs(t_bfs *b, t_graph *g, int *y, const int *v)
 void	bfs(t_graph *g, int start)
 {
 	int				v;
-	int 			y;
+	int				y;
 	t_bfs			b;
 
 	b.q = NULL;
@@ -55,7 +66,8 @@ void	bfs(t_graph *g, int start)
 		b.p = g->edges[v];
 		cycle_bfs(&b, g, &y, &v);
 	}
-	while((v = deaqueue(b.q), v != -1))
-		;
+	v = deaqueue(b.q);
+	while (v != -1)
+		v = deaqueue(b.q);
 	free(b.q);
 }

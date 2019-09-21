@@ -1,17 +1,27 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   length.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dheidenr <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/09/21 13:08:45 by dheidenr          #+#    #+#             */
+/*   Updated: 2019/09/21 13:08:48 by dheidenr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "lem_in.h"
 
-
 t_beam	*get_next_min_length_beam_and_isolate(t_beam *beam)
 {
-	t_beam *tmp;
+	t_beam	*tmp;
 	t_beam	*result;
 	size_t	min_len;
 
 	tmp = beam;
 	if (!beam)
 		return (NULL);
-	while(tmp && tmp->isolate)
+	while (tmp && tmp->isolate)
 		tmp = tmp->next;
 	min_len = (tmp) ? tmp->length : 0;
 	result = tmp;
@@ -29,16 +39,16 @@ t_beam	*get_next_min_length_beam_and_isolate(t_beam *beam)
 	return (result);
 }
 
-t_beam	*get_min_length_beam(t_beam	*beam)
+t_beam	*get_min_length_beam(t_beam *beam)
 {
-	t_beam *tmp;
+	t_beam	*tmp;
 	t_beam	*result;
 	size_t	min_len;
 
 	tmp = beam;
 	if (!beam)
 		return (NULL);
-	while(tmp && tmp->isolate)
+	while (tmp && tmp->isolate)
 		tmp = tmp->next;
 	min_len = (tmp) ? tmp->length : 0;
 	result = tmp;

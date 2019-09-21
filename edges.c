@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   edges.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dheidenr <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/09/21 13:04:36 by dheidenr          #+#    #+#             */
+/*   Updated: 2019/09/21 13:04:41 by dheidenr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "lem_in.h"
 
@@ -10,9 +21,9 @@ void	isolate_edgenode(t_edgenode *edgenode, char isolate)
 	}
 }
 
-void 	isolate_all_edges(t_graph *g)
+void	isolate_all_edges(t_graph *g)
 {
-	size_t 	count;
+	size_t		count;
 	t_edgenode	*edgenode;
 
 	count = 1;
@@ -28,9 +39,9 @@ void 	isolate_all_edges(t_graph *g)
 	}
 }
 
-void 	turn_to_zero_all_edges(t_graph *g)
+void	turn_to_zero_all_edges(t_graph *g)
 {
-	size_t 	count;
+	size_t		count;
 	t_edgenode	*edgenode;
 
 	count = 1;

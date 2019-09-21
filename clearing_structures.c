@@ -1,9 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   clearing_structures.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dheidenr <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/09/21 13:03:47 by dheidenr          #+#    #+#             */
+/*   Updated: 2019/09/21 13:03:50 by dheidenr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "lem_in.h"
 
 void	clear_names(char **names)
 {
-	char **free_name;
+	char	**free_name;
 
 	if (!names)
 		return ;
@@ -17,14 +28,14 @@ void	clear_names(char **names)
 	free(names);
 }
 
-void 	clear_edgenode(t_edgenode *edge)
+void	clear_edgenode(t_edgenode *edge)
 {
 	t_edgenode *free_edge;
 
 	if (!edge)
 		return ;
 	free_edge = edge;
-	while(edge)
+	while (edge)
 	{
 		edge = edge->next;
 		free(free_edge);
@@ -35,14 +46,12 @@ void 	clear_edgenode(t_edgenode *edge)
 
 void	clear_edges(t_edgenode **edges)
 {
-	t_edgenode **ed;
-	size_t	count;
+	size_t		count;
 
 	count = 0;
-
 	if (!edges)
 		return ;
-	while(count < MAXV)
+	while (count < MAXV)
 	{
 		clear_edgenode(edges[count]);
 		count++;

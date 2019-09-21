@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   edge.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dheidenr <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/09/21 13:04:08 by dheidenr          #+#    #+#             */
+/*   Updated: 2019/09/21 13:04:11 by dheidenr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "lem_in.h"
 
@@ -9,7 +20,8 @@ void	processor_step_one(t_support_edge *sup, t_graph *g, t_edgepoint *p)
 		free(sup->edge);
 		sup->edge = NULL;
 		g->edges[p->x] = sup->prev_edge;
-	} else
+	}
+	else
 	{
 		sup->prev_edge->next = sup->edge->next;
 		free(sup->edge);
@@ -24,7 +36,7 @@ void	remove_edge_directed(t_graph *g, t_edgepoint *p)
 	sup.flag = 1;
 	sup.edge = g->edges[p->x];
 	sup.prev_edge = sup.edge;
-	while(sup.edge)
+	while (sup.edge)
 	{
 		if (sup.edge->y == p->y)
 		{
@@ -45,12 +57,12 @@ void	remove_edge(t_graph *g, t_edgepoint edgepoint, int directed)
 		remove_edge_directed(g, &edgepoint);
 }
 
-int 	get_weight_edge(t_graph *g, t_edgepoint *edp)
+int		get_weight_edge(t_graph *g, t_edgepoint *edp)
 {
 	t_edgenode *edgenode;
 
 	edgenode = g->edges[edp->x];
-	while(edgenode)
+	while (edgenode)
 	{
 		if (edgenode->y == edp->y)
 			return (edgenode->weight);

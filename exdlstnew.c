@@ -1,8 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exdlstnew.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dheidenr <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/09/21 13:06:45 by dheidenr          #+#    #+#             */
+/*   Updated: 2019/09/21 13:06:48 by dheidenr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "exdlst.h"
 #include "libft.h"
 
-void	init_points(t_exdlist *exdlist)
+void		init_points(t_exdlist *exdlist)
 {
 	exdlist->next = NULL;
 	exdlist->prev = NULL;

@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dheidenr <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/09/21 13:09:03 by dheidenr          #+#    #+#             */
+/*   Updated: 2019/09/21 13:09:06 by dheidenr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "lem_in.h"
 #include "exdlst.h"
@@ -16,15 +27,16 @@ void	init_bonuses(int ac, char **av, t_context *context)
 		context->debug = FALSE;
 }
 
-int main(int ac, char **av)
+int		main(int ac, char **av)
 {
-	t_graph g;
-	t_context context;
-	t_beam	*beam;
+	t_graph		g;
+	t_context	context;
+	t_beam		*beam;
 
 	init_bonuses(ac, av, &context);
 	context.free_beams = NULL;
 	context.free_beam = NULL;
+	g.double_beam = NULL;
 	context.debug = TRUE;
 	context.verify = TRUE;
 	beam = NULL;

@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   add.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dheidenr <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/09/21 13:02:32 by dheidenr          #+#    #+#             */
+/*   Updated: 2019/09/21 13:02:35 by dheidenr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "lem_in.h"
 
@@ -21,7 +32,8 @@ void	add_path_to_beam(t_beam **beam, t_path **path, size_t len)
 	{
 		*beam = (t_beam *)ft_memalloc(sizeof(t_beam));
 		set_path_len_null_in_beam(*beam, path, len);
-	} else
+	}
+	else
 	{
 		start_beam = *beam;
 		while ((*beam)->next)
@@ -35,8 +47,8 @@ void	add_path_to_beam(t_beam **beam, t_path **path, size_t len)
 
 void	add_vertex_to_path(t_path **path, int vertex)
 {
-	t_path *temppath;
-	static	t_path *temp;
+	t_path			*temppath;
+	static	t_path	*temp;
 
 	if (!*path)
 	{
@@ -45,9 +57,10 @@ void	add_vertex_to_path(t_path **path, int vertex)
 		(*path)->vertex = vertex;
 		(*path)->ant = 0;
 		temp = *path;
-	} else
+	}
+	else
 	{
-		while((*path)->next)
+		while ((*path)->next)
 			(*path) = (*path)->next;
 		temppath = (t_path *)ft_memalloc(sizeof(t_path));
 		temppath->vertex = vertex;

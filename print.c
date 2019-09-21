@@ -1,9 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   print.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dheidenr <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/09/21 13:09:45 by dheidenr          #+#    #+#             */
+/*   Updated: 2019/09/21 13:09:48 by dheidenr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "lem_in.h"
 
 void	print_path(t_path *path)
 {
-	while(path)
+	while (path)
 	{
 		ft_putstr(" ");
 		ft_putnbr(path->vertex);
@@ -14,11 +25,11 @@ void	print_path(t_path *path)
 
 void	print_beam(t_beam *beam)
 {
-	int 	count;
-	char 	*str;
+	int		count;
+	char	*str;
 
 	count = 1;
-	while(beam)
+	while (beam)
 	{
 		str = ft_itoa(count);
 		putstr_free(str);
@@ -39,11 +50,11 @@ void	print_beam(t_beam *beam)
 
 void	print_array_graph(int *array, t_graph *g, char *str)
 {
-	int i;
+	int		i;
 
 	i = 0;
 	ft_putstr(str);
-	while(++i <= MAXV)
+	while (++i <= MAXV)
 	{
 		ft_putstr(" ");
 		ft_putnbr(array[i]);

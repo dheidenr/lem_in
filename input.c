@@ -1,8 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   input.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dheidenr <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/09/21 13:08:08 by dheidenr          #+#    #+#             */
+/*   Updated: 2019/09/21 13:08:11 by dheidenr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "lem_in.h"
 #include "libft/get_next_line.h"
 
-int 	print_gnl(const int fd, char **line)
+int		print_gnl(const int fd, char **line)
 {
 	int		result;
 
@@ -12,7 +23,7 @@ int 	print_gnl(const int fd, char **line)
 	return (result);
 }
 
-char 	is_comment(char *line)
+char	is_comment(char *line)
 {
 	if (!line)
 		return (0);
@@ -43,19 +54,17 @@ void	pulling_ants(t_context *context, char **line)
 void	input(t_graph *g, t_context *context)
 {
 	char	**names;
-	char 	*line;
-	int 	fd;
+	char	*line;
+	int		fd;
 
 	initialize_graph(g, context, 0);
 	names = (char **)ft_memalloc(sizeof(char *) * MAXV);
 	context->names = names;
 	line = NULL;
-
 	fd = open("ant_gen.txt", O_RDONLY);
 //	fd = 0;
 	context->fd = fd;
 	pulling_ants(context, &line);
-
 	while (print_gnl(fd, &line))
 	{
 		if (is_comment(line))

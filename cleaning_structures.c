@@ -1,15 +1,25 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cleaning_structures.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dheidenr <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/09/21 13:03:31 by dheidenr          #+#    #+#             */
+/*   Updated: 2019/09/21 13:03:38 by dheidenr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "lem_in.h"
 
-
 void	clear_path(t_path *path)
 {
-	t_path *free_path;
+	t_path	*free_path;
 
 	if (!path)
 		return ;
 	free_path = path;
-	while(path)
+	while (path)
 	{
 		path = path->next;
 		free(free_path);
@@ -18,7 +28,6 @@ void	clear_path(t_path *path)
 	}
 }
 
-
 void	clear_beam(t_beam *beam)
 {
 	t_beam *free_beam;
@@ -26,7 +35,7 @@ void	clear_beam(t_beam *beam)
 	if (!beam)
 		return ;
 	free_beam = beam;
-	while(beam)
+	while (beam)
 	{
 		beam = beam->next;
 		clear_path(free_beam->path);
@@ -41,12 +50,11 @@ void	clear_beam(t_beam *beam)
 
 void	clear_beams(t_beams *beams)
 {
-	t_beams *tmp;
-	t_beam *free_beam;
-	t_beams *free_beams;
+	t_beams		*tmp;
+	t_beam		*free_beam;
+	t_beams		*free_beams;
 
 	tmp = beams;
-
 	while (tmp)
 	{
 		free_beam = tmp->beam;
@@ -59,6 +67,3 @@ void	clear_beams(t_beams *beams)
 		free_beams = NULL;
 	}
 }
-
-
-

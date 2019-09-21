@@ -1,12 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utilits.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dheidenr <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/09/21 13:10:33 by dheidenr          #+#    #+#             */
+/*   Updated: 2019/09/21 13:10:36 by dheidenr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "lem_in.h"
 
-int 	get_turn_edge(t_graph *g, t_edgepoint *edp)
+int		get_turn_edge(t_graph *g, t_edgepoint *edp)
 {
-	t_edgenode *edgenode;
+	t_edgenode	*edgenode;
 
 	edgenode = g->edges[edp->x];
-	while(edgenode)
+	while (edgenode)
 	{
 		if (edgenode->y == edp->y)
 			return (edgenode->turn);

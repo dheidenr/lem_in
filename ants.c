@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ants.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dheidenr <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/09/21 13:02:41 by dheidenr          #+#    #+#             */
+/*   Updated: 2019/09/21 13:02:47 by dheidenr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "lem_in.h"
 
@@ -18,7 +29,7 @@ void	fill_ants(float *lost_ants, t_beam *beam)
 		beam->ants = 0;
 }
 
-int 	is_one_length(t_beam *beam, size_t global_length, size_t global_ants)
+int		is_one_length(t_beam *beam, size_t global_length, size_t global_ants)
 {
 	if (global_length == 1)
 	{
@@ -43,13 +54,13 @@ void	prepare_beam_ants(size_t global_ants, t_beam *beam)
 		return ;
 	tmp = beam;
 	number_paths = get_length_beam(beam);
-	while(tmp)
+	while (tmp)
 	{
 		if (lost_ants > 0)
 		{
 			tmp->ants = (global_ants + global_length + number_paths)
 					/ (number_paths) - (tmp->length);
-			tmp->ants -= (number_paths == 2)? 1:0;
+			tmp->ants -= (number_paths == 2 && global_ants < 30) ? 1 : 0;
 			fill_ants(&lost_ants, tmp);
 		}
 		else

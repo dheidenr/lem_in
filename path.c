@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   path.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dheidenr <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/09/21 13:09:24 by dheidenr          #+#    #+#             */
+/*   Updated: 2019/09/21 13:09:27 by dheidenr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "lem_in.h"
 
@@ -10,7 +21,7 @@ t_path	*get_path(t_path *path, size_t step)
 	if (!path)
 		return (NULL);
 	p = path;
-	while(p && step > 0)
+	while (p && step > 0)
 	{
 		step--;
 		p = p->next;
@@ -24,7 +35,7 @@ void	print_ant_to_vertex(int ant, int vertex, t_context *context)
 	putstr_free(ft_strjoin("-", context->names[(size_t)vertex]));
 }
 
-void	move_ant(t_path *src, t_path *dst, t_context *context)//, char end_space)
+void	move_ant(t_path *src, t_path *dst, t_context *context)
 {
 	dst->ant = src->ant;
 	if (src->ant != 0)
@@ -40,7 +51,7 @@ void	offset_path(t_beam *beam, t_context *context)
 	count = 0;
 	if (get_path(beam->path, beam->length)->ant > 0)
 		context->finish_ants++;
-	while(count < beam->length)
+	while (count < beam->length)
 	{
 		p1 = get_path(beam->path, beam->length - count - 1);
 		p2 = get_path(beam->path, beam->length - count);
@@ -55,10 +66,3 @@ void	offset_path(t_beam *beam, t_context *context)
 	}
 	beam->path->ant = 0;
 }
-
-//--help : to read the manual
-//--flow-one : generates an ant farm with distinctive path and [1] ant in it
-//--flow-ten : generates an ant farm with distinctive path and approximately [10] ants in it
-//--flow-thousand : generates an ant farm with distinctive path and approximately [100] ants in it
-//--big : generates a big map (approximately [1000] rooms) to test the time complexity
-//--big-superposition : generates a big map with overlapping paths

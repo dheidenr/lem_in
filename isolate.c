@@ -1,13 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   isolate.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dheidenr <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/09/21 13:08:27 by dheidenr          #+#    #+#             */
+/*   Updated: 2019/09/21 13:08:31 by dheidenr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "lem_in.h"
-
 
 void	correct_edge(t_support_edge *sup_edge, t_graph *g)
 {
 	if (sup_edge->edge)
 	{
-		sup_edge->reverse_edge = get_edgenode(g,
-											  reverse_edgepoint(&sup_edge->edp, sup_edge->rev_edp));
+		sup_edge->reverse_edge = get_edgenode(
+				g, reverse_edgepoint(&sup_edge->edp, sup_edge->rev_edp));
 		if (sup_edge->edge->turn > 0 &&
 			sup_edge->reverse_edge->turn > 0)
 		{
@@ -21,14 +31,14 @@ void	correct_edge(t_support_edge *sup_edge, t_graph *g)
 	}
 }
 
-void	no_isolate_edges(t_beam *beam, t_support_beam *sup_beam,
-						 t_support_edge *sup_edge, t_graph *g)
+void	no_isolate_edges(
+t_beam *beam, t_support_beam *sup_beam, t_support_edge *sup_edge, t_graph *g)
 {
 	beam = sup_beam->tmp_beam;
 	while (beam)
 	{
 		sup_beam->path = beam->path;
-		sup_edge->edp.x =sup_beam-> path->vertex;
+		sup_edge->edp.x = sup_beam->path->vertex;
 		sup_beam->path = sup_beam->path->next;
 		while (sup_beam->path)
 		{
@@ -42,8 +52,8 @@ void	no_isolate_edges(t_beam *beam, t_support_beam *sup_beam,
 	}
 }
 
-void	cycle_no_isolate_all_edges_of_beam(t_support_edge *sup_edge,
-										   t_support_beam *sup_beam, t_graph *g)
+void	cycle_no_isolate_all_edges_of_beam(
+		t_support_edge *sup_edge, t_support_beam *sup_beam, t_graph *g)
 {
 	while (sup_beam->path)
 	{
@@ -59,7 +69,7 @@ void	cycle_no_isolate_all_edges_of_beam(t_support_edge *sup_edge,
 	}
 }
 
-void 	no_isolate_all_edges_of_beam(t_graph *g, t_beam *beam)
+void	no_isolate_all_edges_of_beam(t_graph *g, t_beam *beam)
 {
 	t_support_beam	sup_beam;
 	t_support_edge	sup_edge;

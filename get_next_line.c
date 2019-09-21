@@ -66,9 +66,11 @@ int	get_next_line(const int fd, char **line)
 		if (ft_strchr(m[fd], '\n') != NULL || ret != BUFF_SIZE)
 			break ;
 	}
-	*line = ft_strchr(m[fd], '\n') ? ft_strsub(m[fd], 0, ft_charcount(m[fd],'\n')) :ft_strsub(m[fd], 0, ft_strlen(m[fd]) + 1);
+	*line = ft_strchr(m[fd], '\n') ? ft_strsub(m[fd], 0,
+	ft_charcount(m[fd], '\n')) : ft_strsub(m[fd], 0, ft_strlen(m[fd]) + 1);
 	tmp = m[fd];
-	m[fd] = ft_strsub(tmp, ft_charcount(tmp, '\n') + 1, ft_strlen(tmp) - ft_charcount(tmp, '\n'));
+	m[fd] = ft_strsub(tmp, ft_charcount(tmp, '\n') + 1,
+	ft_strlen(tmp) - ft_charcount(tmp, '\n'));
 	ft_strdel(&tmp);
 	return (!(!ret && !ft_strlen(*line)));
 }

@@ -1,7 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   link.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dheidenr <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/09/21 13:08:56 by dheidenr          #+#    #+#             */
+/*   Updated: 2019/09/21 13:08:58 by dheidenr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "lem_in.h"
 
-int	get_index_of_link(char *link, t_context *context)
+int		get_index_of_link(char *link, t_context *context)
 {
 	int		index;
 
@@ -22,7 +33,6 @@ void	get_links(char *str, char **link_one, char **link_two)
 	while (str[len] != '-' && str[len] != '\0')
 		len++;
 	*link_one = ft_strsub(str, 0, len);
-
 	while (*str != '-' && *str != '\0')
 		str++;
 	str++;
@@ -34,10 +44,10 @@ void	get_links(char *str, char **link_one, char **link_two)
 		str++;
 }
 
-char 	pulling_link(t_graph *g, t_context *context, char **line)
+char	pulling_link(t_graph *g, t_context *context, char **line)
 {
-	char	*str;
-	char 		*link_one;
+	char		*str;
+	char		*link_one;
 	char		*link_two;
 
 	str = *line;
@@ -45,10 +55,11 @@ char 	pulling_link(t_graph *g, t_context *context, char **line)
 		return (0);
 	if (!ft_strchr(str, '-'))
 		return (0);
-	while(ft_isspace(*str))
+	while (ft_isspace(*str))
 		str++;
 	get_links(str, &link_one, &link_two);
-	insert_edge(g, get_index_of_link(link_one, context), get_index_of_link(link_two, context), 0);
+	insert_edge(g, get_index_of_link(link_one, context),
+					get_index_of_link(link_two, context), 0);
 	free(*line);
 	*line = NULL;
 	free(link_one);

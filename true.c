@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   true.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dheidenr <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/09/21 13:10:26 by dheidenr          #+#    #+#             */
+/*   Updated: 2019/09/21 13:10:28 by dheidenr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "lem_in.h"
 
@@ -25,7 +36,8 @@ void	clean_beam(t_beam **beam, t_beam **fake_beam)
 	}
 }
 
-void	init_find_true_beam(t_support_edge *se, t_support_beam *sb, t_graph *g, t_edgepoint *start_end)
+void	init_find_true_beam(
+	t_support_edge *se, t_support_beam *sb, t_graph *g, t_edgepoint *start_end)
 {
 	turn_to_zero_all_edges(g);
 	isolate_all_edges(g);
@@ -37,14 +49,14 @@ void	init_find_true_beam(t_support_edge *se, t_support_beam *sb, t_graph *g, t_e
 	se->edp.x = start_end->x;
 }
 
-t_beam *find_true_beam(t_graph *g, t_beam *fake_beam, t_edgepoint start_end)
+t_beam	*find_true_beam(t_graph *g, t_beam *fake_beam, t_edgepoint start_end)
 {
 	t_support_edge se;
 	t_support_beam sb;
 
 	sb.beam = fake_beam;
 	init_find_true_beam(&se, &sb, g, &start_end);
-	while(fake_beam)
+	while (fake_beam)
 	{
 		se.edp.y = fake_beam->path->next->vertex;
 		se.tmp_edge = get_edgenode(g, &se.edp);

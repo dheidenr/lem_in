@@ -1,9 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   graphdub.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dheidenr <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/09/21 13:07:22 by dheidenr          #+#    #+#             */
+/*   Updated: 2019/09/21 13:07:32 by dheidenr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "lem_in.h"
 
-void	initialize_only_graph(t_graph *g, int directed)
+void		initialize_only_graph(t_graph *g, int directed)
 {
-	int 	i;
+	int		i;
 
 	g->nvertices = 0;
 	g->nedges = 0;
@@ -17,7 +28,7 @@ void	initialize_only_graph(t_graph *g, int directed)
 	}
 }
 
-void 	copy_degree_and_properties(t_graph *graph_result, t_graph *g)
+void		copy_degree_and_properties(t_graph *graph_result, t_graph *g)
 {
 	size_t	i;
 
@@ -32,22 +43,22 @@ void 	copy_degree_and_properties(t_graph *graph_result, t_graph *g)
 	}
 }
 
-t_graph*	graphdub(t_graph* g)
+t_graph		*graphdub(t_graph *g)
 {
-	t_graph 			*graph_result;
-	t_edgepoint ed;
-	t_edgenode *edge;
-	t_edgenode *tmp_edge;
-	size_t				i;
+	t_graph		*graph_result;
+	t_edgepoint	ed;
+	t_edgenode	*edge;
+	t_edgenode	*tmp_edge;
+	size_t		i;
 
 	graph_result = (t_graph *)malloc(sizeof(*g));
 	initialize_only_graph(graph_result, g->directed);
 	i = 0;
-	while(i <= g->nvertices)
+	while (i <= g->nvertices)
 	{
 		edge = g->edges[i];
 		ed.x = i;
-		while(edge)
+		while (edge)
 		{
 			ed.y = edge->y;
 			insert_edge_weight(graph_result, &ed, g->directed, edge->weight);

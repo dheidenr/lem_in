@@ -1,21 +1,33 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   suurballe.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dheidenr <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/09/21 13:10:11 by dheidenr          #+#    #+#             */
+/*   Updated: 2019/09/21 13:10:14 by dheidenr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "lem_in.h"
 #include "libft.h"
 #include "exdlst.h"
 
-t_edgepoint	*reverse_edgepoint(t_edgepoint *edgepoint, t_edgepoint *reverse_edge)
+t_edgepoint	*reverse_edgepoint(
+		t_edgepoint *edgepoint, t_edgepoint *reverse_edge)
 {
 	reverse_edge->x = edgepoint->y;
 	reverse_edge->y = edgepoint->x;
 	return (reverse_edge);
 }
 
-void	rebfs_and_reverse_and_add_path(t_graph *g, t_edgepoint start_end,
-									   t_support_beam *sb, t_graph *gdub)
+void		rebfs_and_reverse_and_add_path(
+		t_graph *g, t_edgepoint start_end, t_support_beam *sb, t_graph *gdub)
 {
 	size_t	i;
-	int 	start;
-	int 	end;
+	int		start;
+	int		end;
 
 	start = start_end.x;
 	end = start_end.y;
@@ -26,7 +38,6 @@ void	rebfs_and_reverse_and_add_path(t_graph *g, t_edgepoint start_end,
 		bfs(gdub, start);
 		sb->path = NULL;
 		sb->path = find_path(start, end, gdub->parents, &sb->path);
-
 		if (!sb->path)
 			break ;
 		reverse_path(gdub, sb->path);
@@ -36,8 +47,8 @@ void	rebfs_and_reverse_and_add_path(t_graph *g, t_edgepoint start_end,
 	}
 }
 
-void	find_optimal_and_print_debug(t_graph *g, t_edgepoint start_end,
-									 t_support_beam *sb)
+void		find_optimal_and_print_debug(
+		t_graph *g, t_edgepoint start_end, t_support_beam *sb)
 {
 	if (get_length_beam(sb->beam) > 1)
 	{
@@ -48,12 +59,14 @@ void	find_optimal_and_print_debug(t_graph *g, t_edgepoint start_end,
 			ft_putchar('\n');
 		}
 		sb->context->free_beam = sb->beam;
+		sort_by_lengths(sb->beam);
 		sb->beam = find_optimal_beam(g, sb->context, sb->beam, start_end);
-	} else
+	}
+	else
 		sb->context->free_beam = sb->beam;
 }
 
-t_beam	*suurballe(t_graph *g, t_context *context, int start, int end)
+t_beam		*suurballe(t_graph *g, t_context *context, int start, int end)
 {
 	t_edgepoint		start_end;
 	t_support_beam	sb;

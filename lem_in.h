@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lem_in.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dheidenr <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/09/21 13:08:37 by dheidenr          #+#    #+#             */
+/*   Updated: 2019/09/21 13:08:40 by dheidenr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #ifndef LEM_IN_LEM_IN_H
 #define LEM_IN_LEM_IN_H
@@ -25,18 +36,6 @@ typedef struct s_edgenode
 	struct s_edgenode *next;
 }				t_edgenode;
 
-typedef	struct		s_graph
-{
-	t_edgenode		*edges[MAXV + 1];
-	int				degree[MAXV + 1]; //Степень
-	int				nvertices;
-	int				nedges;
-	int				directed; //Направленный?
-	unsigned char	color[MAXV + 1];
-	int 			parents[MAXV + 1];
-	unsigned char	finished;
-}					t_graph;
-
 typedef struct s_path
 {
 	int				vertex;
@@ -52,6 +51,19 @@ typedef	struct		s_beam
 	char 			isolate;
 	struct s_beam	*next;
 }					t_beam;
+
+typedef	struct		s_graph
+{
+	t_edgenode		*edges[MAXV + 1];
+	int				degree[MAXV + 1]; //Степень
+	int				nvertices;
+	int				nedges;
+	int				directed; //Направленный?
+	unsigned char	color[MAXV + 1];
+	int 			parents[MAXV + 1];
+
+}					t_graph;
+
 
 typedef	struct		s_beams
 {

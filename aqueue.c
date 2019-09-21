@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   aqueue.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dheidenr <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/09/21 13:02:53 by dheidenr          #+#    #+#             */
+/*   Updated: 2019/09/21 13:02:56 by dheidenr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "aqueue.h"
 #include "libft.h"
@@ -6,7 +17,7 @@
 void	init_aqueue(t_aqueue **q)
 {
 	*q = ft_memalloc(sizeof(t_aqueue));
-	ft_memset((*q)->elements,0, sizeof(t_aqueue));
+	ft_memset((*q)->elements, 0, sizeof(t_aqueue));
 	(*q)->cursor = 0;
 	(*q)->end = 0;
 	(*q)->length = 0;
@@ -31,7 +42,7 @@ int		deaqueue(t_aqueue *q)
 	return (result);
 }
 
-int 		is_empty_aqueue(t_aqueue *q)
+int		is_empty_aqueue(t_aqueue *q)
 {
 	return (q && q->length ? 0 : 1);
 }

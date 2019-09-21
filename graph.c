@@ -1,9 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   graph.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dheidenr <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/09/21 13:07:08 by dheidenr          #+#    #+#             */
+/*   Updated: 2019/09/21 13:07:10 by dheidenr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "lem_in.h"
 
 void	initialize_graph(t_graph *g, t_context *context, int directed)
 {
-	int 	i;
+	int			i;
 
 	g->nvertices = 0;
 	g->nedges = 0;
@@ -29,14 +40,14 @@ void	initialize_graph(t_graph *g, t_context *context, int directed)
 	context->flag = 0;
 }
 
-int 	is_in_edges(t_edgenode *p, int y)
+int		is_in_edges(t_edgenode *p, int y)
 {
-	t_edgenode *temp;
+	t_edgenode	*temp;
 
 	temp = p;
-	while(temp)
+	while (temp)
 	{
-		if  (temp->y == y)
+		if (temp->y == y)
 			return (1);
 		temp = temp->next;
 	}
@@ -45,7 +56,7 @@ int 	is_in_edges(t_edgenode *p, int y)
 
 void	insert_edge(t_graph *g, int x, int y, int directed)
 {
-	t_edgenode *p;
+	t_edgenode	*p;
 
 	if (x == y)
 		return ;
@@ -66,9 +77,10 @@ void	insert_edge(t_graph *g, int x, int y, int directed)
 		g->nedges++;
 }
 
-void	insert_edge_weight(t_graph *g, t_edgepoint *edgepoint, int directed, int weight)
+void	insert_edge_weight(
+		t_graph *g, t_edgepoint *edgepoint, int directed, int weight)
 {
-	t_edgenode *p;
+	t_edgenode	*p;
 
 	if (edgepoint->x == edgepoint->y)
 		return ;
@@ -91,11 +103,11 @@ void	insert_edge_weight(t_graph *g, t_edgepoint *edgepoint, int directed, int we
 
 void	print_graph(t_graph *g)
 {
-	int 	i;
-	t_edgenode *p;
+	int			i;
+	t_edgenode	*p;
 
 	i = 1;
-	while(i <= g->nvertices)
+	while (i <= g->nvertices)
 	{
 		printf("%d: ", i);
 		p = g->edges[i];

@@ -1,18 +1,29 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   dublicate.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dheidenr <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/09/21 13:03:56 by dheidenr          #+#    #+#             */
+/*   Updated: 2019/09/21 13:04:01 by dheidenr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "lem_in.h"
-
 
 /*
 ** Фукнция дублирования вершин через:
 ** вставку нового ребра
 ** удаление старого ребра
 ** по циклу
- */
+*/
+
 void	duplicate_vertex(t_graph *g, t_context *context, int vertex)
 {
-	t_edgepoint edgepoint;
-	t_edgenode *edgenode;
-	t_edgenode *edtemp;
+	t_edgepoint	edgepoint;
+	t_edgenode	*edgenode;
+	t_edgenode	*edtemp;
 
 	context->v_in[vertex] = TRUE;
 	g->nvertices++;
@@ -37,16 +48,17 @@ void	duplicate_vertex(t_graph *g, t_context *context, int vertex)
 	}
 }
 
-
 /*
 ** Дублирование всех вершин кроме начала и конца
 */
-void	duplicate_all_vertexes_graph(t_graph *g, t_context *context, int start, int end)
+
+void	duplicate_all_vertexes_graph(
+		t_graph *g, t_context *context, int start, int end)
 {
 	size_t	vertex;
 
 	vertex = 1;
-	while(vertex < g->nvertices - context->in_out_vertices)
+	while (vertex < g->nvertices - context->in_out_vertices)
 	{
 		if (vertex != start && vertex != end && !context->v_in[vertex])
 			duplicate_vertex(g, context, vertex);
@@ -60,7 +72,7 @@ void	reverse_path(t_graph *g, t_path *path)
 
 	if (!path)
 		return ;
-	while(path->next)
+	while (path->next)
 	{
 		edgepoint.x = path->vertex;
 		edgepoint.y = path->next->vertex;

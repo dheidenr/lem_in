@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exdlstdub.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dheidenr <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/09/21 13:05:54 by dheidenr          #+#    #+#             */
+/*   Updated: 2019/09/21 13:05:57 by dheidenr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "exdlst.h"
 
@@ -16,10 +27,10 @@ t_exdlist	*exdlstdub_int(t_exdlist *stack)
 	{
 		if (!exdlst->next)
 			temp = exdlstnew((int *)exdlst->content,
-							  sizeof(*(int *)exdlst->content));
+					sizeof(*(int *)exdlst->content));
 		else
 			exdlstadd(&temp, exdlstnew((int *)exdlst->content,
-										 sizeof(*(int *)exdlst->content)));
+					sizeof(*(int *)exdlst->content)));
 		exdlst = exdlst->prev;
 	}
 	return (temp);
