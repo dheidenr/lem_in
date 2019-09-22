@@ -198,9 +198,10 @@ void	error();
 void		no_isolate_all_edges_of_beam(t_graph *g, t_beam *beam);
 t_edgepoint	*reverse_edgepoint(t_edgepoint *edgepoint,
 													t_edgepoint *reverse_edge);
-
+void	add_beam_to_beams(t_beams **beams, t_beam **beam, float number_steps);
 void	isolate_edgenode(t_edgenode *edgenode, char isolate);
 void 	isolate_all_edges(t_graph *g);
 void 	turn_to_zero_all_edges(t_graph *g);
+void 	output_bits(t_beam *beam, t_graph *g, t_context *context);
 
 #endif

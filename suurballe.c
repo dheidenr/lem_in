@@ -60,7 +60,10 @@ void		find_optimal_and_print_debug(
 		}
 		sb->context->free_beam = sb->beam;
 		sort_by_lengths(sb->beam);
-		sb->beam = find_optimal_beam(g, sb->context, sb->beam, start_end);
+		if (get_length_beam(sb->beam) >= 10)
+			sb->beam = find_optimal_beam(g, sb->context, sb->beam, start_end);
+		else
+			output_bits(sb->beam, g, sb->context);
 	}
 	else
 		sb->context->free_beam = sb->beam;
