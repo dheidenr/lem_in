@@ -20,6 +20,12 @@
 #include <limits.h>
 #include "libft.h"
 
+#define TWO_POWER_14 16384
+#define TWO_POWER_13 8192
+#define TWO_POWER_12 4096
+#define TWO_POWER_11 2048
+#define TWO_POWER_10 1024
+
 #define MAXV 16000
 #define FALSE 0
 #define TRUE 1
