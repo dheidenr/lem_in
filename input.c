@@ -61,8 +61,8 @@ void	input(t_graph *g, t_context *context)
 	names = (char **)ft_memalloc(sizeof(char *) * MAXV);
 	context->names = names;
 	line = NULL;
-	fd = open("ant_gen.txt", O_RDONLY);
-//	fd = 0;
+//	fd = open("ant_gen.txt", O_RDONLY);
+	fd = 0;
 	context->fd = fd;
 	pulling_ants(context, &line);
 	while (print_gnl(fd, &line))

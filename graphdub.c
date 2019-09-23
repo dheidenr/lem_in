@@ -51,7 +51,7 @@ t_graph		*graphdub(t_graph *g)
 	t_edgenode	*tmp_edge;
 	size_t		i;
 
-	graph_result = (t_graph *)malloc(sizeof(*g));
+	graph_result = (t_graph *)malloc(sizeof(t_graph));
 	initialize_only_graph(graph_result, g->directed);
 	i = 0;
 	while (i <= g->nvertices)

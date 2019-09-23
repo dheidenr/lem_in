@@ -47,6 +47,25 @@ void		rebfs_and_reverse_and_add_path(
 	}
 }
 
+void	no_isolate_all_edges(t_graph *g)
+{
+	size_t		count;
+	t_edgenode	*edgenode;
+
+	count = 1;
+	while (count <= g->nvertices)
+	{
+		edgenode = g->edges[count];
+		while (edgenode)
+		{
+			edgenode->isolate = FALSE;
+			edgenode = edgenode->next;
+		}
+		count++;
+	}
+}
+
+
 void		find_optimal_and_print_debug(
 		t_graph *g, t_edgepoint start_end, t_support_beam *sb)
 {
@@ -60,10 +79,22 @@ void		find_optimal_and_print_debug(
 		}
 		sb->context->free_beam = sb->beam;
 		sort_by_lengths(sb->beam);
-		if (get_length_beam(sb->beam) >= 10)
+
+//		print_graph(g);
+//		print_shortest_path(g, start_end);
+
+		if (get_length_beam(sb->beam) > 5)
 			sb->beam = find_optimal_beam(g, sb->context, sb->beam, start_end);
+//		sb->beam = find_true_beam(g, sb->beam, start_end);
 		else
-			output_bits(sb->beam, g, sb->context);
+			sb->beam = output_bits(sb->beam, g, sb->context);
+
+		if (sb->context->debug)
+		{
+			ft_putstr("after optimal_beam:\n");
+			print_beam(sb->beam);
+			ft_putchar('\n');
+		}
 	}
 	else
 		sb->context->free_beam = sb->beam;
@@ -78,7 +109,8 @@ t_beam		*suurballe(t_graph *g, t_context *context, int start, int end)
 	start_end.x = start;
 	start_end.y = end;
 	gdub = graphdub(g);
-	duplicate_all_vertexes_graph(gdub, context, start, end);
+	if (context->duplicate)
+		duplicate_all_vertexes_graph(gdub, context, start, end);
 	initialize_bfs_search(gdub);
 	bfs(gdub, start);
 	sb.path = NULL;
@@ -86,6 +118,7 @@ t_beam		*suurballe(t_graph *g, t_context *context, int start, int end)
 	sb.path = find_path(start, end, gdub->parents, &sb.path);
 	reverse_path(gdub, sb.path);
 	remove_fake_vertexes(gdub, context, &sb.path);
+//	if (!is_elements_of_path_in_beam(sb.beam, sb.path))
 	add_path_to_beam(&sb.beam, &sb.path, get_length_path(sb.path));
 	sb.context = context;
 	rebfs_and_reverse_and_add_path(g, start_end, &sb, gdub);

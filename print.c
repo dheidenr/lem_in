@@ -63,3 +63,15 @@ void	print_array_graph(int *array, t_graph *g, char *str)
 	}
 	ft_putstr("\n");
 }
+
+void	print_shortest_path(t_graph *g, t_edgepoint start_end)
+{
+	ft_putstr("print shortest path");
+	t_path *path;
+//		no_isolate_all_edges(g);
+	path = NULL;
+	initialize_bfs_search(g);
+	bfs(g, start_end.x);
+	path = find_path(start_end.x, start_end.y, g->parents, &path);
+	print_path(path);
+}

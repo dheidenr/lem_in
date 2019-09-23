@@ -94,6 +94,7 @@ typedef struct	s_context
 	int 			flag;
 	int 			verify;
 	int 			debug;
+	int 			duplicate;
 	int 			fd;
 	t_beam			*free_beam;
 	t_beams			*free_beams;
@@ -173,7 +174,7 @@ t_beam			*get_min_length_beam(t_beam	*beam);
 t_beam			*get_next_min_length_beam_and_isolate(t_beam *beam);
 void			input(t_graph *g, t_context *context);
 void			output(t_beam *beam, t_context *context);
-
+void			print_shortest_path(t_graph *g, t_edgepoint start_end);
 t_beam	*find_optimal_beam(t_graph *g, t_context *context, t_beam *beam,
 							 t_edgepoint start_end);
 t_path	*get_path(t_path *path, size_t step);
@@ -202,6 +203,7 @@ void	add_beam_to_beams(t_beams **beams, t_beam **beam, float number_steps);
 void	isolate_edgenode(t_edgenode *edgenode, char isolate);
 void 	isolate_all_edges(t_graph *g);
 void 	turn_to_zero_all_edges(t_graph *g);
-void 	output_bits(t_beam *beam, t_graph *g, t_context *context);
-
+t_beam 	*output_bits(t_beam *beam, t_graph *g, t_context *context);
+t_beam	*get_beam_elements_of_path_in_beam(t_beam *beam, t_path *path);
+void	print_graph(t_graph *g);
 #endif
