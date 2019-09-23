@@ -77,17 +77,20 @@ void		find_optimal_and_print_debug(
 			print_beam(sb->beam);
 			ft_putchar('\n');
 		}
-		sb->context->free_beam = sb->beam;
+		if (!sb->context->duplicate)
+			sb->context->free_beam_one = sb->beam;
+		else
+			sb->context->free_beam_two = sb->beam;
 		sort_by_lengths(sb->beam);
 
 //		print_graph(g);
 //		print_shortest_path(g, start_end);
 
-		if (get_length_beam(sb->beam) > 5)
-			sb->beam = find_optimal_beam(g, sb->context, sb->beam, start_end);
+//		if (get_length_beam(sb->beam) > 5)
+		sb->beam = find_optimal_beam(g, sb->context, sb->beam, start_end);
 //		sb->beam = find_true_beam(g, sb->beam, start_end);
-		else
-			sb->beam = output_bits(sb->beam, g, sb->context);
+//		else
+//			sb->beam = output_bits(sb->beam, g, sb->context);
 
 		if (sb->context->debug)
 		{
@@ -97,7 +100,7 @@ void		find_optimal_and_print_debug(
 		}
 	}
 	else
-		sb->context->free_beam = sb->beam;
+		sb->context->free_beam_one = sb->beam;
 }
 
 t_beam		*suurballe(t_graph *g, t_context *context, int start, int end)

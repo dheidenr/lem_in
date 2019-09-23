@@ -96,8 +96,10 @@ typedef struct	s_context
 	int 			debug;
 	int 			duplicate;
 	int 			fd;
-	t_beam			*free_beam;
-	t_beams			*free_beams;
+	t_beam			*free_beam_one;
+	t_beams			*free_beams_one;
+	t_beam			*free_beam_two;
+	t_beams			*free_beams_two;
 	t_edgenode		*edgenode;
 }				t_context;
 
@@ -191,7 +193,7 @@ t_beam	*get_min_number_steps_beam(t_beams	*beams);
 void	clear_beams(t_beams *beams);
 void	clear_beam(t_beam *beam);
 size_t	ft_charcount(char const *s, char c);
-void	clearing_structures(t_graph *g, t_context *context, t_beams *beams);
+void	clearing_structures(t_graph *g, t_context *context);
 void	clear_path(t_path *path);
 void	clear_graph(t_graph *g);
 void	error();

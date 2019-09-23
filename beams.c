@@ -125,7 +125,10 @@ t_beam	*find_optimal_beam(
 			&beams, &original_beam, get_number_steps(context, &original_beam));
 		size++;
 	}
-	context->free_beams = beams;
+	if (!context->duplicate)
+		context->free_beams_one = beams;
+	else
+		context->free_beams_two = beams;
 	tmp_beam = get_min_number_steps_beam(beams);
 	return (tmp_beam);
 }

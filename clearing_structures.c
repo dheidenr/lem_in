@@ -66,7 +66,7 @@ void	clear_graph(t_graph *g)
 	g = NULL;
 }
 
-void	clearing_structures(t_graph *g, t_context *context, t_beams *beams)
+void	clearing_structures(t_graph *g, t_context *context)
 {
 	if (context)
 	{
@@ -76,6 +76,10 @@ void	clearing_structures(t_graph *g, t_context *context, t_beams *beams)
 	if (g)
 		clear_edges(g->edges);
 	if (context)
-		clear_beam(context->free_beam);
-	clear_beams(beams);
+	{
+		clear_beam(context->free_beam_one);
+		clear_beam(context->free_beam_two);
+		clear_beams(context->free_beams_one);
+		clear_beams(context->free_beams_two);
+	}
 }

@@ -52,7 +52,7 @@ void	find_and_add_beam_to_beams(t_beams **beams, t_beam **result_beam, t_graph *
 
 t_beam 	*output_bits(t_beam *beam, t_graph *g, t_context *context)
 {
-	short unsigned int bits;
+	unsigned int bits;
 	size_t	count;
 	size_t	power;
 	t_beam	*tmp;
@@ -109,7 +109,7 @@ t_beam 	*output_bits(t_beam *beam, t_graph *g, t_context *context)
 //		print_beam(p_beams->beam);
 //		p_beams = p_beams->next;
 //	}
-	context->free_beams = beams;
+	context->free_beams_one = beams;
 	tmp = get_min_number_steps_beam(beams);
 	return(tmp);
 }
@@ -124,10 +124,12 @@ int		main(int ac, char **av)
 	t_beam		*dub_beam;
 
 	init_bonuses(ac, av, &context);
-	context.free_beams = NULL;
-	context.free_beam = NULL;
-//	context.debug = TRUE;
-//	context.verify = TRUE;
+	context.free_beams_one = NULL;
+	context.free_beam_one = NULL;
+
+	context.debug = TRUE;
+	context.verify = TRUE;
+
 	beam = NULL;
 	initialize_graph(&g, &context, 0);
 	input(&g, &context);
@@ -150,6 +152,6 @@ int		main(int ac, char **av)
 		output(beam, &context);
 	else
 		output(dub_beam, &context);
-	clearing_structures(&g, &context, context.free_beams);
+	clearing_structures(&g, &context);
 	return (0);
 }
