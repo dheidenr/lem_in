@@ -3,6 +3,7 @@ project(lem_in C)
 
 set(CMAKE_C_STANDARD 90)
 
+
 add_executable(lem-in main.c lem_in.h graph.c
         libft/ft_atoi.c
         libft/ft_bzero.c

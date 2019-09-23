@@ -58,6 +58,9 @@ int		ending_room(int *ending, t_context *context, char ***line, t_graph *g)
 	free(**line);
 	**line = NULL;
 	print_gnl(context->fd, *line);
+	if (ft_strcmp("##start", **line) == 0
+		|| ft_strcmp("##end", **line) == 0)
+		error();
 	*ending = pulling_room(g, context, *line);
 	return (*ending);
 }

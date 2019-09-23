@@ -55,6 +55,8 @@ char	pulling_link(t_graph *g, t_context *context, char **line)
 		return (0);
 	if (!ft_strchr(str, '-'))
 		return (0);
+	if (g->nvertices == 0)
+		error();
 	while (ft_isspace(*str))
 		str++;
 	get_links(str, &link_one, &link_two);

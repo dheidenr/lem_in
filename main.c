@@ -116,8 +116,6 @@ t_beam 	*output_bits(t_beam *beam, t_graph *g, t_context *context)
 
 int		main(int ac, char **av)
 {
-
-//	output_bits();
 	t_graph		g;
 	t_context	context;
 	t_beam		*beam;
@@ -126,29 +124,16 @@ int		main(int ac, char **av)
 	init_bonuses(ac, av, &context);
 	context.free_beams_one = NULL;
 	context.free_beam_one = NULL;
-
-	context.debug = TRUE;
-	context.verify = TRUE;
-
 	beam = NULL;
 	initialize_graph(&g, &context, 0);
 	input(&g, &context);
 	initialize_bfs_search(&g);
-
-
-//	print_graph(&g);
-
-//
-//	t_edgepoint start_end;
-//	start_end.x = context.start;
-//	start_end.y = context.end;
-//	print_shortest_path(&g, start_end);
-
 	context.duplicate = FALSE;
 	beam = suurballe(&g, &context, context.start, context.end);
 	context.duplicate = TRUE;
 	dub_beam = suurballe(&g, &context, context.start, context.end);
-	if (get_number_steps(&context, &beam) < get_number_steps(&context, &dub_beam))
+	if (get_number_steps(&context, &beam)
+			< get_number_steps(&context, &dub_beam))
 		output(beam, &context);
 	else
 		output(dub_beam, &context);
