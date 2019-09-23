@@ -45,6 +45,8 @@ void	pulling_ants(t_context *context, char **line)
 			context->global_ants = ft_atoi(*line);
 			free(*line);
 			line = NULL;
+			if (context->global_ants <= 0)
+				error();
 		}
 		else
 			error();
@@ -61,8 +63,8 @@ void	input(t_graph *g, t_context *context)
 	names = (char **)ft_memalloc(sizeof(char *) * MAXV);
 	context->names = names;
 	line = NULL;
-	fd = open("ant_gen.txt", O_RDONLY);
-//	fd = 0;
+//	fd = open("err/err_too_many_ants.map", O_RDONLY);
+	fd = 0;
 	context->fd = fd;
 	pulling_ants(context, &line);
 	while (print_gnl(fd, &line))
@@ -73,5 +75,7 @@ void	input(t_graph *g, t_context *context)
 			if (!pulling_link(g, context, &line))
 				error();
 	}
+	if (g->nvertices == 0 || g->nedges == 0)
+		error();
 	free(line);
 }

@@ -132,8 +132,10 @@ int		main(int ac, char **av)
 	beam = suurballe(&g, &context, context.start, context.end);
 	context.duplicate = TRUE;
 	dub_beam = suurballe(&g, &context, context.start, context.end);
+	if (!get_length_beam(beam))
+		error();
 	if (get_number_steps(&context, &beam)
-			< get_number_steps(&context, &dub_beam))
+		< get_number_steps(&context, &dub_beam))
 		output(beam, &context);
 	else
 		output(dub_beam, &context);
