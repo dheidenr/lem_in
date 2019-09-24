@@ -21,9 +21,9 @@
 
 void	duplicate_vertex(t_graph *g, t_context *context, int vertex)
 {
-	t_edgepoint	edgepoint;
-	t_edgenode	*edgenode;
-	t_edgenode	*edtemp;
+	t_edgepoint		edgepoint;
+	t_edge			*edgenode;
+	t_edge			*edtemp;
 
 	context->v_in[vertex] = TRUE;
 	g->nvertices++;

@@ -14,7 +14,7 @@
 
 char		is_exist_edge(t_graph *g, t_edgepoint *edp)
 {
-	t_edgenode	*edgenode;
+	t_edge	*edgenode;
 
 	edgenode = g->edges[edp->x];
 	while (edgenode)
@@ -26,9 +26,9 @@ char		is_exist_edge(t_graph *g, t_edgepoint *edp)
 	return (0);
 }
 
-t_edgenode	*get_edgenode(t_graph *g, t_edgepoint *edp)
+t_edge	*get_edgenode(t_graph *g, t_edgepoint *edp)
 {
-	t_edgenode	*edgenode;
+	t_edge	*edgenode;
 
 	edgenode = g->edges[edp->x];
 	while (edgenode)
@@ -43,7 +43,7 @@ t_edgenode	*get_edgenode(t_graph *g, t_edgepoint *edp)
 void		reverse_edge_and_weight(t_graph *g, t_edgepoint edp)
 {
 	t_edgepoint	reversive_edge;
-	t_edgenode	*edgenode;
+	t_edge		*edgenode;
 	int			turn_plus;
 
 	turn_plus = 0;

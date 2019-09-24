@@ -47,8 +47,8 @@ t_graph		*graphdub(t_graph *g)
 {
 	t_graph		*graph_result;
 	t_edgepoint	ed;
-	t_edgenode	*edge;
-	t_edgenode	*tmp_edge;
+	t_edge		*edge;
+	t_edge		*tmp_edge;
 	size_t		i;
 
 	graph_result = (t_graph *)malloc(sizeof(t_graph));

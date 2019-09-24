@@ -12,7 +12,7 @@
 
 #include "lem_in.h"
 
-void	isolate_edgenode(t_edgenode *edgenode, char isolate)
+void	isolate_edgenode(t_edge *edgenode, char isolate)
 {
 	while (edgenode)
 	{
@@ -24,7 +24,7 @@ void	isolate_edgenode(t_edgenode *edgenode, char isolate)
 void	isolate_all_edges(t_graph *g)
 {
 	size_t		count;
-	t_edgenode	*edgenode;
+	t_edge		*edgenode;
 
 	count = 1;
 	while (count <= g->nvertices)
@@ -42,7 +42,7 @@ void	isolate_all_edges(t_graph *g)
 void	turn_to_zero_all_edges(t_graph *g)
 {
 	size_t		count;
-	t_edgenode	*edgenode;
+	t_edge		*edgenode;
 
 	count = 1;
 	while (count <= g->nvertices)
